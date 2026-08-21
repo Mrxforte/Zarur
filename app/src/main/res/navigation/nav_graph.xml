@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/authHubFragment">
+
+    <fragment
+        android:id="@+id/welcomeIntroFragment"
+        android:name="com.example.zarur.presentation.intro.WelcomeIntroFragment"
+        android:label="WelcomeIntro"
+        tools:layout="@layout/fragment_welcome_intro">
+        <action
+            android:id="@+id/action_welcomeIntroFragment_to_onboardingFragment"
+            app:destination="@id/onboardingFragment"
+            app:popUpTo="@id/welcomeIntroFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_welcomeIntroFragment_to_authHubFragment"
+            app:destination="@id/authHubFragment"
+            app:popUpTo="@id/welcomeIntroFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="com.example.zarur.presentation.onboarding.OnboardingFragment"
+        android:label="Onboarding"
+        tools:layout="@layout/fragment_onboarding">
+        <action
+            android:id="@+id/action_onboardingFragment_to_authHubFragment"
+            app:destination="@id/authHubFragment"
+            app:popUpTo="@id/onboardingFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/authHubFragment"
+        android:name="com.example.zarur.presentation.auth.AuthHubFragment"
+        android:label="AuthHub"
+        tools:layout="@layout/fragment_auth_hub">
+        <action
+            android:id="@+id/action_authHubFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_authHubFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.example.zarur.presentation.auth.SignInFragment"
+        android:label="SignIn"
+        tools:layout="@layout/fragment_sign_in">
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_enableLocationFragment"
+            app:destination="@id/enableLocationFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.zarur.presentation.auth.SignUpFragment"
+        android:label="SignUp"
+        tools:layout="@layout/fragment_sign_up">
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_fillProfileFragment"
+            app:destination="@id/fillProfileFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fillProfileFragment"
+        android:name="com.example.zarur.presentation.accountsetup.FillProfileFragment"
+        android:label="FillProfile"
+        tools:layout="@layout/fragment_fill_profile">
+        <action
+            android:id="@+id/action_fillProfileFragment_to_photoIdCardFragment"
+            app:destination="@id/photoIdCardFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/photoIdCardFragment"
+        android:name="com.example.zarur.presentation.accountsetup.PhotoIdCardFragment"
+        android:label="PhotoIdCard"
+        tools:layout="@layout/fragment_photo_id_card">
+        <action
+            android:id="@+id/action_photoIdCardFragment_to_selfieWithIdFragment"
+            app:destination="@id/selfieWithIdFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/selfieWithIdFragment"
+        android:name="com.example.zarur.presentation.accountsetup.SelfieWithIdFragment"
+        android:label="SelfieWithId"
+        tools:layout="@layout/fragment_selfie_with_id">
+        <action
+            android:id="@+id/action_selfieWithIdFragment_to_createPinFragment"
+            app:destination="@id/createPinFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createPinFragment"
+        android:name="com.example.zarur.presentation.accountsetup.CreatePinFragment"
+        android:label="CreatePin"
+        tools:layout="@layout/fragment_create_pin">
+        <action
+            android:id="@+id/action_createPinFragment_to_setFingerprintFragment"
+            app:destination="@id/setFingerprintFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/setFingerprintFragment"
+        android:name="com.example.zarur.presentation.accountsetup.SetFingerprintFragment"
+        android:label="SetFingerprint"
+        tools:layout="@layout/fragment_set_fingerprint">
+        <action
+            android:id="@+id/action_setFingerprintFragment_to_faceRecognitionFragment"
+            app:destination="@id/faceRecognitionFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/faceRecognitionFragment"
+        android:name="com.example.zarur.presentation.accountsetup.FaceRecognitionFragment"
+        android:label="FaceRecognition"
+        tools:layout="@layout/fragment_face_recognition">
+        <action
+            android:id="@+id/action_faceRecognitionFragment_to_faceRecognitionScanFragment"
+            app:destination="@id/faceRecognitionScanFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/faceRecognitionScanFragment"
+        android:name="com.example.zarur.presentation.accountsetup.FaceRecognitionScanFragment"
+        android:label="FaceRecognitionScan"
+        tools:layout="@layout/fragment_face_recognition_scan">
+        <action
+            android:id="@+id/action_faceRecognitionScanFragment_to_exploreFragment"
+            app:destination="@id/exploreFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.example.zarur.presentation.auth.ForgotPasswordFragment"
+        android:label="ForgotPassword"
+        tools:layout="@layout/fragment_forgot_password">
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_otpVerificationFragment"
+            app:destination="@id/otpVerificationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/otpVerificationFragment"
+        android:name="com.example.zarur.presentation.auth.OtpVerificationFragment"
+        android:label="OtpVerification"
+        tools:layout="@layout/fragment_otp_verification">
+        <action
+            android:id="@+id/action_otpVerificationFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.zarur.presentation.auth.ChangePasswordFragment"
+        android:label="ChangePassword"
+        tools:layout="@layout/fragment_change_password">
+        <action
+            android:id="@+id/action_changePasswordFragment_to_signInFragment"
+            app:destination="@id/signInFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/enableLocationFragment"
+        android:name="com.example.zarur.presentation.explore.EnableLocationFragment"
+        android:label="EnableLocation"
+        tools:layout="@layout/fragment_enable_location">
+        <action
+            android:id="@+id/action_enableLocationFragment_to_exploreFragment"
+            app:destination="@id/exploreFragment"
+            app:popUpTo="@id/enableLocationFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/exploreFragment"
+        android:name="com.example.zarur.presentation.explore.ExploreFragment"
+        android:label="Explore"
+        tools:layout="@layout/fragment_explore">
+        <action
+            android:id="@+id/action_exploreFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_exploreFragment_to_recommendationFragment"
+            app:destination="@id/recommendationFragment" />
+        <action
+            android:id="@+id/action_exploreFragment_to_searchResultsFragment"
+            app:destination="@id/searchResultsFragment" />
+        <action
+            android:id="@+id/action_exploreFragment_to_propertyDetailFragment"
+            app:destination="@id/propertyDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchResultsFragment"
+        android:name="com.example.zarur.presentation.explore.SearchResultsFragment"
+        android:label="SearchResults"
+        tools:layout="@layout/fragment_search_results">
+        <action
+            android:id="@+id/action_searchResultsFragment_to_propertyDetailFragment"
+            app:destination="@id/propertyDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.example.zarur.presentation.explore.NotificationFragment"
+        android:label="Notification"
+        tools:layout="@layout/fragment_notification" />
+
+    <fragment
+        android:id="@+id/recommendationFragment"
+        android:name="com.example.zarur.presentation.explore.RecommendationFragment"
+        android:label="Recommendation"
+        tools:layout="@layout/fragment_recommendation">
+        <action
+            android:id="@+id/action_recommendationFragment_to_propertyDetailFragment"
+            app:destination="@id/propertyDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.zarur.presentation.favorites.FavoritesFragment"
+        android:label="Favorites"
+        tools:layout="@layout/fragment_favorites">
+        <action
+            android:id="@+id/action_favoritesFragment_to_propertyDetailFragment"
+            app:destination="@id/propertyDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/messageFragment"
+        android:name="com.example.zarur.presentation.message.MessageFragment"
+        android:label="Message"
+        tools:layout="@layout/fragment_message">
+        <action
+            android:id="@+id/action_messageFragment_to_chatDetailFragment"
+            app:destination="@id/chatDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/chatDetailFragment"
+        android:name="com.example.zarur.presentation.message.ChatDetailFragment"
+        android:label="ChatDetail"
+        tools:layout="@layout/fragment_chat_detail">
+        <action
+            android:id="@+id/action_chatDetailFragment_to_voiceCallFragment"
+            app:destination="@id/voiceCallFragment" />
+        <action
+            android:id="@+id/action_chatDetailFragment_to_videoCallFragment"
+            app:destination="@id/videoCallFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/voiceCallFragment"
+        android:name="com.example.zarur.presentation.message.VoiceCallFragment"
+        android:label="VoiceCall"
+        tools:layout="@layout/fragment_voice_call" />
+
+    <fragment
+        android:id="@+id/videoCallFragment"
+        android:name="com.example.zarur.presentation.message.VideoCallFragment"
+        android:label="VideoCall"
+        tools:layout="@layout/fragment_video_call" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.zarur.presentation.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_myBookingsFragment"
+            app:destination="@id/myBookingsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_paymentsFragment"
+            app:destination="@id/paymentsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_notificationsSettingsFragment"
+            app:destination="@id/notificationsSettingsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_securityFragment"
+            app:destination="@id/securityFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_languageFragment"
+            app:destination="@id/languageFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_helpCenterFragment"
+            app:destination="@id/helpCenterFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_inviteFriendsFragment"
+            app:destination="@id/inviteFriendsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.zarur.presentation.profile.EditProfileFragment"
+        android:label="EditProfile"
+        tools:layout="@layout/fragment_edit_profile" />
+
+    <fragment
+        android:id="@+id/myBookingsFragment"
+        android:name="com.example.zarur.presentation.profile.MyBookingsFragment"
+        android:label="MyBookings"
+        tools:layout="@layout/fragment_my_bookings" />
+
+    <fragment
+        android:id="@+id/paymentsFragment"
+        android:name="com.example.zarur.presentation.profile.PaymentsFragment"
+        android:label="Payments"
+        tools:layout="@layout/fragment_payments" />
+
+    <fragment
+        android:id="@+id/notificationsSettingsFragment"
+        android:name="com.example.zarur.presentation.profile.NotificationsSettingsFragment"
+        android:label="NotificationsSettings"
+        tools:layout="@layout/fragment_notifications_settings" />
+
+    <fragment
+        android:id="@+id/securityFragment"
+        android:name="com.example.zarur.presentation.profile.SecurityFragment"
+        android:label="Security"
+        tools:layout="@layout/fragment_security" />
+
+    <fragment
+        android:id="@+id/languageFragment"
+        android:name="com.example.zarur.presentation.profile.LanguageFragment"
+        android:label="Language"
+        tools:layout="@layout/fragment_language" />
+
+    <fragment
+        android:id="@+id/helpCenterFragment"
+        android:name="com.example.zarur.presentation.profile.HelpCenterFragment"
+        android:label="HelpCenter"
+        tools:layout="@layout/fragment_help_center" />
+
+    <fragment
+        android:id="@+id/inviteFriendsFragment"
+        android:name="com.example.zarur.presentation.profile.InviteFriendsFragment"
+        android:label="InviteFriends"
+        tools:layout="@layout/fragment_invite_friends" />
+
+    <!-- Details & Booking Flow -->
+    <fragment
+        android:id="@+id/propertyDetailFragment"
+        android:name="com.example.zarur.presentation.details.PropertyDetailFragment"
+        android:label="PropertyDetail"
+        tools:layout="@layout/fragment_property_detail">
+        <action
+            android:id="@+id/action_propertyDetailFragment_to_bookRealEstateFragment"
+            app:destination="@id/bookRealEstateFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bookRealEstateFragment"
+        android:name="com.example.zarur.presentation.booking.BookRealEstateFragment"
+        android:label="BookRealEstate"
+        tools:layout="@layout/fragment_book_real_estate">
+        <action
+            android:id="@+id/action_bookRealEstateFragment_to_bookingInfoFragment"
+            app:destination="@id/bookingInfoFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bookingInfoFragment"
+        android:name="com.example.zarur.presentation.booking.BookingInfoFragment"
+        android:label="BookingInfo"
+        tools:layout="@layout/fragment_booking_info">
+        <action
+            android:id="@+id/action_bookingInfoFragment_to_selectPaymentFragment"
+            app:destination="@id/selectPaymentFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/selectPaymentFragment"
+        android:name="com.example.zarur.presentation.booking.SelectPaymentFragment"
+        android:label="SelectPayment"
+        tools:layout="@layout/fragment_select_payment">
+        <action
+            android:id="@+id/action_selectPaymentFragment_to_reviewSummaryFragment"
+            app:destination="@id/reviewSummaryFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/reviewSummaryFragment"
+        android:name="com.example.zarur.presentation.booking.ReviewSummaryFragment"
+        android:label="ReviewSummary"
+        tools:layout="@layout/fragment_review_summary">
+        <action
+            android:id="@+id/action_reviewSummaryFragment_to_bookingPinFragment"
+            app:destination="@id/bookingPinFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bookingPinFragment"
+        android:name="com.example.zarur.presentation.booking.BookingPinFragment"
+        android:label="BookingPin"
+        tools:layout="@layout/fragment_booking_pin">
+        <action
+            android:id="@+id/action_bookingPinFragment_to_bookingStatusFragment"
+            app:destination="@id/bookingStatusFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/bookingStatusFragment"
+        android:name="com.example.zarur.presentation.booking.BookingStatusFragment"
+        android:label="BookingStatus"
+        tools:layout="@layout/fragment_booking_status">
+        <action
+            android:id="@+id/action_bookingStatusFragment_to_EReceiptFragment"
+            app:destination="@id/EReceiptFragment" />
+        <action
+            android:id="@+id/action_bookingStatusFragment_to_exploreFragment"
+            app:destination="@id/exploreFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/EReceiptFragment"
+        android:name="com.example.zarur.presentation.booking.EReceiptFragment"
+        android:label="EReceipt"
+        tools:layout="@layout/fragment_e_receipt">
+        <action
+            android:id="@+id/action_EReceiptFragment_to_leaveReviewFragment"
+            app:destination="@id/leaveReviewFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/leaveReviewFragment"
+        android:name="com.example.zarur.presentation.booking.LeaveReviewFragment"
+        android:label="LeaveReview"
+        tools:layout="@layout/fragment_leave_review">
+        <action
+            android:id="@+id/action_leaveReviewFragment_to_exploreFragment"
+            app:destination="@id/exploreFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>

@@ -1,0 +1,15 @@
+- [x] Update resources (strings.xml)
+- [x] Implement Property Details
+    - [x] Create `PropertyDetailFragment.kt`
+    - [x] Create `fragment_property_detail.xml`
+- [/] Implement Booking Flow
+    - [/] `BookRealEstateFragment` (Date selection)
+    - [ ] `BookingInfoFragment` (User details)
+    - [ ] `SelectPaymentFragment` (Payment methods)
+    - [ ] `ReviewSummaryFragment` (Final review)
+    - [ ] `BookingPinFragment` (Security PIN)
+    - [ ] `BookingStatusFragment` (Success/Failure)
+    - [ ] `EReceiptFragment` (Receipt)
+    - [ ] `LeaveReviewFragment` (Review)
+- [ ] Update Navigation (`nav_graph.xml`)
+- [ ] Verify whole app flow

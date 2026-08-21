@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_xlarge">32dp</dimen>
+    <dimen name="margin_xxlarge">40dp</dimen>
+    <dimen name="onboarding_logo_size">160dp</dimen>
+    <dimen name="onboarding_logo_top_margin">80dp</dimen>
+    <dimen name="button_height">60dp</dimen>
+    <dimen name="text_size_headline">24sp</dimen>
+    <dimen name="text_size_body">16sp</dimen>
+    <dimen name="text_size_welcome">28sp</dimen>
+</resources>

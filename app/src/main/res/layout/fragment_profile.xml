@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurface"
+        android:fitsSystemWindows="true"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:contentInsetStart="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_logo"
+                    app:tint="?attr/colorPrimary" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:text="@string/profile_title"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/ivMore"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_more"
+                    app:tint="?attr/colorOnSurface" />
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="32dp">
+
+            <!-- Profile Header -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="24dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivAvatar"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/onboarding1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/bg_circle_button"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_profile_edit"
+                    app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
+                    app:layout_constraintEnd_toEndOf="@id/ivAvatar"
+                    app:tint="@color/white"
+                    android:backgroundTint="?attr/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/profile_name"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivAvatar" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="24dp"
+                android:background="?attr/colorSurfaceVariant" />
+
+            <!-- Menu Options (Hand-written to avoid binding issues) -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/menuMyBooking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="16dp">
+                <ImageView android:id="@+id/icon1" android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_booking" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorOnSurface"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="@string/menu_my_booking" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" app:layout_constraintStart_toEndOf="@id/icon1" app:layout_constraintEnd_toStartOf="@+id/arrow1" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                <ImageView android:id="@+id/arrow1" android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_arrow_right" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorOnSurface"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/menuPayments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="16dp">
+                <ImageView android:id="@+id/icon2" android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_payment" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorOnSurface"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="@string/menu_payments" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" app:layout_constraintStart_toEndOf="@id/icon2" app:layout_constraintEnd_toStartOf="@+id/arrow2" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                <ImageView android:id="@+id/arrow2" android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_arrow_right" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorOnSurface"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginVertical="8dp"
+                android:background="?attr/colorSurfaceVariant" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/menuEditProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="16dp">
+                <ImageView android:id="@+id/icon3" android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_profile_edit" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorOnSurface"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="@string/menu_profile" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" app:layout_constraintStart_toEndOf="@id/icon3" app:layout_constraintEnd_toStartOf="@+id/arrow3" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                <ImageView android:id="@+id/arrow3" android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_arrow_right" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorOnSurface"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/menuNotification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="16dp">
+                <ImageView android:id="@+id/icon4" android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_notification" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorOnSurface"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="@string/menu_notification" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" app:layout_constraintEnd_toStartOf="@+id/arrow4" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toEndOf="@id/icon4"/>
+                <ImageView android:id="@+id/arrow4" android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_arrow_right" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorOnSurface"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/menuSecurity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="16dp">
+                <ImageView android:id="@+id/icon5" android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_security" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorOnSurface"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="@string/menu_security" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" app:layout_constraintStart_toEndOf="@id/icon5" app:layout_constraintEnd_toStartOf="@+id/arrow5" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                <ImageView android:id="@+id/arrow5" android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_arrow_right" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorOnSurface"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/menuLanguage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="16dp">
+                <ImageView android:id="@+id/icon6" android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_language" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorOnSurface"/>
+                <TextView android:id="@+id/tvLang" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginEnd="16dp" android:text="@string/language_selected" android:textColor="?attr/colorOnSurface" android:textSize="14sp" app:layout_constraintEnd_toStartOf="@+id/arrow6" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="@string/menu_language" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" app:layout_constraintStart_toEndOf="@id/icon6" app:layout_constraintEnd_toStartOf="@id/tvLang" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                <ImageView android:id="@+id/arrow6" android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_arrow_right" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorOnSurface"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Dark Mode Toggle -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/menuDarkMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="16dp">
+                <ImageView android:id="@+id/ivDarkMode" android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_dark_mode" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:tint="?attr/colorOnSurface" />
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="@string/menu_dark_mode" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@+id/switchDarkMode" app:layout_constraintStart_toEndOf="@id/ivDarkMode" app:layout_constraintTop_toTopOf="parent" />
+                <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switchDarkMode" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/menuHelpCenter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="16dp">
+                <ImageView android:id="@+id/icon7" android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_help" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorOnSurface"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="@string/menu_help_center" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" app:layout_constraintStart_toEndOf="@id/icon7" app:layout_constraintEnd_toStartOf="@+id/arrow7" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                <ImageView android:id="@+id/arrow7" android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_arrow_right" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorOnSurface"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/menuInviteFriends"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="16dp">
+                <ImageView android:id="@+id/icon8" android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_invite" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorOnSurface"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="@string/menu_invite_friends" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" app:layout_constraintStart_toEndOf="@id/icon8" app:layout_constraintEnd_toStartOf="@+id/arrow8" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                <ImageView android:id="@+id/arrow8" android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_arrow_right" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorOnSurface"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/menuLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="16dp">
+                <ImageView android:id="@+id/ivLogout" android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_logout" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:tint="#EA4335" />
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="@string/menu_logout" android:textColor="#EA4335" android:textSize="16sp" android:textStyle="bold" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/ivLogout" app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

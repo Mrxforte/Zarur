@@ -1,0 +1,13 @@
+- `[ ]` Add Profile Icons (Booking, Payment, Security, etc.)
+- `[ ]` Implement `fragment_profile.xml` (Main Dashboard)
+- `[ ]` Implement `fragment_edit_profile.xml` and `EditProfileFragment.kt`
+- `[ ]` Implement `fragment_my_booking.xml` and `MyBookingFragment.kt`
+- `[ ]` Implement Settings Screens:
+    - `[ ]` `NotificationSettingsFragment`
+    - `[ ]` `SecuritySettingsFragment`
+    - `[ ]` `LanguageSettingsFragment`
+    - `[ ]` `InviteFriendsFragment`
+    - `[ ]` `HelpCenterFragment`
+- `[ ]` Implement `LogoutBottomSheet.kt`
+- `[ ]` Update `nav_graph.xml` with Profile destinations
+- `[ ]` Verify UI consistency and theme support
