@@ -1,0 +1,10 @@
+- `[ ]` Create Bottom Nav Icons (`ic_explore.xml`, `ic_favorites.xml`, `ic_message.xml`, `ic_profile.xml`)
+- `[ ]` Create `menu/bottom_nav_menu.xml`
+- `[ ]` Create placeholder fragments for Favorites, Message, and Profile
+- `[ ]` Implement `EnableLocationFragment` and `fragment_enable_location.xml`
+- `[ ]` Implement `ExploreFragment` and `fragment_explore.xml` (with static map)
+- `[ ]` Update `activity_main.xml` to include `BottomNavigationView`
+- `[ ]` Update `MainActivity.kt` to handle Bottom Nav setup and visibility
+- `[ ]` Update `nav_graph.xml` with new destinations
+- `[ ]` Connect Auth screens to the new flow
+- `[ ]` Verify Build and UI
