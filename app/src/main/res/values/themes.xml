@@ -1,66 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Zarur" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Main theme colors -->
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorOnPrimary">@color/on_primary</item>
-        <item name="colorSecondary">@color/secondary</item>
-        <item name="colorOnSecondary">@color/on_secondary</item>
-        <item name="colorError">@color/error</item>
-        <item name="colorOnError">@color/on_error</item>
-        <item name="android:windowBackground">@color/background</item>
-        <item name="colorSurface">@color/surface</item>
-        <item name="colorOnSurface">@color/on_surface</item>
-        <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
-
-        <!-- Status bar and navigation bar -->
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.Zarur" parent="Base.Theme.Zarur">
-        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
-    </style>
-
-    <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
-        <item name="itemIconTint">@color/bottom_nav_item_tint</item>
-        <item name="itemTextColor">@color/bottom_nav_item_tint</item>
-        <item name="backgroundTint">?attr/colorSurface</item>
-        <item name="labelVisibilityMode">labeled</item>
-        <item name="android:background">@drawable/bg_bottom_nav</item>
-        <item name="elevation">8dp</item>
-    </style>
-
-    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/primary_logo</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_logo_with_text</item>
-        <item name="postSplashScreenTheme">@style/Theme.Zarur</item>
-    </style>
-
-    <style name="OnboardingHeadline" parent="TextAppearance.Material3.HeadlineMedium">
-        <item name="android:textColor">?attr/colorOnBackground</item>
-        <item name="android:textSize">@dimen/text_size_headline</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:gravity">center</item>
-    </style>
-
-    <style name="OnboardingBody" parent="TextAppearance.Material3.BodyMedium">
-        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
-        <item name="android:textSize">@dimen/text_size_body</item>
-        <item name="android:gravity">center</item>
-    </style>
-
-    <style name="NumberPadButton">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">72dp</item>
-        <item name="android:layout_columnWeight">1</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textColor">?attr/colorOnSurface</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:background">@drawable/bg_number_pad_button</item>
-        <item name="android:clickable">true</item>
-        <item name="android:focusable">true</item>
-    </style>
+    <style name="Theme.Zarur" parent="Base.Theme.Zarur" />
 </resources>
