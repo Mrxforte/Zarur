@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurface"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_back">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PIN Kodni O'zgartirish"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingBottom="40dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                android:text="Yangi 4 xonali PIN kodni kiriting"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="Ushbu PIN to'lovlarni tasdiqlash uchun ishlatiladi"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="14sp" />
+
+            <!-- PIN Dot Indicators -->
+            <LinearLayout
+                android:id="@+id/llPinContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="12dp"
+                    android:background="@drawable/bg_pin_indicator"
+                    android:enabled="false" />
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="12dp"
+                    android:background="@drawable/bg_pin_indicator"
+                    android:enabled="false" />
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="12dp"
+                    android:background="@drawable/bg_pin_indicator"
+                    android:enabled="false" />
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_margin="12dp"
+                    android:background="@drawable/bg_pin_indicator"
+                    android:enabled="false" />
+            </LinearLayout>
+
+            <!-- Number Pad -->
+            <GridLayout
+                android:id="@+id/glNumberPad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:columnCount="3"
+                android:useDefaultMargins="true">
+
+                <TextView
+                    style="@style/NumberPadButton"
+                    android:text="1" />
+
+                <TextView
+                    style="@style/NumberPadButton"
+                    android:text="2" />
+
+                <TextView
+                    style="@style/NumberPadButton"
+                    android:text="3" />
+
+                <TextView
+                    style="@style/NumberPadButton"
+                    android:text="4" />
+
+                <TextView
+                    style="@style/NumberPadButton"
+                    android:text="5" />
+
+                <TextView
+                    style="@style/NumberPadButton"
+                    android:text="6" />
+
+                <TextView
+                    style="@style/NumberPadButton"
+                    android:text="7" />
+
+                <TextView
+                    style="@style/NumberPadButton"
+                    android:text="8" />
+
+                <TextView
+                    style="@style/NumberPadButton"
+                    android:text="9" />
+
+                <TextView
+                    style="@style/NumberPadButton"
+                    android:text="*" />
+
+                <TextView
+                    style="@style/NumberPadButton"
+                    android:text="0" />
+
+                <ImageView
+                    android:id="@+id/btnDelete"
+                    style="@style/NumberPadButton"
+                    android:padding="20dp"
+                    android:src="@drawable/ic_delete"
+                    app:tint="?attr/colorOnSurface" />
+            </GridLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSavePin"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="32dp"
+                android:enabled="false"
+                android:text="PIN Kodni Saqlash"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:cornerRadius="28dp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -4,17 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zarur.R
+import com.example.zarur.domain.model.ChatMessage
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ChatDetailFragment : Fragment(R.layout.fragment_chat_detail) {
+
+    private val viewModel: ChatViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -24,38 +33,62 @@ class ChatDetailFragment : Fragment(R.layout.fragment_chat_detail) {
         }
 
         view.findViewById<ImageView>(R.id.ivVoiceCall).setOnClickListener {
-            findNavController().navigate(R.id.action_chatDetailFragment_to_voiceCallFragment)
+            if (!viewModel.isLoggedIn()) {
+                findNavController().navigate(R.id.authHubFragment)
+            } else {
+                findNavController().navigate(R.id.action_chatDetailFragment_to_voiceCallFragment)
+            }
         }
 
         view.findViewById<ImageView>(R.id.ivVideoCall).setOnClickListener {
-            findNavController().navigate(R.id.action_chatDetailFragment_to_videoCallFragment)
+            if (!viewModel.isLoggedIn()) {
+                findNavController().navigate(R.id.authHubFragment)
+            } else {
+                findNavController().navigate(R.id.action_chatDetailFragment_to_videoCallFragment)
+            }
         }
 
         val rvMessages = view.findViewById<RecyclerView>(R.id.rvMessages)
-        rvMessages.layoutManager = LinearLayoutManager(context).apply {
+        val linearLayoutManager = LinearLayoutManager(context).apply {
             stackFromEnd = true
         }
-        
-        val messages = listOf(
-            Message("PROPERTY", "", false, isProperty = true),
-            Message("I want to book your apartment for 5 days. Can it?", "16:00", true),
-            Message("Hello, good afternoon too Andrew..", "16:01", false),
-            Message("Of course, the apartment is always open anytime", "16:01", false),
-            Message("Great! I will wait for your booking and arrival!", "16:03", true)
-        )
-        
-        rvMessages.adapter = MessageAdapter(messages)
+        rvMessages.layoutManager = linearLayoutManager
+
+        val adapter = MessageAdapter(emptyList())
+        rvMessages.adapter = adapter
+
+        val etMessage = view.findViewById<EditText>(R.id.etMessage)
+        view.findViewById<ImageView>(R.id.ivSend).setOnClickListener {
+            if (!viewModel.isLoggedIn()) {
+                findNavController().navigate(R.id.authHubFragment)
+            } else {
+                val text = etMessage.text.toString().trim()
+                if (text.isNotEmpty()) {
+                    viewModel.sendMessage(text)
+                    etMessage.setText("")
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.messages.collect { messages ->
+                    adapter.updateMessages(messages)
+                    if (messages.isNotEmpty()) {
+                        rvMessages.scrollToPosition(messages.size - 1)
+                    }
+                }
+            }
+        }
     }
 
-    private data class Message(
-        val text: String,
-        val time: String,
-        val isSent: Boolean,
-        val isProperty: Boolean = false
-    )
-
-    private inner class MessageAdapter(private val messages: List<Message>) :
+    private class MessageAdapter(private var messages: List<ChatMessage>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+        fun updateMessages(newMessages: List<ChatMessage>) {
+            messages = newMessages
+            notifyDataSetChanged()
+        }
 
         override fun getItemViewType(position: Int): Int {
             return when {

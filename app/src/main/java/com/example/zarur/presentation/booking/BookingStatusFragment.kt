@@ -19,11 +19,15 @@ class BookingStatusFragment : Fragment(R.layout.fragment_booking_status) {
         _binding = FragmentBookingStatusBinding.bind(view)
 
         binding.btnViewReceipt.setOnClickListener {
-            findNavController().navigate(R.id.action_bookingStatusFragment_to_EReceiptFragment)
+            if (findNavController().currentDestination?.id == R.id.bookingStatusFragment) {
+                findNavController().navigate(R.id.action_bookingStatusFragment_to_EReceiptFragment)
+            }
         }
 
         binding.btnCancel.setOnClickListener {
-            findNavController().navigate(R.id.action_bookingStatusFragment_to_exploreFragment)
+            if (findNavController().currentDestination?.id == R.id.bookingStatusFragment) {
+                findNavController().navigate(R.id.action_bookingStatusFragment_to_exploreFragment)
+            }
         }
     }
 

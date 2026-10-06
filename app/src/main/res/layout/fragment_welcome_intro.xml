@@ -28,7 +28,7 @@
         android:layout_marginBottom="16dp"
         android:text="@string/welcome_message"
         android:textColor="@color/white"
-        android:textSize="32sp"
+        android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tvSubtitle"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="32dp"
         android:layout_marginBottom="48dp"
-        android:lineSpacingExtra="4dp"
+        android:lineSpacingExtra="6dp"
         android:text="@string/welcome_subtitle"
         android:textColor="#E0E0E0"
         android:textSize="18sp"
@@ -58,9 +58,10 @@
         android:textAllCaps="false"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:backgroundTint="?attr/colorPrimary"
-        android:textColor="?attr/colorOnPrimary"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/uzum_purple"
         app:cornerRadius="32dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:elevation="4dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

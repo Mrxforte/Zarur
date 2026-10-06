@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurface">
@@ -25,6 +26,44 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </androidx.appcompat.widget.Toolbar>
+
+        <!-- Search input inside Help Center -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="?attr/colorSurfaceVariant"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="10dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_search"
+                    app:tint="?attr/colorOnSurfaceVariant" />
+
+                <EditText
+                    android:id="@+id/etHelpSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:background="@null"
+                    android:hint="@string/hint_search_property"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textColorHint="?attr/colorOnSurfaceVariant"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
@@ -58,48 +97,157 @@
             android:orientation="vertical"
             android:paddingBottom="32dp">
 
-            <!-- FAQ List -->
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!-- Category Chips -->
+            <HorizontalScrollView
+                android:id="@+id/svCategories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/bg_auth_card"
-                android:padding="16dp">
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:text="What is Zarur?" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toStartOf="@+id/ivArrow1" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
-                <ImageView android:id="@+id/ivArrow1" android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_arrow_right" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorOnSurface"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/bg_auth_card"
-                android:padding="16dp">
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:text="How to use Zarur?" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toStartOf="@+id/ivArrow2" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
-                <ImageView android:id="@+id/ivArrow2" android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_arrow_right" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorOnSurface"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:clipToPadding="false"
+                android:paddingHorizontal="24dp"
+                android:scrollbars="none">
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupCategories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:singleLine="true"
+                    app:singleSelection="true">
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipAll"
+                        style="@style/Widget.App.Chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/category_all" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipGeneral"
+                        style="@style/Widget.App.Chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/category_general" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipBuying"
+                        style="@style/Widget.App.Chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/category_buying" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipSelling"
+                        style="@style/Widget.App.Chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/category_selling" />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipAccount"
+                        style="@style/Widget.App.Chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/category_account" />
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
 
-            <!-- Contact Options -->
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!-- Dynamic FAQ RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvFaqList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="24dp"
-                android:paddingVertical="12dp">
-                <ImageView android:id="@+id/ivIcon1" android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_help" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorPrimary"/>
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="@string/label_customer_service" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" app:layout_constraintStart_toEndOf="@id/ivIcon1" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_marginTop="16dp"
+                android:clipToPadding="false"
+                android:paddingHorizontal="24dp"
+                tools:listitem="@layout/item_product_card" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!-- Contact Support Section -->
+            <LinearLayout
+                android:id="@+id/llContactSupport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="24dp"
-                android:paddingVertical="12dp">
-                <ImageView android:id="@+id/ivIcon2" android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_message" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorPrimary"/>
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="@string/label_whatsapp" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" app:layout_constraintStart_toEndOf="@id/ivIcon2" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/label_contact_us_title"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btnCustomerCall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="16dp"
+                    app:cardBackgroundColor="?attr/colorSurfaceVariant"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp">
+                        <ImageView
+                            android:id="@+id/ivCallIcon"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:src="@drawable/ic_phone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="?attr/colorPrimary" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/label_customer_service"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/ivCallIcon"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btnTelegramSupport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="12dp"
+                    app:cardBackgroundColor="?attr/colorSurfaceVariant"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="0dp">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp">
+                        <ImageView
+                            android:id="@+id/ivMsgIcon"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:src="@drawable/ic_message"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="?attr/colorPrimary" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="Telegram Support (@zarursupport)"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/ivMsgIcon"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

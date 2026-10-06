@@ -23,7 +23,9 @@ class BookingInfoFragment : Fragment(R.layout.fragment_booking_info) {
         }
 
         binding.btnContinue.setOnClickListener {
-            findNavController().navigate(R.id.action_bookingInfoFragment_to_selectPaymentFragment)
+            if (findNavController().currentDestination?.id == R.id.bookingInfoFragment) {
+                findNavController().navigate(R.id.action_bookingInfoFragment_to_selectPaymentFragment)
+            }
         }
     }
 

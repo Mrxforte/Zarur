@@ -16,7 +16,7 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
             findNavController().navigateUp()
         }
         view.findViewById<View>(R.id.btnContinue).setOnClickListener {
-            findNavController().navigate(R.id.action_forgotPasswordFragment_to_otpVerificationFragment)
+            findNavController().navigate(R.id.action_forgotPasswordFragment_to_changePasswordFragment)
         }
     }
 }

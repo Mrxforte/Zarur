@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="226dp"
+    android:height="167dp"
+    android:viewportWidth="226"
+    android:viewportHeight="167">
+  <group>
+    <!-- Background Card Frame -->
+    <path
+        android:fillColor="#00529C"
+        android:pathData="M35.875 21.3229h153.4578a14.5521 14.5521 0 0114.5521 14.5521v95.2498a14.5521 14.5521 0 01-14.5521 14.5521H35.875a14.5521 14.5521 0 01-14.5521-14.5521V35.875A14.5521 14.5521 0 0135.875 21.3229"/>
+    <!-- Uzcard Circle Symbol -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M70 83.5a25 25 0 1 0 50 0 25 25 0 1 0-50 0z"/>
+    <path
+        android:fillColor="#00529C"
+        android:pathData="M85 83.5a10 10 0 1 0 20 0 10 10 0 1 0-20 0z"/>
+    <!-- Text UZCARD -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M130 73h8v21h-8zm12 0h16l-10 13h10v8h-18l10-13h-8zm20 0h8v21h-8z"/>
+  </group>
+</vector>

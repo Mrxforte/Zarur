@@ -18,7 +18,7 @@ class EnableLocationFragment : Fragment(R.layout.fragment_enable_location) {
         }
         
         view.findViewById<MaterialButton>(R.id.btnCancel).setOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.action_enableLocationFragment_to_exploreFragment)
         }
     }
 }

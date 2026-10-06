@@ -39,9 +39,9 @@
         android:visibility="gone">
 
         <ImageView
-            android:layout_width="280dp"
-            android:layout_height="280dp"
-            android:src="@drawable/ic_splash_logo"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:src="@drawable/ic_notification"
             app:tint="?attr/colorSurfaceVariant" />
 
         <TextView

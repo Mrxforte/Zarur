@@ -87,6 +87,7 @@
         <TextView style="@style/NumberPadButton" android:text="*" />
         <TextView style="@style/NumberPadButton" android:text="0" />
         <ImageView
+            android:id="@+id/btnDelete"
             android:layout_width="0dp"
             android:layout_height="72dp"
             android:layout_columnWeight="1"

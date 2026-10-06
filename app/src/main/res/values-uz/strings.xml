@@ -1,0 +1,278 @@
+<resources>
+    <string name="app_name">Zarur</string>
+    <string name="title_error">Xatolik</string>
+    <string name="title_success">Muvaffaqiyatli</string>
+    <string name="title_info">Ma\'lumot</string>
+
+    <!-- Common Badges & Labels -->
+    <string name="sold_badge_text">SOTILDI</string>
+    <string name="currency_uzs">so\'m</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Orzuingizdagi uyni toping</string>
+    <string name="onboarding_desc_1">Siz xohlagan joydagi eng yaxshi ko\'chmas mulklarni toping.</string>
+    <string name="onboarding_title_2">Oson band qilish jarayoni</string>
+    <string name="onboarding_desc_2">Yoqtirgan ko\'chmas mulkingizni bir necha tugmani bosish orqali band qiling.</string>
+    <string name="onboarding_title_3">Xavfsiz to\'lovlar</string>
+    <string name="onboarding_desc_3">Biz platformamiz orqali tranzaksiyalaringiz xavfsizligini ta\'minlaymiz.</string>
+    <string name="button_skip">O\'tkazib yuborish</string>
+    <string name="button_get_started">Boshlash</string>
+
+    <!-- Auth Hub -->
+    <string name="welcome_message">Zarur-ga xush kelibsiz</string>
+    <string name="welcome_subtitle">Ko\'chmas mulk va e\'lonlar bo\'yicha mukammal yechim</string>
+    <string name="button_login">Kirish</string>
+    <string name="button_register">Ro\'yxatdan o\'tish</string>
+
+    <!-- Auth -->
+    <string name="title_sign_in">Kirish</string>
+    <string name="label_gmail">Email</string>
+    <string name="label_password">Parol</string>
+    <string name="forgot_password">Parolni unutdingizmi?</string>
+    <string name="button_sign_in_caps">KIRISH</string>
+    <string name="or_sign_in_with">yoki quyidagilar orqali kiring</string>
+    <string name="dont_have_account">Hisobingiz yo\'qmi?</string>
+    <string name="title_sign_up">Ro\'yxatdan o\'tish</string>
+    <string name="label_full_name">To\'liq ism</string>
+    <string name="label_phone_gmail">Email</string>
+    <string name="label_confirm_password">Parolni tasdiqlang</string>
+    <string name="button_sign_up_caps">RO\'YXATDAN O\'TISH</string>
+    <string name="already_have_account">Hisobingiz bormi?</string>
+    <string name="button_sign_in">Kirish</string>
+    <string name="title_forgot_password">Parolni unutish</string>
+    <string name="desc_forgot_password">Parolni tiklash uchun qaysi kontakt ma\'lumotlaridan foydalanishni tanlang</string>
+    <string name="label_via_sms">SMS orqali</string>
+    <string name="label_via_email">Email orqali</string>
+    <string name="title_otp_verification">OTP tasdiqlash</string>
+    <string name="desc_otp_verification">Sizga yuborilgan tasdiqlash kodini kiriting</string>
+    <string name="button_verify">Tasdiqlash</string>
+    <string name="title_change_password">Yangi parol yarating</string>
+    <string name="label_new_password">Yangi parol</string>
+    <string name="label_confirm_new_password">Yangi parolni tasdiqlang</string>
+    <string name="label_remember_me">Meni eslab qol</string>
+
+    <!-- Account Setup -->
+    <string name="title_fill_profile">Profilni to\'ldiring</string>
+    <string name="label_nickname_hint">Taxallusi</string>
+    <string name="label_dob_hint">Tug\'ilgan sana</string>
+    <string name="label_gender_hint">Jins</string>
+    <string name="title_photo_id_card">Shaxsni tasdiqlovchi hujjat rasmini qo\'shish</string>
+    <string name="desc_photo_id_card">Band qilishdan oldin shaxsingizni tasdiqlashimiz kerak</string>
+    <string name="title_selfie_with_id">Hujjat bilan selfi</string>
+    <string name="desc_selfie_with_id">Iltimos, hujjatni ushlab turgan holda selfi tushing</string>
+    <string name="button_retake">Qayta olish</string>
+    <string name="title_create_pin">Yangi PIN kod yarating</string>
+    <string name="desc_create_pin">Hisobingizni xavfsizroq qilish uchun PIN kod qo\'shing</string>
+    <string name="title_set_fingerprint">Barmoq izini o\'rnatish</string>
+    <string name="desc_set_fingerprint">Hisobingizni xavfsizroq qilish uchun barmoq izini qo\'shing</string>
+    <string name="tip_set_fingerprint">Iltimos, barmog\'ingizni sensorga qo\'ying</string>
+    <string name="title_face_recognition">Yuzni tanish</string>
+    <string name="desc_face_recognition">Hisobingizni xavfsizroq qilish uchun yuzni tanishni qo\'shing</string>
+    <string name="scan_face_recognition">Skanerlanmoqda...</string>
+    <string name="button_skip_setup">O\'tkazib yuborish</string>
+    <string name="setup_success_title">Tabriklaymiz!</string>
+    <string name="setup_success_desc">Hisobingiz foydalanishga tayyor. Bir necha soniyadan so\'ng Bosh sahifaga yo\'naltirilasiz.</string>
+
+    <!-- Explore -->
+    <string name="greeting_morning">Xayrli tong</string>
+    <string name="profile_name">Foydalanuvchi</string>
+    <string name="hint_search_property">Mahsulot yoki mulkni qidirish...</string>
+    <string name="label_featured">Tavsiya etilgan</string>
+    <string name="label_see_all">Hammasi</string>
+    <string name="label_our_recommendation">Bizning tavsiyalarimiz</string>
+    <string name="category_all">Hammasi</string>
+    <string name="category_house">Uy</string>
+    <string name="category_villa">Villa</string>
+    <string name="category_apartment">Kvartira</string>
+    <string name="enable_location_title">Joylashuvingizni yoqing</string>
+    <string name="enable_location_desc">Yaqin atrofdagi e\'lonlarni ko\'rsatishimiz uchun joylashuvingiz kerak</string>
+    <string name="button_enable_location">Yoqish</string>
+    <string name="button_cancel">Bekor qilish</string>
+    <string name="label_not_found_title">Topilmadi</string>
+    <string name="label_not_found_desc">Kechirasiz, siz kiritgan kalit so\'z topilmadi.</string>
+
+    <!-- Property / Product Detail -->
+    <string name="label_overview">Sharh</string>
+    <string name="label_facilities">Qulayliklar</string>
+    <string name="label_gallery">Galereya</string>
+    <string name="label_location">Joylashuv</string>
+    <string name="button_booking_now">Hozir band qilish</string>
+    <string name="button_buy_now">Hozir xarid qilish</string>
+
+    <!-- Booking -->
+    <string name="title_book_real_estate">Mulkni band qilish</string>
+    <string name="label_select_date">Sanani tanlang</string>
+    <string name="label_check_in">Kirish</string>
+    <string name="label_check_out">Chiqish</string>
+    <string name="label_note_to_owner">Egasiga xabar (ixtiyoriy)</string>
+    <string name="hint_note_to_owner">Xabaringizni shu yerga yozing...</string>
+    <string name="button_continue">Davom etish</string>
+    <string name="title_booking_info">Band qilish ma\'lumoti</string>
+    <string name="label_full_name_booking">To\'liq ism</string>
+    <string name="label_nickname_booking">Taxallusi</string>
+    <string name="label_dob_booking">Tug\'ilgan sana</string>
+    <string name="label_email_booking">Email</string>
+    <string name="label_phone_booking">Telefon raqami</string>
+    <string name="title_select_payment">To\'lov usulini tanlang</string>
+    <string name="button_add_new_card_booking">Karta qo\'shish</string>
+    <string name="title_review_summary">Band qilish xulosasi</string>
+    <string name="button_confirm_payment">To\'lovni tasdiqlash</string>
+    <string name="title_enter_pin">PIN kodni kiriting</string>
+    <string name="desc_enter_pin">To\'lovni tasdiqlash uchun PIN kodni kiriting</string>
+    <string name="title_booking_success">Band qilish muvaffaqiyatli!</string>
+    <string name="desc_booking_success">Siz ushbu mahsulotni muvaffaqiyatli band qildingiz.</string>
+    <string name="button_view_e_receipt">Chekni ko\'rish</string>
+    <string name="title_e_receipt">Elektron chek</string>
+    <string name="title_leave_review">Fikr qoldirish</string>
+    <string name="desc_leave_review">Iltimos, ushbu xarid bilan bog\'liq tajribangizni baholang</string>
+    <string name="hint_write_review">Fikringizni shu yerga yozing...</string>
+    <string name="button_maybe_later">Keyinroq</string>
+    <string name="button_submit">Yuborish</string>
+
+    <!-- Profile -->
+    <string name="profile_title">Profil</string>
+    <string name="menu_profile">Profilni tahrirlash</string>
+    <string name="label_full_name_field">To\'liq ism</string>
+    <string name="label_nickname">Taxallusi</string>
+    <string name="label_dob">Tug\'ilgan sana</string>
+    <string name="label_email_field">Email</string>
+    <string name="label_phone_field">Telefon raqami</string>
+    <string name="label_gender">Jins</string>
+    <string name="button_update">Yangilash</string>
+    <string name="title_my_bookings">Mening xaridlarim</string>
+    <string name="tab_active">Faol</string>
+    <string name="tab_completed">Tugallangan</string>
+    <string name="tab_cancelled">Bekor qilingan</string>
+    <string name="title_payments">To\'lovlar</string>
+    <string name="button_add_new_card">Karta qo\'shish</string>
+    <string name="title_notifications_settings">Bildirishnoma sozlamalari</string>
+    <string name="title_security">Xavfsizlik</string>
+    <string name="button_change_pin">PIN kodni o\'zgartirish</string>
+    <string name="button_change_password">Parolni o\'zgartirish</string>
+    <string name="title_language">Til</string>
+    <string name="label_suggested">Tavsiya etilganlar</string>
+    <string name="title_help_center">Yordam markazi</string>
+    <string name="tab_faq">Ko\'p beriladigan savollar</string>
+    <string name="tab_contact_us">Biz bilan bog\'lanish</string>
+    <string name="title_invite_friends">Do\'stlarni taklif qilish</string>
+    <string name="invite_friends_desc">Do\'stlaringizni Zarur-ga taklif qiling va mukofotlarga ega bo\'ling</string>
+    <string name="logout_confirm_title">Chiqish</string>
+    <string name="logout_confirm_message">Haqiqatan ham chiqmoqchimisiz?</string>
+    <string name="button_cancel_logout">Bekor qilish</string>
+    <string name="button_yes_logout">Ha, chiqish</string>
+    <string name="title_remove_favorite">Saralanganlardan o\'chirilsinmi?</string>
+    <string name="button_yes_remove">Ha, o\'chirish</string>
+
+    <!-- Notifications -->
+    <string name="title_notification">Bildirishnoma</string>
+    <string name="label_notification_empty_title">Bildirishnomalar yo\'q</string>
+    <string name="label_notification_empty_desc">Sizda hali bildirishnomalar yo\'q.</string>
+
+    <!-- Tabs -->
+    <string name="tab_explore">Bosh sahifa</string>
+    <string name="tab_favorites">Saralanganlar</string>
+    <string name="tab_message">Xabarlar</string>
+    <string name="tab_profile">Profil</string>
+
+    <!-- Success Dialogs -->
+    <string name="title_reset_success">Parol muvaffaqiyatli tiklandi</string>
+    <string name="desc_reset_success">Sizning parolingiz muvaffaqiyatli tiklandi.</string>
+
+    <string name="label_customer_service">Mijozlarga xizmat ko\'rsatish</string>
+    <string name="label_whatsapp">WhatsApp</string>
+    <string name="label_general_notification">Umumiy bildirishnomalar</string>
+    <string name="label_sound">Ovoz</string>
+    <string name="label_vibrate">Tebranish</string>
+    <string name="label_special_offers">Maxsus takliflar</string>
+    <string name="label_promo_discount">Promo va chegirmalar</string>
+    <string name="label_payments_notif">To\'lovlar</string>
+    <string name="menu_seller_mode">Sotuvchi rejimiga o\'tish</string>
+    <string name="menu_my_booking">Mening band qilishlarim</string>
+    <string name="menu_payments">To\'lovlar</string>
+    <string name="menu_notification">Bildirishnomalar</string>
+    <string name="menu_security">Xavfsizlik</string>
+    <string name="language_selected">O\'zbekcha</string>
+    <string name="menu_language">Til</string>
+    <string name="menu_dark_mode">Tungi rejim</string>
+    <string name="menu_help_center">Yordam markazi</string>
+    <string name="menu_invite_friends">Do\'stlarni taklif qilish</string>
+    <string name="menu_logout">Chiqish</string>
+    <string name="label_face_id">Face ID</string>
+    <string name="label_touch_id">Touch ID</string>
+    <string name="label_google_authenticator">Google Authenticator</string>
+
+    <string name="title_filter">Filtr</string>
+    <string name="filter_label">Filtr</string>
+    <string name="seller_center_title">Sotuvchi markazi</string>
+    <string name="performance_overview_label">Samaradorlik sharhi</string>
+    <string name="active_ads_label">Faol e\'lonlar</string>
+    <string name="sold_items_label">Sotildi</string>
+    <string name="total_revenue_label">Umumiy daromad</string>
+    <string name="my_listings_label">Mening e\'lonlarim</string>
+    <string name="post_new_ad_button">E\'lon berish</string>
+    <string name="post_an_ad">E\'lon joylash</string>
+    <string name="add_photos">Rasm qo\'shish</string>
+    <string name="ad_title">E\'lon sarlavhasi</string>
+    <string name="price">Narxi</string>
+    <string name="description">Tavsif</string>
+    <string name="post_advertisement">E\'lonni joylash</string>
+    <string name="label_category">Toifa</string>
+    <string name="badge_new">YANGI</string>
+    <string name="label_apartment">Kvartira</string>
+    <string name="label_owner">Egasi</string>
+    <string name="label_price_per_night">%1$s / tun</string>
+    <string name="label_price_range">Narx oralig\'i</string>
+    <string name="label_car_parking">Turargoh</string>
+    <string name="label_gym">Sportzal</string>
+    <string name="label_restaurant">Restoran</string>
+    <string name="button_reset">Tiklash</string>
+    <string name="button_apply">Qo\'llash</string>
+    <string name="label_swimming_pool">Basseyn</string>
+    <string name="label_total_price">Umumiy narx</string>
+
+    <string name="label_control_alerts">Bildirishnomalarni boshqarish</string>
+    <string name="label_offers_promotions">Takliflar va aksiyalar</string>
+    <string name="label_faq_what_is_zarur">Zarur nima o\'zi?</string>
+    <string name="label_faq_how_to_post">Qanday e\'lon berish mumkin?</string>
+    <string name="label_faq_is_it_safe">Bu yerda xarid qilish xavfsizmi?</string>
+    <string name="label_contact_us_title">Biz bilan bog\'lanish</string>
+    <string name="category_general">Umumiy</string>
+    <string name="category_account">Hisob</string>
+    <string name="category_buying">Xarid</string>
+    <string name="category_selling">Sotuv</string>
+    <string name="category_payment">To\'lovlar</string>
+    <string name="cat_auto">Transport</string>
+    <string name="cat_realty">Ko\'chmas mulk</string>
+    <string name="cat_electronics">Elektronika</string>
+    <string name="cat_fashion">Moda</string>
+    <string name="cat_jobs">Ish</string>
+    <string name="cat_services">Xizmatlar</string>
+    <string name="cat_home">Maishiy texnika</string>
+
+    <string name="product_specifications">Xususiyatlari</string>
+    <string name="seller_name">Rasmiy do\'kon</string>
+    <string name="verified_seller">Tasdiqlangan sotuvchi</string>
+    <string name="visit_seller">O\'tish</string>
+    <string name="product_description_title">Tavsif</string>
+    <string name="product_description_content">Tasdiqlangan sotuvchi kafolati bilan yuqori sifatli mahsulotlar.</string>
+
+    <string name="default_name_andrew_ainsley">Endryu Einsli</string>
+    <string name="default_nickname_andrew">Endryu</string>
+    <string name="default_dob">27.12.1995</string>
+    <string name="default_email">andrew_ainsley@yourdomain.com</string>
+    <string name="default_phone">+1 111 467 378 399</string>
+    <string name="default_gender_male">Erkak</string>
+
+    <string name="store_name_placeholder">Mening do\'konim (Rasmiy)</string>
+    <string name="store_rating_placeholder">Sotuvchi reytingi 4.9</string>
+    <string name="metric_views">Ko\'rishlar</string>
+    <string name="metric_favorites">Saralanganlarda</string>
+    <string name="trend_positive_placeholder">Haftasiga +12%</string>
+    <string name="trend_neutral_placeholder">O\'zgarishsiz</string>
+    <string name="action_add_product">Yaratish</string>
+    <string name="action_marketing">Reklama</string>
+    <string name="action_store_settings">Sozlamalar</string>
+    <string name="action_earnings">To\'lovlar</string>
+    <string name="label_quick_actions">Tezkor harakatlar</string>
+
+</resources>

@@ -23,7 +23,9 @@ class ReviewSummaryFragment : Fragment(R.layout.fragment_review_summary) {
         }
 
         binding.btnConfirm.setOnClickListener {
-            findNavController().navigate(R.id.action_reviewSummaryFragment_to_bookingPinFragment)
+            if (findNavController().currentDestination?.id == R.id.reviewSummaryFragment) {
+                findNavController().navigate(R.id.action_reviewSummaryFragment_to_bookingPinFragment)
+            }
         }
 
         binding.tvChangePayment.setOnClickListener {

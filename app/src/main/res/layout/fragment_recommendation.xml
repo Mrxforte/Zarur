@@ -78,14 +78,24 @@
         </HorizontalScrollView>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <include
+        android:id="@+id/shimmerRecommendation"
+        layout="@layout/layout_shimmer_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="12dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRecommendation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="12dp"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:spanCount="2"
-        tools:listitem="@layout/item_property_vertical" />
+        tools:listitem="@layout/item_product_card"
+        tools:visibility="visible" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

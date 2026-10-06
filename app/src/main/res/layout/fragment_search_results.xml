@@ -137,9 +137,9 @@
                 android:visibility="gone">
 
                 <ImageView
-                    android:layout_width="280dp"
-                    android:layout_height="280dp"
-                    android:src="@drawable/ic_splash_logo"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:src="@drawable/ic_explore"
                     app:tint="?attr/colorSurfaceVariant" />
 
                 <TextView
@@ -161,12 +161,20 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
+            <include
+                android:id="@+id/shimmerSearchResults"
+                layout="@layout/layout_shimmer_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvResults"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_property_recommendation" />
+                tools:listitem="@layout/item_product_card"
+                tools:visibility="visible" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

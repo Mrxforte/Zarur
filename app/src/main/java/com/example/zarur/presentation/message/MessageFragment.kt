@@ -6,21 +6,36 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zarur.R
+import com.example.zarur.databinding.FragmentMessageBinding
+import com.example.zarur.domain.usecase.IsLoggedInUseCase
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MessageFragment : Fragment(R.layout.fragment_message) {
 
+    private var _binding: FragmentMessageBinding? = null
+    private val binding get() = _binding!!
+
+    @Inject
+    lateinit var isLoggedInUseCase: IsLoggedInUseCase
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentMessageBinding.bind(view)
 
-        val rvChats = view.findViewById<RecyclerView>(R.id.rvChats)
-        rvChats.layoutManager = LinearLayoutManager(context)
+        if (!isLoggedInUseCase()) {
+            findNavController().navigate(R.id.authHubFragment)
+            return
+        }
+
+        binding.rvChats.layoutManager = LinearLayoutManager(context)
 
         val chats = listOf(
             Chat("Natasya Wilodra", "Of course, the apartment is...", "16:00", 2, R.drawable.onboarding1),
@@ -30,9 +45,25 @@ class MessageFragment : Fragment(R.layout.fragment_message) {
             Chat("Tanner Stafford", "Wow, this is really epic", "Yesterday", 0, R.drawable.onboarding2)
         )
 
-        rvChats.adapter = ChatAdapter(chats) {
-            findNavController().navigate(R.id.action_messageFragment_to_chatDetailFragment)
+        binding.rvChats.adapter = ChatAdapter(chats) {
+            findNavController().navigate(R.id.chatDetailFragment)
         }
+
+        binding.shimmerChat.root.isVisible = true
+        binding.rvChats.isVisible = false
+        binding.shimmerChat.shimmerChatContainer.startShimmer()
+        binding.rvChats.postDelayed({
+            if (_binding != null) {
+                binding.shimmerChat.shimmerChatContainer.stopShimmer()
+                binding.shimmerChat.root.isVisible = false
+                binding.rvChats.isVisible = true
+            }
+        }, 1000)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private data class Chat(

@@ -1,0 +1,282 @@
+<resources>
+    <string name="app_name">Zarur</string>
+    <string name="title_error">Ошибка</string>
+    <string name="title_success">Успешно</string>
+    <string name="title_info">Информация</string>
+
+    <!-- Common Badges & Labels -->
+    <string name="sold_badge_text">ПРОДАНО</string>
+    <string name="currency_uzs">сум</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Найдите дом своей мечты</string>
+    <string name="onboarding_desc_1">Откройте для себя лучшую недвижимость в предпочитаемом вами месте.</string>
+    <string name="onboarding_title_2">Простой процесс бронирования</string>
+    <string name="onboarding_desc_2">Забронируйте любимую недвижимость всего в несколько нажатий.</string>
+    <string name="onboarding_title_3">Безопасные платежи</string>
+    <string name="onboarding_desc_3">Мы обеспечиваем безопасность ваших транзакций на нашей платформе.</string>
+    <string name="button_skip">Пропустить</string>
+    <string name="button_get_started">Начать</string>
+
+    <!-- Auth Hub -->
+    <string name="welcome_message">Добро пожаловать в Zarur</string>
+    <string name="welcome_subtitle">Ваше идеальное решение для объявлений и недвижимости</string>
+    <string name="button_login">Войти</string>
+    <string name="button_register">Регистрация</string>
+
+    <!-- Auth -->
+    <string name="title_sign_in">Вход</string>
+    <string name="label_gmail">Эл. почта</string>
+    <string name="label_password">Пароль</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="button_sign_in_caps">ВОЙТИ</string>
+    <string name="or_sign_in_with">или войти через</string>
+    <string name="dont_have_account">Нет аккаунта?</string>
+    <string name="title_sign_up">Регистрация</string>
+    <string name="label_full_name">Полное имя</string>
+    <string name="label_phone_gmail">Эл. почта</string>
+    <string name="label_confirm_password">Подтвердите пароль</string>
+    <string name="button_sign_up_caps">ЗАРЕГИСТРИРОВАТЬСЯ</string>
+    <string name="already_have_account">Уже есть аккаунт?</string>
+    <string name="button_sign_in">Войти</string>
+    <string name="title_forgot_password">Забыли пароль</string>
+    <string name="desc_forgot_password">Выберите контактные данные для сброса пароля</string>
+    <string name="label_via_sms">через SMS</string>
+    <string name="label_via_email">через Email</string>
+    <string name="title_otp_verification">Верификация OTP</string>
+    <string name="desc_otp_verification">Введите код подтверждения, который мы вам отправили</string>
+    <string name="button_verify">Подтвердить</string>
+    <string name="title_change_password">Создать новый пароль</string>
+    <string name="label_new_password">Новый пароль</string>
+    <string name="label_confirm_new_password">Подтвердите новый пароль</string>
+    <string name="label_remember_me">Запомнить меня</string>
+
+    <!-- Account Setup -->
+    <string name="title_fill_profile">Заполните профиль</string>
+    <string name="label_nickname_hint">Никнейм</string>
+    <string name="label_dob_hint">Дата рождения</string>
+    <string name="label_gender_hint">Пол</string>
+    <string name="title_photo_id_card">Добавить фото удостоверения личности</string>
+    <string name="desc_photo_id_card">Нам нужно подтвердить вашу личность перед бронированием</string>
+    <string name="title_selfie_with_id">Селфи с удостоверением личности</string>
+    <string name="desc_selfie_with_id">Пожалуйста, сделайте селфи, держа удостоверение личности</string>
+    <string name="button_retake">Переснять</string>
+    <string name="title_create_pin">Создать новый PIN-код</string>
+    <string name="desc_create_pin">Добавьте PIN-код для защиты вашего аккаунта</string>
+    <string name="title_set_fingerprint">Настроить отпечаток пальца</string>
+    <string name="desc_set_fingerprint">Добавьте отпечаток пальца для защиты вашего аккаунта</string>
+    <string name="tip_set_fingerprint">Пожалуйста, приложите палец к сенсору</string>
+    <string name="title_face_recognition">Распознавание лица</string>
+    <string name="desc_face_recognition">Добавьте распознавание лица для защиты вашего аккаунта</string>
+    <string name="scan_face_recognition">Сканирование...</string>
+    <string name="button_skip_setup">Пропустить</string>
+    <string name="setup_success_title">Поздравляем!</string>
+    <string name="setup_success_desc">Ваш аккаунт готов к использованию. Вы будете перенаправлены на главную страницу через несколько секунд.</string>
+
+    <!-- Explore -->
+    <string name="greeting_morning">Доброе утро</string>
+    <string name="profile_name">Пользователь</string>
+    <string name="hint_search_property">Поиск товаров, недвижимости...</string>
+    <string name="label_featured">Рекомендуемое</string>
+    <string name="label_see_all">Все</string>
+    <string name="label_our_recommendation">Наши рекомендации</string>
+    <string name="category_all">Все</string>
+    <string name="category_house">Дом</string>
+    <string name="category_villa">Вилла</string>
+    <string name="category_apartment">Квартира</string>
+    <string name="enable_location_title">Включить местоположение</string>
+    <string name="enable_location_desc">Нам нужно ваше местоположение, чтобы показать товары рядом</string>
+    <string name="button_enable_location">Включить</string>
+    <string name="button_cancel">Отмена</string>
+    <string name="label_not_found_title">Не найдено</string>
+    <string name="label_not_found_desc">К сожалению, введенное вами ключевое слово не найдено.</string>
+
+    <!-- Property / Product Detail -->
+    <string name="label_overview">Обзор</string>
+    <string name="label_facilities">Удобства</string>
+    <string name="label_gallery">Галерея</string>
+    <string name="label_location">Расположение</string>
+    <string name="button_booking_now">Забронировать сейчас</string>
+    <string name="button_buy_now">Купить сейчас</string>
+
+    <!-- Booking -->
+    <string name="title_book_real_estate">Забронировать недвижимость</string>
+    <string name="label_select_date">Выберите дату</string>
+    <string name="label_check_in">Заезд</string>
+    <string name="label_check_out">Выезд</string>
+    <string name="label_note_to_owner">Заметка владельцу (опционально)</string>
+    <string name="hint_note_to_owner">Введите вашу заметку здесь...</string>
+    <string name="button_continue">Продолжить</string>
+    <string name="title_booking_info">Информация о бронировании</string>
+    <string name="label_full_name_booking">Полное имя</string>
+    <string name="label_nickname_booking">Никнейм</string>
+    <string name="label_dob_booking">Дата рождения</string>
+    <string name="label_email_booking">Email</string>
+    <string name="label_phone_booking">Номер телефона</string>
+    <string name="title_select_payment">Выберите способ оплаты</string>
+    <string name="button_add_new_card_booking">Добавить карту</string>
+    <string name="title_review_summary">Итог бронирования</string>
+    <string name="button_confirm_payment">Подтвердить оплату</string>
+    <string name="title_enter_pin">Введите ваш PIN-код</string>
+    <string name="desc_enter_pin">Введите PIN-код для подтверждения оплаты</string>
+    <string name="title_booking_success">Бронирование успешно!</string>
+    <string name="desc_booking_success">Вы успешно забронировали данный товар.</string>
+    <string name="button_view_e_receipt">Посмотреть чек</string>
+    <string name="title_e_receipt">Электронный чек</string>
+    <string name="title_leave_review">Оставить отзыв</string>
+    <string name="desc_leave_review">Пожалуйста, оцените ваш опыт</string>
+    <string name="hint_write_review">Напишите ваш отзыв здесь...</string>
+    <string name="button_maybe_later">Может позже</string>
+    <string name="button_submit">Отправить</string>
+
+    <!-- Profile -->
+    <string name="profile_title">Профиль</string>
+    <string name="menu_profile">Редактировать профиль</string>
+    <string name="label_full_name_field">Полное имя</string>
+    <string name="label_nickname">Никнейм</string>
+    <string name="label_dob">Дата рождения</string>
+    <string name="label_email_field">Email</string>
+    <string name="label_phone_field">Номер телефона</string>
+    <string name="label_gender">Пол</string>
+    <string name="button_update">Обновить</string>
+    <string name="title_my_bookings">Мои бронирования</string>
+    <string name="tab_active">Активные</string>
+    <string name="tab_completed">Завершенные</string>
+    <string name="tab_cancelled">Отмененные</string>
+    <string name="title_payments">Платежи</string>
+    <string name="button_add_new_card">Добавить карту</string>
+    <string name="title_notifications_settings">Настройки уведомлений</string>
+    <string name="title_security">Безопасность</string>
+    <string name="button_change_pin">Изменить PIN-код</string>
+    <string name="button_change_password">Изменить пароль</string>
+    <string name="title_language">Язык</string>
+    <string name="label_suggested">Предложенные</string>
+    <string name="title_help_center">Центр помощи</string>
+    <string name="tab_faq">Часто задаваемые вопросы</string>
+    <string name="tab_contact_us">Связаться с нами</string>
+    <string name="title_invite_friends">Пригласить друзей</string>
+    <string name="invite_friends_desc">Приглашайте друзей в Zarur и получайте награды</string>
+    <string name="logout_confirm_title">Выход</string>
+    <string name="logout_confirm_message">Вы уверены, что хотите выйти?</string>
+    <string name="button_cancel_logout">Отмена</string>
+    <string name="button_yes_logout">Да, выйти</string>
+    <string name="title_remove_favorite">Удалить из избранного?</string>
+    <string name="button_yes_remove">Да, удалить</string>
+
+    <!-- Notifications -->
+    <string name="title_notification">Уведомление</string>
+    <string name="label_notification_empty_title">Нет уведомлений</string>
+    <string name="label_notification_empty_desc">У вас пока нет уведомлений.</string>
+
+    <!-- Tabs -->
+    <string name="tab_explore">Обзор</string>
+    <string name="tab_favorites">Избранное</string>
+    <string name="tab_message">Сообщения</string>
+    <string name="tab_profile">Профиль</string>
+
+    <!-- Success Dialogs -->
+    <string name="title_reset_success">Пароль успешно сброшен</string>
+    <string name="desc_reset_success">Ваш пароль был успешно сброшен.</string>
+
+    <string name="label_customer_service">Служба поддержки</string>
+    <string name="label_whatsapp">WhatsApp</string>
+    <string name="label_general_notification">Общие уведомления</string>
+    <string name="label_sound">Звук</string>
+    <string name="label_vibrate">Вибрация</string>
+    <string name="label_special_offers">Специальные предложения</string>
+    <string name="label_promo_discount">Промо и скидки</string>
+    <string name="label_payments_notif">Платежи</string>
+    <string name="menu_seller_mode">Перейти в режим продавца</string>
+    <string name="menu_my_booking">Мои бронирования</string>
+    <string name="menu_payments">Платежи</string>
+    <string name="menu_notification">Уведомления</string>
+    <string name="menu_security">Безопасность</string>
+    <string name="language_selected">Русский</string>
+    <string name="menu_language">Язык</string>
+    <string name="menu_dark_mode">Темный режим</string>
+    <string name="menu_help_center">Центр помощи</string>
+    <string name="menu_invite_friends">Пригласить друзей</string>
+    <string name="menu_logout">Выйти</string>
+    <string name="label_face_id">Face ID</string>
+    <string name="label_touch_id">Touch ID</string>
+    <string name="label_google_authenticator">Google Authenticator</string>
+
+    <string name="title_filter">Фильтр</string>
+    <string name="filter_label">Фильтр</string>
+    <string name="seller_center_title">Центр продавца</string>
+    <string name="performance_overview_label">Обзор эффективности</string>
+    <string name="active_ads_label">Активные объявления</string>
+    <string name="sold_items_label">Продано</string>
+    <string name="total_revenue_label">Общий доход</string>
+    <string name="my_listings_label">Мои объявления</string>
+    <string name="post_new_ad_button">Подать объявление</string>
+    <string name="post_an_ad">Подать объявление</string>
+    <string name="add_photos">Добавить фото</string>
+    <string name="ad_title">Название объявления</string>
+    <string name="price">Цена</string>
+    <string name="description">Описание</string>
+    <string name="post_advertisement">Опубликовать объявление</string>
+    <string name="label_category">Категория</string>
+    <string name="badge_new">НОВИНКА</string>
+    <string name="label_apartment">Квартира</string>
+    <string name="label_owner">Владелец</string>
+    <string name="label_price_per_night">%1$s / ночь</string>
+    <string name="label_price_range">Ценовой диапазон</string>
+    <string name="label_car_parking">Парковка</string>
+    <string name="label_gym">Спортзал</string>
+    <string name="label_restaurant">Ресторан</string>
+    <string name="button_reset">Сбросить</string>
+    <string name="button_apply">Применить</string>
+    <string name="label_swimming_pool">Бассейн</string>
+    <string name="label_total_price">Общая стоимость</string>
+
+    <string name="label_control_alerts">Управление уведомлениями</string>
+    <string name="label_offers_promotions">Предложения и акции</string>
+    <string name="label_faq_what_is_zarur">Что такое Zarur?</string>
+    <string name="label_faq_how_to_post">Как подать объявление?</string>
+    <string name="label_faq_is_it_safe">Безопасно ли покупать здесь?</string>
+    <string name="label_contact_us_title">Связаться с нами</string>
+    <string name="category_general">Общие</string>
+    <string name="category_account">Аккаунт</string>
+    <string name="category_buying">Покупка</string>
+    <string name="category_selling">Продажа</string>
+    <string name="category_payment">Платежи</string>
+
+    <string name="cat_auto">Авто</string>
+    <string name="cat_realty">Недвижимость</string>
+    <string name="cat_electronics">Электроника</string>
+    <string name="cat_fashion">Мода</string>
+    <string name="cat_jobs">Работа</string>
+    <string name="cat_services">Услуги</string>
+    <string name="cat_home">Бытовая техника</string>
+
+    <string name="cat_transport">Транспорт</string>
+    <string name="cat_real_estate">Недвижимость</string>
+
+    <string name="product_specifications">Характеристики</string>
+    <string name="seller_name">Официальный магазин</string>
+    <string name="verified_seller">Проверенный продавец</string>
+    <string name="visit_seller">Перейти</string>
+    <string name="product_description_title">Описание</string>
+    <string name="product_description_content">Высококачественный товар с гарантией от проверенного продавца.</string>
+
+    <string name="default_name_andrew_ainsley">Эндрю Эйнсли</string>
+    <string name="default_nickname_andrew">Эндрю</string>
+    <string name="default_dob">27.12.1995</string>
+    <string name="default_email">andrew_ainsley@yourdomain.com</string>
+    <string name="default_phone">+1 111 467 378 399</string>
+    <string name="default_gender_male">Мужской</string>
+
+    <string name="store_name_placeholder">Мой магазин (Официальный)</string>
+    <string name="store_rating_placeholder">Рейтинг продавца 4.9</string>
+    <string name="metric_views">Просмотры</string>
+    <string name="metric_favorites">В избранном</string>
+    <string name="trend_positive_placeholder">+12% за неделю</string>
+    <string name="trend_neutral_placeholder">Без изменений</string>
+    <string name="action_add_product">Создать</string>
+    <string name="action_marketing">Реклама</string>
+    <string name="action_store_settings">Настройки</string>
+    <string name="action_earnings">Выплаты</string>
+    <string name="label_quick_actions">Быстрые действия</string>
+
+</resources>

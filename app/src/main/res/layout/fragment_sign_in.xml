@@ -3,28 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorPrimary"
-    android:fitsSystemWindows="true">
+    android:background="?attr/colorPrimary">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/btnBack"
+        style="@style/Widget.App.IconContainer"
+        android:layout_marginStart="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+        app:tint="@color/white"
+        android:backgroundTint="@color/translucent_dark" />
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="@dimen/spacing_xlarge"
+        android:layout_marginTop="@dimen/spacing_xxlarge"
         android:text="@string/title_sign_in"
-        android:textColor="?attr/colorOnPrimary"
-        android:textSize="36sp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_36"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/btnBack" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="@dimen/spacing_xlarge"
         android:background="@drawable/bg_auth_card"
-        android:padding="32dp"
+        android:padding="@dimen/spacing_xlarge"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle">
 
@@ -33,7 +44,7 @@
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="@dimen/spacing_xlarge"
             android:hint="@string/label_gmail"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -48,7 +59,7 @@
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/spacing_medium"
             android:hint="@string/label_password"
             app:endIconMode="password_toggle"
             app:layout_constraintTop_toBottomOf="@+id/tilGmail">
@@ -63,7 +74,7 @@
             android:id="@+id/tvForgotPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/spacing_small"
             android:text="@string/forgot_password"
             android:textColor="?attr/colorOnSurface"
             android:textStyle="bold"
@@ -73,23 +84,24 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSignIn"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_marginTop="32dp"
-            android:backgroundTint="@android:color/transparent"
-            android:background="@drawable/bg_button_gradient"
+            android:layout_height="@dimen/spacing_64"
+            android:layout_marginTop="@dimen/spacing_xlarge"
             android:text="@string/button_sign_in_caps"
             android:textAllCaps="true"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_18"
             android:textStyle="bold"
+            android:backgroundTint="?attr/colorPrimary"
+            android:textColor="@color/white"
+            app:cornerRadius="@dimen/corner_radius_32"
             app:layout_constraintTop_toBottomOf="@+id/tvForgotPassword" />
 
         <TextView
             android:id="@+id/tvOrSignInWith"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/spacing_large"
             android:text="@string/or_sign_in_with"
-            android:textColor="#757575"
+            android:textColor="?attr/colorOnSurfaceVariant"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
@@ -98,7 +110,7 @@
             android:id="@+id/llSocialIcons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/spacing_medium"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -106,30 +118,10 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ivGoogle"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="16dp"
-                android:padding="10dp"
+                android:layout_width="@dimen/icon_size_touch_target"
+                android:layout_height="@dimen/icon_size_touch_target"
+                android:padding="@dimen/spacing_10"
                 android:src="@drawable/ic_google"
-                android:background="?attr/colorSurfaceVariant"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ivFacebook"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="16dp"
-                android:padding="10dp"
-                android:src="@drawable/ic_facebook"
-                android:background="?attr/colorSurfaceVariant"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ivX"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:padding="10dp"
-                android:src="@drawable/ic_x"
                 android:background="?attr/colorSurfaceVariant"
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
         </LinearLayout>
@@ -137,7 +129,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/spacing_xlarge"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -153,6 +145,7 @@
                 android:id="@+id/tvSignUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_6"
                 android:text="@string/button_register"
                 android:textColor="?attr/colorPrimary"
                 android:textStyle="bold" />

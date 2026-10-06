@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "939909220537",
+    "project_id": "zarur-62f60",
+    "storage_bucket": "zarur-62f60.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939909220537:android:30408cb3a9e4fe649a7368",
+        "android_client_info": {
+          "package_name": "com.example.zarur"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbgIBG5Hu5GMoF3hp7M-68-AhyAkJBMpk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

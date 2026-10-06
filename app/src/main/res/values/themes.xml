@@ -1,9 +1,95 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
+    <style name="Theme.Zarur.Starting" parent="Theme.Zarur" />
+
     <style name="Base.Theme.Zarur" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Main theme colors -->
+        <item name="colorPrimary">@color/uzum_purple</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/uzum_purple_light</item>
+        <item name="colorOnSecondary">@color/uzum_purple</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/neutral_900</item>
+        <item name="colorSurfaceVariant">@color/neutral_50</item>
+        <item name="colorOnSurfaceVariant">@color/neutral_700</item>
+        <item name="colorOutline">@color/neutral_200</item>
+
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="28">shortEdges</item>
     </style>
 
     <style name="Theme.Zarur" parent="Base.Theme.Zarur" />
+
+    <!-- Modern Icon Container Styles - High Quality & Pixel Perfect -->
+    <style name="Widget.App.IconContainer" parent="">
+        <item name="android:layout_width">52dp</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="android:padding">14dp</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="Widget.App.IconContainer.Primary" parent="Widget.App.IconContainer">
+        <item name="android:backgroundTint">?attr/colorPrimary</item>
+        <item name="android:tint">@color/white</item>
+    </style>
+
+    <style name="Widget.App.IconContainer.Surface" parent="Widget.App.IconContainer">
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="android:tint">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="Widget.App.Chip" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@color/neutral_50</item>
+        <item name="chipStrokeColor">@color/neutral_200</item>
+        <item name="android:textColor">@color/neutral_900</item>
+    </style>
+
+    <style name="NumberPadButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">72dp</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+    </style>
+
+    <style name="ShapeAppearance.Material3.Corner.TopLarge" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSizeTopLeft">32dp</item>
+        <item name="cornerSizeTopRight">32dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <style name="ShapeAppearance.Material3.Corner.Medium" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <!-- CalendarView Styles -->
+    <style name="CalendarDateText" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CalendarWeekDayText" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CalendarHeaderMonthText" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

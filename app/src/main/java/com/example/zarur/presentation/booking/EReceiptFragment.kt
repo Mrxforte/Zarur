@@ -23,7 +23,9 @@ class EReceiptFragment : Fragment(R.layout.fragment_e_receipt) {
         }
 
         binding.btnReview.setOnClickListener {
-            findNavController().navigate(R.id.action_EReceiptFragment_to_leaveReviewFragment)
+            if (findNavController().currentDestination?.id == R.id.EReceiptFragment) {
+                findNavController().navigate(R.id.action_EReceiptFragment_to_leaveReviewFragment)
+            }
         }
     }
 

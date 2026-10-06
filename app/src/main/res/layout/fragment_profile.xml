@@ -6,52 +6,6 @@
     android:layout_height="match_parent"
     android:background="?attr/colorSurface">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorSurface"
-        android:fitsSystemWindows="true"
-        app:elevation="0dp">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:contentInsetStart="16dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@drawable/ic_logo"
-                    app:tint="?attr/colorPrimary" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_weight="1"
-                    android:text="@string/profile_title"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/ivMore"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginEnd="16dp"
-                    android:src="@drawable/ic_more"
-                    app:tint="?attr/colorOnSurface" />
-            </LinearLayout>
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -83,13 +37,12 @@
                 <ImageView
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:background="@drawable/bg_circle_button"
+                    android:background="@android:color/transparent"
                     android:padding="8dp"
                     android:src="@drawable/ic_profile_edit"
                     app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
                     app:layout_constraintEnd_toEndOf="@id/ivAvatar"
-                    app:tint="@color/white"
-                    android:backgroundTint="?attr/colorPrimary" />
+                    app:tint="?attr/colorPrimary" />
 
                 <TextView
                     android:id="@+id/tvName"
@@ -104,6 +57,25 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/ivAvatar" />
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="24dp"
+                android:background="?attr/colorSurfaceVariant" />
+
+            <!-- Seller Mode Toggle -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/menuSellerMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="16dp">
+                <ImageView android:id="@+id/iconSeller" android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_add_to_cart" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorPrimary"/>
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:text="@string/menu_seller_mode" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" app:layout_constraintStart_toEndOf="@id/iconSeller" app:layout_constraintEnd_toStartOf="@+id/arrowSeller" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                <ImageView android:id="@+id/arrowSeller" android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_arrow_right" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent" app:tint="?attr/colorOnSurface"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View

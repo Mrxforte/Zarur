@@ -1,26 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Brand Colors (Always constant) -->
-    <color name="primary_logo">#246BFD</color>
-    <color name="primary_logo_variant">#1A4FBC</color>
+    <!-- Uzum Inspired Professional Palette -->
+    <color name="uzum_purple">#6E00FF</color>
+    <color name="uzum_purple_dark">#5A00D6</color>
+    <color name="uzum_purple_light">#F2EBFF</color>
+
+    <color name="yellow_uzum">#FFCC00</color>
+    <color name="red_uzum">#EA4335</color>
+    <color name="green_uzum">#27AE60</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+    <!-- Professional Neutral Colors -->
+    <color name="neutral_50">#FAFAFA</color>
+    <color name="neutral_100">#F5F5F5</color>
+    <color name="neutral_200">#EEEEEE</color>
+    <color name="neutral_300">#E0E0E0</color>
+    <color name="neutral_400">#BDBDBD</color>
+    <color name="neutral_500">#9E9E9E</color>
+    <color name="neutral_600">#757575</color>
+    <color name="neutral_700">#616161</color>
+    <color name="neutral_800">#424242</color>
+    <color name="neutral_900">#212121</color>
+
+    <!-- Professional Dark Theme Palette (Yandex/Premium style) -->
+    <color name="dark_bg">#000000</color>
+    <color name="dark_surface">#1C1C1E</color>
+    <color name="dark_surface_variant">#2C2C2E</color>
+    <color name="dark_on_surface">#FFFFFF</color>
+    <color name="dark_on_surface_variant">#8E8E93</color>
+    <color name="dark_outline">#38383A</color>
+    <color name="dark_primary">#9B51E0</color>
+    <color name="dark_secondary">#3D2570</color>
 
     <!-- Theme Semantic Colors -->
-    <color name="primary">#246BFD</color>
+    <color name="primary">@color/uzum_purple</color>
     <color name="on_primary">#FFFFFF</color>
-    <color name="secondary">#E8F0FE</color>
-    <color name="on_secondary">#246BFD</color>
-    <color name="error">#B3261E</color>
+    <color name="secondary">@color/uzum_purple_light</color>
+    <color name="on_secondary">@color/uzum_purple</color>
+    <color name="error">@color/red_uzum</color>
     <color name="on_error">#FFFFFF</color>
-    <color name="background">#FFFBFE</color>
-    <color name="on_background">#1C1B1F</color>
-    <color name="surface">#FFFBFE</color>
-    <color name="on_surface">#1C1B1F</color>
-    <color name="on_surface_variant">#49454F</color>
+    <color name="background">#FFFFFF</color>
+    <color name="on_background">@color/neutral_900</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="on_surface">@color/neutral_900</color>
+    <color name="on_surface_variant">@color/neutral_700</color>
+    <color name="outline">@color/neutral_200</color>
 
     <!-- Helpers -->
-    <color name="white">#FFFFFFFF</color>
-    <color name="black">#FF000000</color>
-    <color name="indicator_active">@color/white</color>
-    <color name="indicator_inactive">#80FFFFFF</color>
+    <color name="indicator_active">@color/uzum_purple</color>
+    <color name="indicator_inactive">@color/neutral_300</color>
     <color name="black_overlay">#99000000</color>
+    <color name="white_overlay">#CCFFFFFF</color>
+    <color name="translucent_white">#80FFFFFF</color>
+    <color name="translucent_white_40">#66FFFFFF</color>
+    <color name="translucent_dark">#26FFFFFF</color>
+    <color name="translucent_black_30">#4D000000</color>
+
+    <!-- Redefine legacy names to avoid breakage -->
+    <color name="primary_logo">@color/uzum_purple</color>
+    <color name="primary_logo_variant">@color/uzum_purple_dark</color>
 </resources>

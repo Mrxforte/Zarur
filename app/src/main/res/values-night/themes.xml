@@ -1,31 +1,72 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Zarur" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Main theme colors (will automatically use values-night/colors.xml) -->
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorOnPrimary">@color/on_primary</item>
-        <item name="colorSecondary">@color/secondary</item>
-        <item name="colorOnSecondary">@color/on_secondary</item>
-        <item name="colorError">@color/error</item>
-        <item name="colorOnError">@color/on_error</item>
-        <item name="android:windowBackground">@color/background</item>
-        <item name="colorSurface">@color/surface</item>
-        <item name="colorOnSurface">@color/on_surface</item>
-        <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
+    <!-- Professional Premium Dark application theme. -->
+    <style name="Theme.Zarur.Starting" parent="Theme.Zarur" />
 
-        <!-- Status bar and navigation bar -->
+    <style name="Base.Theme.Zarur" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Main theme colors -->
+        <item name="colorPrimary">@color/dark_primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/dark_secondary</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <item name="android:windowBackground">@color/dark_bg</item>
+        <item name="colorSurface">@color/dark_surface</item>
+        <item name="colorOnSurface">@color/dark_on_surface</item>
+        <item name="colorSurfaceVariant">@color/dark_surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/dark_on_surface_variant</item>
+        <item name="colorOutline">@color/dark_outline</item>
+
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">false</item>
-    </style>
-    <style name="Theme.Zarur" parent="Base.Theme.Zarur">
-        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="28">shortEdges</item>
     </style>
 
-    <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
-        <item name="itemIconTint">@color/bottom_nav_item_tint</item>
-        <item name="itemTextColor">@color/bottom_nav_item_tint</item>
-        <item name="backgroundTint">?attr/colorSurface</item>
-        <item name="labelVisibilityMode">labeled</item>
+    <!-- Modern Icon Container Styles - Larger & Luxury Black -->
+    <style name="Widget.App.IconContainer" parent="">
+        <item name="android:layout_width">@dimen/icon_size_56</item>
+        <item name="android:layout_height">@dimen/icon_size_56</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="Widget.App.IconContainer.Primary" parent="Widget.App.IconContainer">
+        <item name="android:backgroundTint">?attr/colorPrimary</item>
+        <item name="android:tint">@color/white</item>
+    </style>
+
+    <style name="Widget.App.IconContainer.Surface" parent="Widget.App.IconContainer">
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="android:tint">@color/white</item>
+    </style>
+
+    <style name="Widget.App.Chip" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@color/dark_surface_variant</item>
+        <item name="chipStrokeColor">@color/dark_outline</item>
+        <item name="android:textColor">@color/dark_on_surface</item>
+        <item name="chipStrokeWidth">1dp</item>
+    </style>
+
+    <!-- CalendarView Styles -->
+    <style name="CalendarDateText" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/dark_on_surface</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CalendarWeekDayText" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CalendarHeaderMonthText" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">@color/dark_on_surface</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

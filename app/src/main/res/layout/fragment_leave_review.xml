@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurface">
@@ -27,62 +28,89 @@
             android:orientation="vertical"
             android:padding="24dp">
 
-            <include layout="@layout/item_favorite_property_list" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="24dp"
-                android:background="?attr/colorSurfaceVariant" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:gravity="center"
                 android:text="@string/desc_leave_review"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <!-- Rating Stars -->
+            <!-- Interactive Live Rating Stars -->
             <LinearLayout
+                android:id="@+id/llRatingStars"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_margin="4dp"
+                    android:id="@+id/star1"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_margin="6dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_favorites"
-                    app:tint="?attr/colorPrimary" />
+                    app:tint="@color/yellow_uzum" />
+
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_margin="4dp"
+                    android:id="@+id/star2"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_margin="6dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_favorites"
-                    app:tint="?attr/colorPrimary" />
+                    app:tint="@color/yellow_uzum" />
+
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_margin="4dp"
+                    android:id="@+id/star3"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_margin="6dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_favorites"
-                    app:tint="?attr/colorPrimary" />
+                    app:tint="@color/yellow_uzum" />
+
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_margin="4dp"
+                    android:id="@+id/star4"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_margin="6dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_favorites"
-                    app:tint="?attr/colorPrimary" />
+                    app:tint="@color/yellow_uzum" />
+
                 <ImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_margin="4dp"
+                    android:id="@+id/star5"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_margin="6dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/ic_favorites"
-                    app:tint="?attr/colorSurfaceVariant" />
+                    app:tint="@color/yellow_uzum" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvRatingScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="5.0 / 5.0" />
 
             <View
                 android:layout_width="match_parent"
@@ -91,6 +119,7 @@
                 android:background="?attr/colorSurfaceVariant" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilReview"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,6 +130,7 @@
                 app:boxCornerRadiusTopStart="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etReviewText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top"

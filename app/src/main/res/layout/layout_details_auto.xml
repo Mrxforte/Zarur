@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_xxlarge"
+        android:text="Vehicle Condition"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="@dimen/text_size_18"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_12"
+        android:text="Perfect condition, first owner. Maintained exclusively at the official dealership. No accidents, original paint."
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textSize="@dimen/text_size_15"
+        android:lineSpacingExtra="@dimen/spacing_6" />
+
+    <!-- Seller Info Section - Premium Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_large"
+        app:cardBackgroundColor="?attr/colorSurfaceVariant"
+        app:cardCornerRadius="@dimen/corner_radius_16"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_medium">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivSellerAvatar"
+                android:layout_width="@dimen/icon_size_56"
+                android:layout_height="@dimen/icon_size_56"
+                android:scaleType="centerCrop"
+                android:src="@drawable/onboarding2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
+
+            <TextView
+                android:id="@+id/tvSellerName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_medium"
+                android:layout_marginEnd="@dimen/spacing_12"
+                android:text="Official Dealership"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="@dimen/text_size_title"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/btnVisitSeller"
+                app:layout_constraintStart_toEndOf="@id/ivSellerAvatar"
+                app:layout_constraintTop_toTopOf="@id/ivSellerAvatar" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_2"
+                app:drawableStartCompat="@drawable/ic_verified_small"
+                android:drawablePadding="@dimen/spacing_micro"
+                app:drawableTint="@color/green_uzum"
+                android:text="@string/verified_seller"
+                android:textColor="@color/green_uzum"
+                android:textSize="@dimen/text_size_small"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/tvSellerName"
+                app:layout_constraintTop_toBottomOf="@id/tvSellerName" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnVisitSeller"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/visit_seller"
+                android:textAllCaps="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

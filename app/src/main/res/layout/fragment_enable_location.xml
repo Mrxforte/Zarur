@@ -10,7 +10,7 @@
         android:id="@+id/ivLocation"
         android:layout_width="160dp"
         android:layout_height="160dp"
-        android:src="@drawable/ic_splash_logo"
+        android:src="@drawable/ic_explore"
         app:layout_constraintBottom_toTopOf="@+id/tvTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

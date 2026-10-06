@@ -1,0 +1,28 @@
+package com.example.zarur.presentation.profile
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.zarur.domain.usecase.GetLanguageUseCase
+import com.example.zarur.domain.usecase.SetLanguageUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+class LanguageViewModel @Inject constructor(
+    private val getLanguageUseCase: GetLanguageUseCase,
+    private val setLanguageUseCase: SetLanguageUseCase
+) : ViewModel() {
+
+    val selectedLanguage: StateFlow<String> = getLanguageUseCase()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), "ru")
+
+    fun selectLanguage(languageCode: String) {
+        viewModelScope.launch {
+            setLanguageUseCase(languageCode)
+        }
+    }
+}

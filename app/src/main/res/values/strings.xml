@@ -1,3 +1,284 @@
 <resources>
     <string name="app_name">Zarur</string>
+    <string name="title_error">Error</string>
+    <string name="title_success">Success</string>
+    <string name="title_info">Info</string>
+
+    <!-- Common Badges & Labels -->
+    <string name="sold_badge_text">SOTILDI</string>
+    <string name="currency_uzs">so\'m</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title_1">Find Your Dream Property</string>
+    <string name="onboarding_desc_1">Discover the best real estate and items in your preferred location.</string>
+    <string name="onboarding_title_2">Easy Booking Process</string>
+    <string name="onboarding_desc_2">Book your favorite property or purchase products with just a few clicks.</string>
+    <string name="onboarding_title_3">Secure Payments</string>
+    <string name="onboarding_desc_3">We ensure the safety and security of all your transactions.</string>
+    <string name="button_skip">Skip</string>
+    <string name="button_get_started">Get Started</string>
+
+    <!-- Auth Hub -->
+    <string name="hint_image_url">Rasm URL manzili (Image URL)</string>
+    <string name="welcome_message">Welcome to Zarur</string>
+    <string name="welcome_subtitle">Your ultimate marketplace and real estate solution</string>
+    <string name="button_login">Sign In</string>
+    <string name="button_register">Register</string>
+
+    <!-- Auth -->
+    <string name="title_sign_in">Sign In</string>
+    <string name="label_gmail">Email</string>
+    <string name="label_password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="button_sign_in_caps">SIGN IN</string>
+    <string name="or_sign_in_with">or sign in with</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="title_sign_up">Sign Up</string>
+    <string name="default_web_client_id" translatable="false">939909220537-k6d9felja6r6ngo75pvur07s2jcep3i8.apps.googleusercontent.com</string>
+    <string name="label_full_name">Full Name</string>
+    <string name="label_phone_gmail">Email</string>
+    <string name="label_confirm_password">Confirm Password</string>
+    <string name="button_sign_up_caps">SIGN UP</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="button_sign_in">Sign In</string>
+    <string name="title_forgot_password">Forgot Password</string>
+    <string name="desc_forgot_password">Select contact details to reset your password</string>
+    <string name="label_via_sms">via SMS</string>
+    <string name="label_via_email">via Email</string>
+    <string name="title_otp_verification">OTP Verification</string>
+    <string name="desc_otp_verification">Enter the verification code sent to your email</string>
+    <string name="button_verify">Verify</string>
+    <string name="title_change_password">Create New Password</string>
+    <string name="label_new_password">New Password</string>
+    <string name="label_confirm_new_password">Confirm New Password</string>
+    <string name="label_remember_me">Remember me</string>
+
+    <!-- Account Setup -->
+    <string name="title_fill_profile">Fill Your Profile</string>
+    <string name="label_nickname_hint">Nickname</string>
+    <string name="label_dob_hint">Date of Birth</string>
+    <string name="label_gender_hint">Gender</string>
+    <string name="title_photo_id_card">Add ID Card Photo</string>
+    <string name="desc_photo_id_card">We need to verify your identity before booking or selling</string>
+    <string name="title_selfie_with_id">Selfie with ID Card</string>
+    <string name="desc_selfie_with_id">Please take a selfie holding your ID card</string>
+    <string name="button_retake">Retake</string>
+    <string name="title_create_pin">Create New PIN</string>
+    <string name="desc_create_pin">Add a PIN code to secure your account</string>
+    <string name="title_set_fingerprint">Set Your Fingerprint</string>
+    <string name="desc_set_fingerprint">Add fingerprint security to your account</string>
+    <string name="tip_set_fingerprint">Please place your finger on the sensor</string>
+    <string name="title_face_recognition">Face Recognition</string>
+    <string name="desc_face_recognition">Add face recognition to secure your account</string>
+    <string name="scan_face_recognition">Scanning...</string>
+    <string name="button_skip_setup">Skip</string>
+    <string name="setup_success_title">Congratulations!</string>
+    <string name="setup_success_desc">Your account is ready to use. You will be redirected in a few seconds.</string>
+
+    <!-- Explore -->
+    <string name="greeting_morning">Good Morning</string>
+    <string name="profile_name">User</string>
+    <string name="hint_search_property">Search items, properties...</string>
+    <string name="label_featured">Featured</string>
+    <string name="label_see_all">See All</string>
+    <string name="label_our_recommendation">Our Recommendation</string>
+    <string name="category_all">All</string>
+    <string name="category_house">House</string>
+    <string name="category_villa">Villa</string>
+    <string name="category_apartment">Apartment</string>
+    <string name="enable_location_title">Enable Location</string>
+    <string name="enable_location_desc">We need your location to show items and properties nearby</string>
+    <string name="button_enable_location">Enable</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="label_not_found_title">Not Found</string>
+    <string name="label_not_found_desc">Sorry, the keyword you entered could not be found.</string>
+
+    <!-- Property / Product Detail -->
+    <string name="label_overview">Overview</string>
+    <string name="label_facilities">Facilities</string>
+    <string name="label_gallery">Gallery</string>
+    <string name="label_location">Location</string>
+    <string name="button_booking_now">Book Now</string>
+    <string name="button_buy_now">Buy Now</string>
+
+    <!-- Booking -->
+    <string name="title_book_real_estate">Book Property</string>
+    <string name="label_select_date">Select Date</string>
+    <string name="label_check_in">Check In</string>
+    <string name="label_check_out">Check Out</string>
+    <string name="label_note_to_owner">Note to Owner (Optional)</string>
+    <string name="hint_note_to_owner">Write your note here...</string>
+    <string name="button_continue">Continue</string>
+    <string name="title_booking_info">Booking Information</string>
+    <string name="label_full_name_booking">Full Name</string>
+    <string name="label_nickname_booking">Nickname</string>
+    <string name="label_dob_booking">Date of Birth</string>
+    <string name="label_email_booking">Email</string>
+    <string name="label_phone_booking">Phone Number</string>
+    <string name="title_select_payment">Select Payment Method</string>
+    <string name="button_add_new_card_booking">Add Card</string>
+    <string name="title_review_summary">Review Summary</string>
+    <string name="button_confirm_payment">Confirm Payment</string>
+    <string name="title_enter_pin">Enter Your PIN</string>
+    <string name="desc_enter_pin">Enter PIN code to confirm payment</string>
+    <string name="title_booking_success">Booking Successful!</string>
+    <string name="desc_booking_success">You have successfully booked this item.</string>
+    <string name="button_view_e_receipt">View E-Receipt</string>
+    <string name="title_e_receipt">E-Receipt</string>
+    <string name="title_leave_review">Leave a Review</string>
+    <string name="desc_leave_review">Please rate your experience</string>
+    <string name="hint_write_review">Write your review here...</string>
+    <string name="button_maybe_later">Maybe Later</string>
+    <string name="button_submit">Submit</string>
+
+    <!-- Profile -->
+    <string name="profile_title">Profile</string>
+    <string name="menu_profile">Edit Profile</string>
+    <string name="label_full_name_field">Full Name</string>
+    <string name="label_nickname">Nickname</string>
+    <string name="label_dob">Date of Birth</string>
+    <string name="label_email_field">Email</string>
+    <string name="label_phone_field">Phone Number</string>
+    <string name="label_gender">Gender</string>
+    <string name="button_update">Update</string>
+    <string name="title_my_bookings">My Bookings</string>
+    <string name="tab_active">Active</string>
+    <string name="tab_completed">Completed</string>
+    <string name="tab_cancelled">Cancelled</string>
+    <string name="title_payments">Payments</string>
+    <string name="button_add_new_card">Add New Card</string>
+    <string name="title_notifications_settings">Notification Settings</string>
+    <string name="title_security">Security</string>
+    <string name="button_change_pin">Change PIN</string>
+    <string name="button_change_password">Change Password</string>
+    <string name="title_language">Language</string>
+    <string name="label_suggested">Suggested</string>
+    <string name="title_help_center">Help Center</string>
+    <string name="tab_faq">FAQ</string>
+    <string name="tab_contact_us">Contact Us</string>
+    <string name="title_invite_friends">Invite Friends</string>
+    <string name="invite_friends_desc">Invite friends to Zarur and get rewards!</string>
+    <string name="logout_confirm_title">Logout</string>
+    <string name="logout_confirm_message">Are you sure you want to log out?</string>
+    <string name="button_cancel_logout">Cancel</string>
+    <string name="button_yes_logout">Yes, Logout</string>
+    <string name="title_remove_favorite">Remove from Favorites?</string>
+    <string name="button_yes_remove">Yes, Remove</string>
+
+    <!-- Notifications -->
+    <string name="title_notification">Notification</string>
+    <string name="label_notification_empty_title">No Notifications</string>
+    <string name="label_notification_empty_desc">You don\'t have any notifications right now.</string>
+
+    <!-- Tabs -->
+    <string name="tab_explore">Explore</string>
+    <string name="tab_favorites">Favorites</string>
+    <string name="tab_message">Messages</string>
+    <string name="tab_profile">Profile</string>
+
+    <!-- Success Dialogs -->
+    <string name="title_reset_success">Password Reset Successful</string>
+    <string name="desc_reset_success">Your password has been successfully reset.</string>
+
+    <string name="label_customer_service">Customer Service</string>
+    <string name="label_whatsapp">WhatsApp</string>
+    <string name="label_general_notification">General Notifications</string>
+    <string name="label_sound">Sound</string>
+    <string name="label_vibrate">Vibrate</string>
+    <string name="label_special_offers">Special Offers</string>
+    <string name="label_promo_discount">Promo &amp; Discounts</string>
+    <string name="label_payments_notif">Payments</string>
+    <string name="menu_seller_mode">Switch to Seller Mode</string>
+    <string name="menu_my_booking">My Bookings</string>
+    <string name="menu_payments">Payments</string>
+    <string name="menu_notification">Notifications</string>
+    <string name="menu_security">Security</string>
+    <string name="language_selected">English</string>
+    <string name="menu_language">Language</string>
+    <string name="menu_dark_mode">Dark Mode</string>
+    <string name="menu_help_center">Help Center</string>
+    <string name="menu_invite_friends">Invite Friends</string>
+    <string name="menu_logout">Logout</string>
+    <string name="label_face_id">Face ID</string>
+    <string name="label_touch_id">Touch ID</string>
+    <string name="label_google_authenticator">Google Authenticator</string>
+
+    <string name="title_filter">Filter</string>
+    <string name="filter_label">Filter</string>
+    <string name="seller_center_title">Seller Center</string>
+    <string name="performance_overview_label">Performance Overview</string>
+    <string name="active_ads_label">Active Ads</string>
+    <string name="sold_items_label">Sold Items</string>
+    <string name="total_revenue_label">Total Revenue</string>
+    <string name="my_listings_label">My Listings</string>
+    <string name="post_new_ad_button">Post New Ad</string>
+    <string name="post_an_ad">Post an Ad</string>
+    <string name="add_photos">Add Photos</string>
+    <string name="ad_title">Ad Title</string>
+    <string name="price">Price</string>
+    <string name="description">Description</string>
+    <string name="post_advertisement">Post Advertisement</string>
+    <string name="label_category">Category</string>
+    <string name="badge_new">NEW</string>
+    <string name="label_apartment">Apartment</string>
+    <string name="label_owner">Owner</string>
+    <string name="label_price_per_night">%1$s / night</string>
+    <string name="label_price_range">Price Range</string>
+    <string name="label_car_parking">Car Parking</string>
+    <string name="label_gym">Gym</string>
+    <string name="label_restaurant">Restaurant</string>
+    <string name="button_reset">Reset</string>
+    <string name="button_apply">Apply</string>
+    <string name="label_swimming_pool">Swimming Pool</string>
+    <string name="label_total_price">Total Price</string>
+
+    <string name="label_control_alerts">Notification Management</string>
+    <string name="label_offers_promotions">Offers &amp; Promotions</string>
+    <string name="label_faq_what_is_zarur">What is Zarur?</string>
+    <string name="label_faq_how_to_post">How do I post an advertisement?</string>
+    <string name="label_faq_is_it_safe">Is it safe to buy and sell here?</string>
+    <string name="label_contact_us_title">Contact Us</string>
+    <string name="category_general">General</string>
+    <string name="category_account">Account</string>
+    <string name="category_buying">Buying</string>
+    <string name="category_selling">Selling</string>
+    <string name="category_payment">Payment</string>
+
+    <string name="cat_auto">Cars</string>
+    <string name="cat_realty">Real Estate</string>
+    <string name="cat_electronics">Electronics</string>
+    <string name="cat_fashion">Fashion</string>
+    <string name="cat_jobs">Jobs</string>
+    <string name="cat_services">Services</string>
+    <string name="cat_home">Home Appliances</string>
+
+    <string name="cat_transport">Transport</string>
+    <string name="cat_real_estate">Real Estate</string>
+
+    <string name="product_specifications">Specifications</string>
+    <string name="seller_name">Official Store</string>
+    <string name="verified_seller">Verified Seller</string>
+    <string name="visit_seller">Visit</string>
+    <string name="product_description_title">Description</string>
+    <string name="product_description_content">Discover high quality items with verified seller guarantee.</string>
+
+    <string name="default_name_andrew_ainsley">Andrew Ainsley</string>
+    <string name="default_nickname_andrew">Andrew</string>
+    <string name="default_dob">12/27/1995</string>
+    <string name="default_email">andrew_ainsley@yourdomain.com</string>
+    <string name="default_phone">+1 111 467 378 399</string>
+    <string name="default_gender_male">Male</string>
+
+    <string name="store_name_placeholder">My Store (Official)</string>
+    <string name="store_rating_placeholder">4.9 Seller Rating</string>
+    <string name="metric_views">Views</string>
+    <string name="metric_favorites">Favorites</string>
+    <string name="trend_positive_placeholder">+12% this week</string>
+    <string name="trend_neutral_placeholder">No changes</string>
+    <string name="action_add_product">Create</string>
+    <string name="action_marketing">Ads</string>
+    <string name="action_store_settings">Settings</string>
+    <string name="action_earnings">Payouts</string>
+    <string name="label_quick_actions">Quick Actions</string>
+
 </resources>

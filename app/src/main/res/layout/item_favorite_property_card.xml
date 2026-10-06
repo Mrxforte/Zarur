@@ -5,109 +5,113 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardBackgroundColor="?attr/colorSurface"
-    app:cardCornerRadius="24dp"
+    app:cardCornerRadius="16dp"
     app:cardElevation="0dp"
-    app:strokeColor="?attr/colorSurfaceVariant"
+    app:strokeColor="?attr/colorOutline"
     app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp">
+        android:paddingBottom="12dp">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivProperty"
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="160dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/onboarding2"
+            android:src="@drawable/onboarding3"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Large" />
 
-        <LinearLayout
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivFavorite"
+            style="@style/Widget.App.IconContainer"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_favorites"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+            app:tint="?attr/colorPrimary"
+            android:backgroundTint="@color/white_overlay"/>
+
+        <TextView
+            android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:background="@drawable/bg_unread_badge"
-            android:backgroundTint="?attr/colorPrimary"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="2dp"
-            app:layout_constraintEnd_toEndOf="@id/ivProperty"
-            app:layout_constraintTop_toTopOf="@id/ivProperty">
-
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:src="@drawable/ic_favorites"
-                app:tint="@color/white" />
-
-            <TextView
-                android:id="@+id/tvRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:text="4.8"
-                android:textColor="@color/white"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:text="320 000 uzs"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivProperty" />
 
         <TextView
             android:id="@+id/tvPropertyName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="Lucky Lake Apartments"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivProperty" />
-
-        <TextView
-            android:id="@+id/tvPropertyLocation"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
             android:layout_marginTop="4dp"
             android:ellipsize="end"
-            android:maxLines="1"
-            android:text="Beijing, China"
+            android:maxLines="2"
+            android:text="La Grand Maison Luxury Villa"
             android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="12sp"
+            android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvPropertyName" />
+            app:layout_constraintTop_toBottomOf="@id/tvPrice" />
 
-        <LinearLayout
+        <!-- Rating & Cart Button -->
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/tvPropertyLocation">
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="6dp"
+            app:layout_constraintTop_toBottomOf="@id/tvPropertyName">
 
-            <TextView
-                android:id="@+id/tvPrice"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="$32"
-                android:textColor="?attr/colorPrimary"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/ivFavorite"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_favorites"
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/ic_favorites"
+                    app:tint="@color/yellow_uzum" />
+
+                <TextView
+                    android:id="@+id/tvRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="4.7"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/btnAddToCart"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:padding="2dp"
+                android:src="@drawable/ic_add_to_cart"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:tint="?attr/colorPrimary" />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

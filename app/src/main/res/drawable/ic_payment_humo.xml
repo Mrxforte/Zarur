@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="226dp"
+    android:height="167dp"
+    android:viewportWidth="226"
+    android:viewportHeight="167">
+  <group>
+    <!-- Background Card Frame -->
+    <path
+        android:fillColor="#00A859"
+        android:pathData="M35.875 21.3229h153.4578a14.5521 14.5521 0 0114.5521 14.5521v95.2498a14.5521 14.5521 0 01-14.5521 14.5521H35.875a14.5521 14.5521 0 01-14.5521-14.5521V35.875A14.5521 14.5521 0 0135.875 21.3229"/>
+    <!-- Humo Bird Wings Symbol -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M65 75c15-15 35-15 50 0-15 10-35 10-50 0z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M65 92c15-15 35-15 50 0-15 10-35 10-50 0z"/>
+    <!-- Text HUMO -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M128 73h6v9h8v-9h6v21h-6v-8h-8v8h-6zm24 0h6v15h8v-15h6v21h-20zm24 0h6l4 10 4-10h6v21h-6v-12l-4 9-4-9v12h-6z"/>
+  </group>
+</vector>

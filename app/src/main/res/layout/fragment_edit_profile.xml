@@ -52,6 +52,37 @@
             android:orientation="vertical"
             android:padding="24dp">
 
+            <!-- Avatar Upload UI -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/containerAvatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="32dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivAvatar"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/onboarding1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/btnEditAvatar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_profile_edit"
+                    app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
+                    app:layout_constraintEnd_toEndOf="@id/ivAvatar"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+                    app:tint="?attr/colorPrimary" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
@@ -59,9 +90,10 @@
                 android:hint="@string/label_full_name_field">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etFullName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Andrew Ainsley" />
+                    tools:text="Andrew Ainsley" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -72,9 +104,10 @@
                 android:hint="@string/label_nickname">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNickname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Andrew" />
+                    tools:text="Andrew" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -85,9 +118,10 @@
                 android:hint="@string/label_dob">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDob"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="12/27/1995" />
+                    tools:text="12/27/1995" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -98,9 +132,10 @@
                 android:hint="@string/label_email_field">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="andrew_ainsley@yourdomain.com" />
+                    tools:text="andrew_ainsley@yourdomain.com" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -111,9 +146,10 @@
                 android:hint="@string/label_phone_field">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="+1 111 467 378 399" />
+                    tools:text="+1 111 467 378 399" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -124,10 +160,11 @@
                 android:hint="@string/label_gender">
 
                 <AutoCompleteTextView
+                    android:id="@+id/etGender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:text="Male" />
+                    tools:text="Male" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>

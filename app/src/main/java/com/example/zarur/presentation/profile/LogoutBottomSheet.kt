@@ -4,10 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.zarur.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LogoutBottomSheet : BottomSheetDialogFragment() {
+
+    private val profileViewModel: ProfileViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -22,8 +29,9 @@ class LogoutBottomSheet : BottomSheetDialogFragment() {
             dismiss()
         }
         view.findViewById<View>(R.id.btnLogout).setOnClickListener {
-            // Handle Logout
+            profileViewModel.signOut()
             dismiss()
+            findNavController().navigate(R.id.signInFragment)
         }
     }
 }

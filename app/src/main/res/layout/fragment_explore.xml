@@ -7,202 +7,148 @@
     android:background="?attr/colorSurface">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorSurface"
-        android:fitsSystemWindows="true"
         app:elevation="0dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="24dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="8dp">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ivProfile"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/onboarding1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
-
-            <TextView
-                android:id="@+id/tvGreeting"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/greeting_morning"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toStartOf="@+id/ivNotification"
-                app:layout_constraintStart_toEndOf="@id/ivProfile"
-                app:layout_constraintTop_toTopOf="@id/ivProfile" />
-
-            <TextView
-                android:id="@+id/tvName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/profile_name"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/ivProfile"
-                app:layout_constraintEnd_toStartOf="@+id/ivNotification"
-                app:layout_constraintStart_toStartOf="@id/tvGreeting"
-                app:layout_constraintTop_toBottomOf="@id/tvGreeting" />
-
-            <ImageView
-                android:id="@+id/ivNotification"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_marginEnd="16dp"
-                android:src="@drawable/ic_notification"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/ivFavorites"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="?attr/colorOnSurface" />
-
-            <ImageView
-                android:id="@+id/ivFavorites"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:src="@drawable/ic_favorites"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="?attr/colorOnSurface" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="32dp">
+            android:paddingBottom="@dimen/spacing_small">
 
-            <!-- Search Bar -->
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/headerLayout"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/bg_search_bar"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="16dp">
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/spacing_20"
+                android:paddingTop="@dimen/spacing_12"
+                android:paddingBottom="@dimen/spacing_small">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_search"
-                    app:tint="?attr/colorOnSurfaceVariant" />
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivProfile"
+                    android:layout_width="@dimen/icon_size_44"
+                    android:layout_height="@dimen/icon_size_44"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/onboarding1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
 
                 <TextView
+                    android:id="@+id/tvGreeting"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_weight="1"
-                    android:text="@string/hint_search_property"
+                    android:layout_marginStart="@dimen/spacing_12"
+                    android:text="@string/greeting_morning"
                     android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/text_size_small"
+                    app:layout_constraintEnd_toStartOf="@+id/ivSearch"
+                    app:layout_constraintStart_toEndOf="@id/ivProfile"
+                    app:layout_constraintTop_toTopOf="@id/ivProfile" />
 
-                <ImageView
-                    android:id="@+id/ivFilter"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_filter"
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_name"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="@dimen/text_size_title"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/ivSearch"
+                    app:layout_constraintStart_toStartOf="@id/tvGreeting"
+                    app:layout_constraintTop_toBottomOf="@id/tvGreeting" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivSearch"
+                    android:layout_width="@dimen/icon_size_44"
+                    android:layout_height="@dimen/icon_size_44"
+                    android:layout_marginEnd="@dimen/spacing_12"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="?attr/colorSecondary"
+                    android:padding="@dimen/spacing_10"
+                    android:src="@drawable/ic_search"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/ivNotification"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
                     app:tint="?attr/colorPrimary" />
-            </LinearLayout>
 
-            <!-- Featured Section -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:paddingHorizontal="24dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_featured"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvSeeAllFeatured"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_see_all"
-                    android:textColor="?attr/colorPrimary"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivNotification"
+                    android:layout_width="@dimen/icon_size_44"
+                    android:layout_height="@dimen/icon_size_44"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="?attr/colorSecondary"
+                    android:padding="@dimen/spacing_10"
+                    android:src="@drawable/ic_notification"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+                    app:tint="?attr/colorPrimary" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvFeatured"
+            <!-- Collapsible Search Row -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvSearchBar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:clipToPadding="false"
-                android:orientation="horizontal"
-                android:paddingHorizontal="24dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_property_featured" />
+                android:layout_height="@dimen/height_56"
+                android:layout_marginHorizontal="@dimen/spacing_20"
+                android:layout_marginTop="@dimen/spacing_micro"
+                android:visibility="gone"
+                app:cardBackgroundColor="?attr/colorSurfaceVariant"
+                app:cardCornerRadius="@dimen/corner_radius_14"
+                app:cardElevation="0dp"
+                app:strokeWidth="0dp">
 
-            <!-- Category Section -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:paddingHorizontal="24dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/spacing_medium">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_our_recommendation"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:layout_width="@dimen/icon_size_22"
+                        android:layout_height="@dimen/icon_size_22"
+                        android:src="@drawable/ic_search"
+                        app:tint="?attr/colorOnSurfaceVariant" />
 
-                <TextView
-                    android:id="@+id/tvSeeAllRecommendation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_see_all"
-                    android:textColor="?attr/colorPrimary"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <EditText
+                        android:id="@+id/etSearch"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/spacing_12"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="@string/hint_search_property"
+                        android:inputType="text"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textColorHint="?attr/colorOnSurfaceVariant"
+                        android:textSize="@dimen/text_size_15"
+                        android:importantForAutofill="no"/>
 
+                    <ImageView
+                        android:id="@+id/ivFilter"
+                        android:layout_width="@dimen/icon_size_22"
+                        android:layout_height="@dimen/icon_size_22"
+                        android:src="@drawable/ic_filter"
+                        app:tint="?attr/colorPrimary" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Categories Horizontal Row -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/spacing_small"
                 android:clipToPadding="false"
-                android:paddingHorizontal="24dp"
+                android:paddingHorizontal="@dimen/spacing_20"
                 android:scrollbars="none">
 
                 <com.google.android.material.chip.ChipGroup
@@ -213,42 +159,66 @@
                     app:singleSelection="true">
 
                     <com.google.android.material.chip.Chip
-                        style="@style/Widget.Material3.Chip.Filter"
+                        style="@style/Widget.App.Chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
                         android:text="@string/category_all" />
 
                     <com.google.android.material.chip.Chip
-                        style="@style/Widget.Material3.Chip.Filter"
+                        style="@style/Widget.App.Chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/category_house" />
+                        android:text="@string/cat_electronics" />
 
                     <com.google.android.material.chip.Chip
-                        style="@style/Widget.Material3.Chip.Filter"
+                        style="@style/Widget.App.Chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/category_villa" />
+                        android:text="@string/cat_transport" />
 
                     <com.google.android.material.chip.Chip
-                        style="@style/Widget.Material3.Chip.Filter"
+                        style="@style/Widget.App.Chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/category_apartment" />
+                        android:text="@string/cat_real_estate" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.App.Chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cat_jobs" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.App.Chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cat_services" />
                 </com.google.android.material.chip.ChipGroup>
             </HorizontalScrollView>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvRecommendation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:itemCount="5"
-                tools:listitem="@layout/item_property_recommendation" />
-
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include
+        android:id="@+id/shimmerExplore"
+        layout="@layout/layout_shimmer_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/spacing_14"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvRecommendation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingHorizontal="@dimen/spacing_14"
+        android:paddingBottom="@dimen/spacing_100"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:listitem="@layout/item_product_card"
+        tools:visibility="visible" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
