@@ -307,5 +307,7 @@
     <string name="desc_select_payment">Buyurtmani rasmiylashtirish uchun to\'lov usulini tanlang.</string>
     <string name="label_your_cards">Sizning kartalaringiz</string>
     <string name="label_more_payment_options">Boshqa to\'lov usullari</string>
+    <string name="empty_cards_msg">Hali kartalar qo\'shilmagan. Karta ulash uchun Karta qo\'shish tugmasini bosing.</string>
+    <string name="empty_wallets_msg">Elektron hamyonlar mavjud emas.</string>
 
 </resources>

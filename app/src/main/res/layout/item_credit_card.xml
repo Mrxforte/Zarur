@@ -37,32 +37,38 @@
             app:layout_constraintStart_toEndOf="@id/ivChip"
             app:layout_constraintTop_toTopOf="@id/ivChip" />
 
-        <TextView
-            android:id="@+id/tvDefaultBadge"
+        <LinearLayout
+            android:id="@+id/llTopRightActions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#33FFFFFF"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="4dp"
-            android:text="DEFAULT"
-            android:textColor="#FFFFFF"
-            android:textSize="10sp"
-            android:textStyle="bold"
-            android:visibility="visible"
-            app:layout_constraintEnd_toStartOf="@id/btnDeleteCard"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/btnDeleteCard"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Delete Card"
-            android:src="@drawable/ic_delete"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="#FFFFFF" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvDefaultBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#33FFFFFF"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:text="DEFAULT"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/btnDeleteCard"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Delete Card"
+                android:src="@drawable/ic_delete"
+                app:tint="#FFFFFF" />
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/ivBrandLogo"
@@ -72,7 +78,7 @@
             android:scaleType="fitCenter"
             android:src="@drawable/ic_payment_visa"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnDeleteCard" />
+            app:layout_constraintTop_toBottomOf="@id/llTopRightActions" />
 
         <!-- Card Number -->
         <TextView
@@ -148,10 +154,11 @@
 
         <ImageView
             android:id="@+id/ivSelectionCheck"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:src="@drawable/ic_check_circle"
             android:visibility="gone"
+            app:tint="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

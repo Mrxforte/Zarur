@@ -6,14 +6,14 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.zarur.util.showErrorToast
-import com.example.zarur.util.showSuccessToast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.zarur.databinding.BottomSheetAddCardBinding
 import com.example.zarur.domain.model.CardBrand
+import com.example.zarur.util.showErrorToast
+import com.example.zarur.util.showSuccessToast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.launch
 
@@ -36,6 +36,7 @@ class AddCardBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.clearMessages()
         setupLivePreviewCard()
         setupSubmitButton()
         observeState()
@@ -117,15 +118,33 @@ class AddCardBottomSheet : BottomSheetDialogFragment() {
 
     private fun setupSubmitButton() {
         binding.btnAddCardSubmit.setOnClickListener {
-            val holder = binding.etCardHolder.text.toString()
-            val number = binding.etCardNumber.text.toString()
-            val expiry = binding.etExpiry.text.toString()
-            val cvv = binding.etCvv.text.toString()
+            val holder = binding.etCardHolder.text.toString().trim()
+            val number = binding.etCardNumber.text.toString().trim()
+            val expiry = binding.etExpiry.text.toString().trim()
+            val cvv = binding.etCvv.text.toString().trim()
             val isDefault = binding.cbSetDefault.isChecked
+
+            val cleanNum = number.replace("\\s+".toRegex(), "")
+            if (holder.isBlank()) {
+                showErrorToast("Please enter cardholder name")
+                return@setOnClickListener
+            }
+            if (cleanNum.length !in 15..16) {
+                showErrorToast("Card number must be 15 or 16 digits")
+                return@setOnClickListener
+            }
+            if (!expiry.matches("^\\d{2}/\\d{2}\$".toRegex())) {
+                showErrorToast("Expiry date must be in MM/YY format")
+                return@setOnClickListener
+            }
+            if (cvv.length !in 3..4) {
+                showErrorToast("CVV must be 3 or 4 digits")
+                return@setOnClickListener
+            }
 
             viewModel.addCard(
                 cardHolderName = holder,
-                cardNumber = number,
+                cardNumber = cleanNum,
                 expiryDate = expiry,
                 cvv = cvv,
                 isDefault = isDefault

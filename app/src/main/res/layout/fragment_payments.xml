@@ -77,6 +77,17 @@
                 tools:itemCount="2"
                 tools:listitem="@layout/item_credit_card" />
 
+            <TextView
+                android:id="@+id/tvEmptyCards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:gravity="center"
+                android:text="@string/empty_cards_msg"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
             <!-- Section 2: Digital Wallets & Merchant Options -->
             <TextView
                 android:layout_width="wrap_content"
@@ -97,6 +108,17 @@
                 android:nestedScrollingEnabled="false"
                 tools:itemCount="5"
                 tools:listitem="@layout/item_digital_wallet" />
+
+            <TextView
+                android:id="@+id/tvEmptyWallets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:gravity="center"
+                android:text="@string/empty_wallets_msg"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="14sp"
+                android:visibility="gone" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

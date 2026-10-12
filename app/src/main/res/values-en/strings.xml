@@ -306,5 +306,7 @@
     <string name="desc_select_payment">Select the payment method you want to use for checkout.</string>
     <string name="label_your_cards">Your Cards</string>
     <string name="label_more_payment_options">More Payment Options</string>
+    <string name="empty_cards_msg">No cards added yet. Tap Add Card to link your debit or credit card.</string>
+    <string name="empty_wallets_msg">No digital wallets available.</string>
 
 </resources>

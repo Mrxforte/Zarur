@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -12,6 +13,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zarur.databinding.FragmentPaymentsBinding
+import com.example.zarur.domain.model.PaymentMethod
+import com.example.zarur.util.showInfoToast
+import com.example.zarur.util.showSuccessToast
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -54,20 +59,23 @@ class PaymentsFragment : Fragment() {
         cardsAdapter = CardsAdapter(
             isSelectionMode = false,
             onCardClick = { card ->
-                viewModel.setDefaultCard(card.id)
+                if (!card.isDefault) {
+                    viewModel.setDefaultCard(card.id)
+                    showSuccessToast("Primary payment card updated")
+                }
             },
             onDeleteClick = { card ->
-                viewModel.deleteCard(card.id)
+                confirmDeleteCard(card)
             }
         )
 
         walletsAdapter = WalletsAdapter(
             isSelectionMode = false,
             onWalletClick = { wallet ->
-                viewModel.toggleWallet(wallet.id)
+                toggleWallet(wallet)
             },
             onActionClick = { wallet ->
-                viewModel.toggleWallet(wallet.id)
+                toggleWallet(wallet)
             }
         )
 
@@ -79,6 +87,30 @@ class PaymentsFragment : Fragment() {
         binding.rvDigitalWallets.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = walletsAdapter
+        }
+    }
+
+    private fun confirmDeleteCard(card: PaymentMethod) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Delete Payment Card")
+            .setMessage("Are you sure you want to remove ${card.title} (${card.maskedNumber})?")
+            .setPositiveButton("Delete") { dialog, _ ->
+                viewModel.deleteCard(card.id)
+                showInfoToast("Payment card removed")
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun toggleWallet(wallet: PaymentMethod) {
+        viewModel.toggleWallet(wallet.id)
+        if (wallet.isConnected) {
+            showInfoToast("${wallet.title} disconnected")
+        } else {
+            showSuccessToast("${wallet.title} connected")
         }
     }
 
@@ -98,6 +130,9 @@ class PaymentsFragment : Fragment() {
                 viewModel.uiState.collect { state ->
                     cardsAdapter.submitList(state.cards)
                     walletsAdapter.submitList(state.wallets)
+
+                    binding.tvEmptyCards.isVisible = state.cards.isEmpty()
+                    binding.tvEmptyWallets.isVisible = state.wallets.isEmpty()
                 }
             }
         }

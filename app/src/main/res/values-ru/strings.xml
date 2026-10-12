@@ -309,5 +309,7 @@
     <string name="desc_select_payment">Выберите способ оплаты для оформления заказа.</string>
     <string name="label_your_cards">Ваши карты</string>
     <string name="label_more_payment_options">Другие способы оплаты</string>
+    <string name="empty_cards_msg">Карты пока не добавлены. Нажмите Добавить карту, чтобы привязать карту.</string>
+    <string name="empty_wallets_msg">Электронные кошельки недоступны.</string>
 
 </resources>
