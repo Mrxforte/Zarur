@@ -309,5 +309,6 @@
     <string name="label_more_payment_options">Boshqa to\'lov usullari</string>
     <string name="empty_cards_msg">Hali kartalar qo\'shilmagan. Karta ulash uchun Karta qo\'shish tugmasini bosing.</string>
     <string name="empty_wallets_msg">Elektron hamyonlar mavjud emas.</string>
+    <string name="desc_booking_info">Iltimos, quyida aloqa ma\'lumotlaringizni tekshiring yoki kiriting.</string>
 
 </resources>

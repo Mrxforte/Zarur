@@ -312,5 +312,6 @@
     <string name="label_more_payment_options">More Payment Options</string>
     <string name="empty_cards_msg">No cards added yet. Tap Add Card to link your debit or credit card.</string>
     <string name="empty_wallets_msg">No digital wallets available.</string>
+    <string name="desc_booking_info">Please verify or enter your contact details below.</string>
 
 </resources>

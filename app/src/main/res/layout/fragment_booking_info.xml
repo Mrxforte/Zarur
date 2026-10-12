@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurface">
@@ -26,7 +27,17 @@
             android:orientation="vertical"
             android:padding="24dp">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="@string/desc_booking_info"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="14sp" />
+
+            <!-- Full Name -->
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilFullName"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,12 +48,16 @@
                 app:boxCornerRadiusTopStart="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etFullName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Andrew Ainsley" />
+                    android:inputType="textPersonName"
+                    tools:text="Andrew Ainsley" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Nickname -->
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilNickname"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -54,12 +69,16 @@
                 app:boxCornerRadiusTopStart="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNickname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Andrew" />
+                    android:inputType="text"
+                    tools:text="Andrew" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Date of Birth -->
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilDob"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,12 +92,18 @@
                 app:endIconMode="custom">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDob"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="12/27/1995" />
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:inputType="none"
+                    tools:text="12/27/1995" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Email -->
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEmail"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -92,12 +117,16 @@
                 app:endIconMode="custom">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="andrew_ainsley@yourdomain.com" />
+                    android:inputType="textEmailAddress"
+                    tools:text="andrew_ainsley@yourdomain.com" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Phone Number -->
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPhone"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -109,9 +138,11 @@
                 app:boxCornerRadiusTopStart="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="+1 111 467 378 399" />
+                    android:inputType="phone"
+                    tools:text="+1 111 467 378 399" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>

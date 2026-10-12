@@ -311,5 +311,6 @@
     <string name="label_more_payment_options">Другие способы оплаты</string>
     <string name="empty_cards_msg">Карты пока не добавлены. Нажмите Добавить карту, чтобы привязать карту.</string>
     <string name="empty_wallets_msg">Электронные кошельки недоступны.</string>
+    <string name="desc_booking_info">Пожалуйста, проверьте или введите ваши контактные данные ниже.</string>
 
 </resources>
