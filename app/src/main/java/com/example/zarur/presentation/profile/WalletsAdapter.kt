@@ -48,7 +48,11 @@ class WalletsAdapter(
             }
 
             binding.root.setOnClickListener {
-                onWalletClick(wallet)
+                if (isSelectionMode) {
+                    onWalletClick(wallet)
+                } else {
+                    onActionClick?.invoke(wallet)
+                }
             }
         }
     }
