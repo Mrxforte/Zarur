@@ -94,7 +94,7 @@ class SelectPaymentFragment : Fragment() {
         binding.btnContinue.setOnClickListener {
             val selectedId = viewModel.uiState.value.selectedMethodId
             if (selectedId.isNullOrEmpty()) {
-                showInfoToast("Iltimos, to'lov usulini tanlang")
+                showInfoToast(getString(R.string.title_select_payment))
             } else {
                 if (findNavController().currentDestination?.id == R.id.selectPaymentFragment) {
                     findNavController().navigate(R.id.action_selectPaymentFragment_to_reviewSummaryFragment)
