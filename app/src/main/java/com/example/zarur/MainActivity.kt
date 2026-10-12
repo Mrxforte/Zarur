@@ -10,7 +10,6 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.zarur.app.LocaleManager
@@ -31,8 +30,6 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var appPreferences: AppPreferences
-
-    private var destinationListener: NavController.OnDestinationChangedListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,23 +75,20 @@ class MainActivity : AppCompatActivity() {
         
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
 
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            // Bottom Nav Visibility
+            when (destination.id) {
+                R.id.exploreFragment,
+                R.id.favoritesFragment,
+                R.id.messageFragment,
+                R.id.profileFragment -> bottomNav.visibility = View.VISIBLE
+                else -> bottomNav.visibility = View.GONE
+            }
+        }
+
         val root = findViewById<View>(android.R.id.content)
         ViewCompat.setOnApplyWindowInsetsListener(root) { _, insets ->
             val navBars = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
-            
-            destinationListener?.let { navController.removeOnDestinationChangedListener(it) }
-            destinationListener = NavController.OnDestinationChangedListener { _, destination, _ ->
-                // Bottom Nav Visibility
-                when (destination.id) {
-                    R.id.exploreFragment,
-                    R.id.favoritesFragment,
-                    R.id.messageFragment,
-                    R.id.profileFragment -> bottomNav.visibility = View.VISIBLE
-                    else -> bottomNav.visibility = View.GONE
-                }
-            }
-            navController.addOnDestinationChangedListener(destinationListener!!)
-
             bottomNav.updatePadding(bottom = navBars.bottom)
             insets
         }

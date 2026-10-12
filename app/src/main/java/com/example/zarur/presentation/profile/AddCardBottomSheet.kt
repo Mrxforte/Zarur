@@ -175,6 +175,7 @@ class AddCardBottomSheet : BottomSheetDialogFragment() {
     }
 
     override fun onDestroyView() {
+        viewModel.clearMessages()
         super.onDestroyView()
         _binding = null
     }
