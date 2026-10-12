@@ -1,9 +1,8 @@
 package com.example.zarur.presentation
 
 import com.example.zarur.domain.model.ChatMessage
-import com.example.zarur.domain.usecase.GetMessagesUseCase
+import com.example.zarur.domain.repository.ChatRepository
 import com.example.zarur.domain.usecase.IsLoggedInUseCase
-import com.example.zarur.domain.usecase.SendMessageUseCase
 import com.example.zarur.presentation.message.ChatViewModel
 import io.mockk.*
 import kotlinx.coroutines.Dispatchers
@@ -18,10 +17,9 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class ChatViewModelTest {
 
-    private val testDispatcher = UnconfinedTestDispatcher()
+    private val testDispatcher = StandardTestDispatcher()
 
-    private val getMessagesUseCase: GetMessagesUseCase = mockk()
-    private val sendMessageUseCase: SendMessageUseCase = mockk()
+    private val chatRepository: ChatRepository = mockk(relaxed = true)
     private val isLoggedInUseCase: IsLoggedInUseCase = mockk(relaxed = true)
 
     private lateinit var viewModel: ChatViewModel
@@ -29,7 +27,8 @@ class ChatViewModelTest {
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
-        coEvery { sendMessageUseCase(any(), any()) } returns Unit
+        every { chatRepository.getConversations() } returns flowOf(emptyList())
+        every { chatRepository.getMessages("default_chat_id") } returns flowOf(emptyList())
     }
 
     @After
@@ -38,20 +37,22 @@ class ChatViewModelTest {
     }
 
     @Test
-    fun testLoadMessages_empty_populatesDefaults() = runTest {
-        every { getMessagesUseCase("default_chat_id") } returns flowOf(emptyList())
+    fun testLoadMessages_empty() = runTest {
+        every { chatRepository.getMessages("default_chat_id") } returns flowOf(emptyList())
 
-        viewModel = ChatViewModel(getMessagesUseCase, sendMessageUseCase, isLoggedInUseCase)
+        viewModel = ChatViewModel(chatRepository, isLoggedInUseCase)
+        advanceUntilIdle()
 
-        coVerify(atLeast = 1) { sendMessageUseCase("default_chat_id", any()) }
+        assertTrue(viewModel.messages.value.isEmpty())
     }
 
     @Test
     fun testLoadMessages_nonEmpty() = runTest {
         val msgs = listOf(ChatMessage(id = "1", text = "Hello"))
-        every { getMessagesUseCase("default_chat_id") } returns flowOf(msgs)
+        every { chatRepository.getMessages("default_chat_id") } returns flowOf(msgs)
 
-        viewModel = ChatViewModel(getMessagesUseCase, sendMessageUseCase, isLoggedInUseCase)
+        viewModel = ChatViewModel(chatRepository, isLoggedInUseCase)
+        advanceUntilIdle()
 
         assertEquals(1, viewModel.messages.value.size)
         assertEquals("Hello", viewModel.messages.value[0].text)
@@ -59,12 +60,16 @@ class ChatViewModelTest {
 
     @Test
     fun testSendMessage() = runTest {
-        every { getMessagesUseCase("default_chat_id") } returns flowOf(listOf(ChatMessage(id = "1", text = "Hi")))
+        val msgs = listOf(ChatMessage(id = "1", text = "Hi"))
+        every { chatRepository.getMessages("default_chat_id") } returns flowOf(msgs)
 
-        viewModel = ChatViewModel(getMessagesUseCase, sendMessageUseCase, isLoggedInUseCase)
+        viewModel = ChatViewModel(chatRepository, isLoggedInUseCase)
+        advanceUntilIdle()
 
         viewModel.sendMessage("How much is this?")
-        coVerify { sendMessageUseCase("default_chat_id", match { it.text == "How much is this?" }) }
+        advanceUntilIdle()
+
+        coVerify { chatRepository.sendMessage("default_chat_id", match { it.text == "How much is this?" }) }
 
         viewModel.sendMessage("   ") // Blank message ignored
     }

@@ -281,4 +281,34 @@
     <string name="action_earnings">Payouts</string>
     <string name="label_quick_actions">Quick Actions</string>
 
+    <!-- Hardcoded Fixes / Added Strings -->
+    <string name="desc_change_pin">Enter your new 4-digit PIN</string>
+    <string name="tip_change_pin">This PIN will be used for confirming payments</string>
+    <string name="button_save_pin">Save PIN</string>
+    <string name="button_comment">Comment</string>
+    <string name="no_reviews_yet">No reviews yet. Be the first to leave a review!</string>
+    <string name="similar_listings">Similar Listings</string>
+    <string name="seller_listings">Seller\'s Listings</string>
+    <string name="desc_add_card">Enter card details below to add a secure payment card.</string>
+    <string name="label_set_default_card">Set as default payment card</string>
+    <string name="label_name">Name</string>
+    <string name="label_phone_number">Phone Number</string>
+    <string name="label_transaction_id">Transaction ID</string>
+    <string name="label_status">Status</string>
+    <string name="status_paid">Paid</string>
+    <string name="tab_cart">Cart</string>
+    <string name="button_invite_friends">Invite Friends Now</string>
+    <string name="tab_chats">Chats</string>
+    <string name="tab_calls">Calls</string>
+    <string name="title_credit_cards">Credit &amp; Debit Cards</string>
+    <string name="title_connected_wallets">Connected Wallets &amp; Merchants</string>
+    <string name="label_date">Date</string>
+    <string name="label_amount">Amount</string>
+    <string name="label_tax">Tax</string>
+    <string name="label_total">Total</string>
+    <string name="button_change">Change</string>
+    <string name="desc_select_payment">Select the payment method you want to use for checkout.</string>
+    <string name="label_your_cards">Your Cards</string>
+    <string name="label_more_payment_options">More Payment Options</string>
+
 </resources>

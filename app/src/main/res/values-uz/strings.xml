@@ -275,4 +275,37 @@
     <string name="action_earnings">To\'lovlar</string>
     <string name="label_quick_actions">Tezkor harakatlar</string>
 
+    <string name="hint_image_url">Rasm URL manzili</string>
+    <string name="cat_transport">Transport</string>
+    <string name="cat_real_estate">Ko\'chmas mulk</string>
+
+    <string name="desc_change_pin">Yangi 4 xonali PIN kodni kiriting</string>
+    <string name="tip_change_pin">Ushbu PIN to\'lovlarni tasdiqlash uchun ishlatiladi</string>
+    <string name="button_save_pin">PIN kodni saqlash</string>
+    <string name="button_comment">Izoh qoldirish</string>
+    <string name="no_reviews_yet">Hali sharhlar yo\'q. Birinchi bo\'lib sharh qoldiring!</string>
+    <string name="similar_listings">O\'xshash e\'lonlar</string>
+    <string name="seller_listings">Sotuvchining e\'lonlari</string>
+    <string name="desc_add_card">Xavfsiz to\'lov kartasini qo\'shish uchun karta ma\'lumotlarini kiriting.</string>
+    <string name="label_set_default_card">Asosiy to\'lov kartasi sifatida belgilash</string>
+    <string name="label_name">Ismi</string>
+    <string name="label_phone_number">Telefon raqami</string>
+    <string name="label_transaction_id">Tranzaksiya ID</string>
+    <string name="label_status">Holat</string>
+    <string name="status_paid">To\'langan</string>
+    <string name="tab_cart">Savat</string>
+    <string name="button_invite_friends">Do\'stlarni taklif qilish</string>
+    <string name="tab_chats">Suhbatlar</string>
+    <string name="tab_calls">Qo\'ng\'iroqlar</string>
+    <string name="title_credit_cards">Kredit va debet kartalari</string>
+    <string name="title_connected_wallets">Ulanishgan hamyonlar</string>
+    <string name="label_date">Sana</string>
+    <string name="label_amount">Summa</string>
+    <string name="label_tax">Soliq</string>
+    <string name="label_total">Jami</string>
+    <string name="button_change">O\'zgartirish</string>
+    <string name="desc_select_payment">Buyurtmani rasmiylashtirish uchun to\'lov usulini tanlang.</string>
+    <string name="label_your_cards">Sizning kartalaringiz</string>
+    <string name="label_more_payment_options">Boshqa to\'lov usullari</string>
+
 </resources>

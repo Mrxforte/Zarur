@@ -1,6 +1,8 @@
 package com.example.zarur.presentation
 
+import com.example.zarur.data.local.AppPreferences
 import com.example.zarur.domain.model.Product
+import com.example.zarur.domain.model.Resource
 import com.example.zarur.domain.usecase.GetPropertiesUseCase
 import com.example.zarur.domain.usecase.GetUserProfileUseCase
 import com.example.zarur.domain.usecase.IsLoggedInUseCase
@@ -33,6 +35,7 @@ class ExploreViewModelTest {
     private val toggleCartUseCase: ToggleCartUseCase = mockk(relaxed = true)
     private val isLoggedInUseCase: IsLoggedInUseCase = mockk(relaxed = true)
     private val getUserProfileUseCase: GetUserProfileUseCase = mockk(relaxed = true)
+    private val appPreferences: AppPreferences = mockk(relaxed = true)
 
     private lateinit var viewModel: ExploreViewModel
 
@@ -43,7 +46,8 @@ class ExploreViewModelTest {
         coEvery { syncPropertiesUseCase() } returns Unit
         every { getPropertiesUseCase(any()) } returns flowOf(emptyList())
         every { searchPropertiesUseCase(any()) } returns flowOf(emptyList())
-        every { getUserProfileUseCase() } returns flowOf(com.example.zarur.domain.model.Resource.Success(null))
+        every { getUserProfileUseCase() } returns flowOf(Resource.Success(null))
+        every { appPreferences.unreadNotificationCount } returns 0
 
         viewModel = ExploreViewModel(
             getPropertiesUseCase,
@@ -52,7 +56,8 @@ class ExploreViewModelTest {
             toggleFavoriteUseCase,
             toggleCartUseCase,
             isLoggedInUseCase,
-            getUserProfileUseCase
+            getUserProfileUseCase,
+            appPreferences
         )
     }
 

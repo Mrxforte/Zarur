@@ -368,7 +368,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="36dp"
                             android:paddingHorizontal="12dp"
-                            android:text="Cancel"
+                            android:text="@string/button_cancel"
                             android:textColor="?attr/colorOnSurfaceVariant"
                             android:textSize="13sp" />
 
@@ -378,7 +378,7 @@
                             android:layout_height="36dp"
                             android:layout_marginStart="8dp"
                             android:paddingHorizontal="16dp"
-                            android:text="Comment"
+                            android:text="@string/button_comment"
                             android:textAllCaps="false"
                             android:textSize="13sp"
                             android:textStyle="bold"
@@ -394,7 +394,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:text="No reviews yet. Be the first to leave a review!"
+                android:text="@string/no_reviews_yet"
                 android:textColor="?attr/colorOnSurfaceVariant"
                 android:textSize="14sp"
                 android:visibility="gone" />
@@ -419,7 +419,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="O'xshash e'lonlar"
+                android:text="@string/similar_listings"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="18sp"
                 android:textStyle="bold" />

@@ -15,21 +15,6 @@ class WalletsAdapter(
     private val onActionClick: ((PaymentMethod) -> Unit)? = null
 ) : ListAdapter<PaymentMethod, WalletsAdapter.WalletViewHolder>(WalletDiffCallback()) {
 
-    private var selectedMethodId: String? = null
-
-    fun submitListWithSelection(list: List<PaymentMethod>?, selectedId: String?) {
-        selectedMethodId = selectedId
-        super.submitList(list)
-    }
-
-    fun setSelectedId(id: String?) {
-        if (selectedMethodId == id) return
-        selectedMethodId = id
-        if (itemCount > 0) {
-            notifyItemRangeChanged(0, itemCount)
-        }
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WalletViewHolder {
         val binding = ItemDigitalWalletBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
@@ -52,7 +37,7 @@ class WalletsAdapter(
             if (isSelectionMode) {
                 binding.btnAction.visibility = View.GONE
                 binding.rbSelectWallet.visibility = View.VISIBLE
-                binding.rbSelectWallet.isChecked = wallet.id == selectedMethodId
+                binding.rbSelectWallet.isChecked = wallet.isSelected
             } else {
                 binding.rbSelectWallet.visibility = View.GONE
                 binding.btnAction.visibility = View.VISIBLE
@@ -63,9 +48,6 @@ class WalletsAdapter(
             }
 
             binding.root.setOnClickListener {
-                if (isSelectionMode) {
-                    setSelectedId(wallet.id)
-                }
                 onWalletClick(wallet)
             }
         }
@@ -77,7 +59,7 @@ class WalletsAdapter(
         }
 
         override fun areContentsTheSame(oldItem: PaymentMethod, newItem: PaymentMethod): Boolean {
-            return oldItem == newItem && oldItem.isConnected == newItem.isConnected
+            return oldItem == newItem
         }
     }
 }

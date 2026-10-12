@@ -49,4 +49,8 @@ class AppPreferences @Inject constructor(context: Context) {
     var notifPayments: Boolean
         get() = prefs.getBoolean("notif_payments", true)
         set(value) = prefs.edit().putBoolean("notif_payments", value).apply()
+
+    var unreadNotificationCount: Int
+        get() = prefs.getInt("unread_notif_count", 3)
+        set(value) = prefs.edit().putInt("unread_notif_count", value).apply()
 }

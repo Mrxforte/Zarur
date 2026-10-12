@@ -53,7 +53,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Credit &amp; Debit Cards"
+                    android:text="@string/title_credit_cards"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -63,7 +63,7 @@
                     style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+ Add Card"
+                    android:text="@string/button_add_new_card"
                     android:textColor="?attr/colorPrimary"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -84,7 +84,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="8dp"
-                android:text="Connected Wallets &amp; Merchants"
+                android:text="@string/title_connected_wallets"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="18sp"
                 android:textStyle="bold" />

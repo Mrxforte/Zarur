@@ -94,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="32dp"
-                android:text="Invite Friends Now"
+                android:text="@string/button_invite_friends"
                 android:textAllCaps="false"
                 android:textSize="16sp"
                 android:textStyle="bold"

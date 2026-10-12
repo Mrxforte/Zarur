@@ -15,21 +15,6 @@ class CardsAdapter(
     private val onDeleteClick: ((PaymentMethod) -> Unit)? = null
 ) : ListAdapter<PaymentMethod, CardsAdapter.CardViewHolder>(CardDiffCallback()) {
 
-    private var selectedMethodId: String? = null
-
-    fun submitListWithSelection(list: List<PaymentMethod>?, selectedId: String?) {
-        selectedMethodId = selectedId
-        super.submitList(list)
-    }
-
-    fun setSelectedId(id: String?) {
-        if (selectedMethodId == id) return
-        selectedMethodId = id
-        if (itemCount > 0) {
-            notifyItemRangeChanged(0, itemCount)
-        }
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
         val binding = ItemCreditCardBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
@@ -55,8 +40,7 @@ class CardsAdapter(
 
             if (isSelectionMode) {
                 binding.btnDeleteCard.visibility = View.GONE
-                val isSelected = card.id == selectedMethodId || (selectedMethodId == null && card.isDefault)
-                binding.ivSelectionCheck.visibility = if (isSelected) View.VISIBLE else View.GONE
+                binding.ivSelectionCheck.visibility = if (card.isSelected) View.VISIBLE else View.GONE
             } else {
                 binding.ivSelectionCheck.visibility = View.GONE
                 binding.btnDeleteCard.visibility = if (onDeleteClick != null) View.VISIBLE else View.GONE
@@ -66,9 +50,6 @@ class CardsAdapter(
             }
 
             binding.root.setOnClickListener {
-                if (isSelectionMode) {
-                    setSelectedId(card.id)
-                }
                 onCardClick(card)
             }
         }
@@ -80,7 +61,7 @@ class CardsAdapter(
         }
 
         override fun areContentsTheSame(oldItem: PaymentMethod, newItem: PaymentMethod): Boolean {
-            return oldItem == newItem && oldItem.isDefault == newItem.isDefault
+            return oldItem == newItem
         }
     }
 }

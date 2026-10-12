@@ -142,6 +142,16 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
                     }
                 }
                 launch {
+                    viewModel.unreadNotificationCount.collect { count ->
+                        if (count > 0) {
+                            binding.tvNotificationBadge.isVisible = true
+                            binding.tvNotificationBadge.text = if (count > 99) "99+" else count.toString()
+                        } else {
+                            binding.tvNotificationBadge.isVisible = false
+                        }
+                    }
+                }
+                launch {
                     viewModel.properties.collect { products ->
                         adapter.submitList(products)
                         if (products.isNotEmpty()) {
@@ -157,6 +167,11 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.refreshUnreadNotificationCount()
     }
 
     override fun onDestroyView() {

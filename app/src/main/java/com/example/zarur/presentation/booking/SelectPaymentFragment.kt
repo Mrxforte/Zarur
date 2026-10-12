@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.zarur.util.showInfoToast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -18,6 +17,7 @@ import com.example.zarur.presentation.profile.AddCardBottomSheet
 import com.example.zarur.presentation.profile.CardsAdapter
 import com.example.zarur.presentation.profile.PaymentViewModel
 import com.example.zarur.presentation.profile.WalletsAdapter
+import com.example.zarur.util.showInfoToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -62,7 +62,6 @@ class SelectPaymentFragment : Fragment() {
             isSelectionMode = true,
             onCardClick = { card ->
                 viewModel.selectMethod(card.id)
-                walletsAdapter.setSelectedId(null)
             }
         )
 
@@ -70,7 +69,6 @@ class SelectPaymentFragment : Fragment() {
             isSelectionMode = true,
             onWalletClick = { wallet ->
                 viewModel.selectMethod(wallet.id)
-                cardsAdapter.setSelectedId(null)
             }
         )
 
@@ -110,10 +108,16 @@ class SelectPaymentFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { state ->
                     val selectedId = state.selectedMethodId
-                    val isCardSelected = state.cards.any { it.id == selectedId }
 
-                    cardsAdapter.submitListWithSelection(state.cards, if (isCardSelected) selectedId else null)
-                    walletsAdapter.submitListWithSelection(state.wallets, if (!isCardSelected && state.wallets.any { it.id == selectedId }) selectedId else null)
+                    val cardsWithSelection = state.cards.map { card ->
+                        card.copy(isSelected = (card.id == selectedId || (selectedId == null && card.isDefault)))
+                    }
+                    val walletsWithSelection = state.wallets.map { wallet ->
+                        wallet.copy(isSelected = (wallet.id == selectedId))
+                    }
+
+                    cardsAdapter.submitList(cardsWithSelection)
+                    walletsAdapter.submitList(walletsWithSelection)
 
                     binding.progressBar.visibility = if (state.isLoading) View.VISIBLE else View.GONE
                     binding.btnContinue.isEnabled = !state.isLoading

@@ -34,7 +34,8 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_payment_paypal" />
+                android:src="@drawable/ic_payment_paypal"
+                android:contentDescription="Wallet Icon" />
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
@@ -80,6 +81,8 @@
             android:id="@+id/rbSelectWallet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

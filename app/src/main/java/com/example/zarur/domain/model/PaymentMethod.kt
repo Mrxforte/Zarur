@@ -44,9 +44,9 @@ enum class CardBrand(val brandName: String, val iconResId: Int, val bgResId: Int
 
 data class PaymentMethod(
     val id: String,
-    val type: PaymentType,
-    val brand: CardBrand,
-    val title: String,
+    val type: PaymentType = PaymentType.CARD,
+    val brand: CardBrand = CardBrand.OTHER,
+    val title: String = "",
     val cardHolderName: String = "",
     val cardNumber: String = "", // unmasked or formatted
     val maskedNumber: String = "",
@@ -54,7 +54,8 @@ data class PaymentMethod(
     val cvv: String = "",
     val isDefault: Boolean = false,
     val isConnected: Boolean = true,
-    val balance: String? = null
+    val balance: String? = null,
+    val isSelected: Boolean = false
 ) {
     val formattedDisplayNumber: String
         get() {
@@ -69,8 +70,8 @@ data class PaymentMethod(
         }
 
     val iconResId: Int
-        get() = brand.iconResId
+        get() = (brand ?: CardBrand.OTHER).iconResId
 
     val bgResId: Int
-        get() = brand.bgResId
+        get() = (brand ?: CardBrand.OTHER).bgResId
 }

@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Enter card details below to add a secure payment card."
+            android:text="@string/desc_add_card"
             android:textColor="?attr/colorOnSurfaceVariant"
             android:textSize="13sp" />
 
@@ -147,7 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:checked="true"
-            android:text="Set as default payment card"
+            android:text="@string/label_set_default_card"
             android:textColor="?attr/colorOnSurface"
             android:textSize="14sp" />
 

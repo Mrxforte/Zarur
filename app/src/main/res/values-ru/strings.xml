@@ -279,4 +279,35 @@
     <string name="action_earnings">Выплаты</string>
     <string name="label_quick_actions">Быстрые действия</string>
 
+    <string name="hint_image_url">URL изображения</string>
+
+    <string name="desc_change_pin">Введите ваш новый 4-значный PIN-код</string>
+    <string name="tip_change_pin">Этот PIN будет использоваться для подтверждения платежей</string>
+    <string name="button_save_pin">Сохранить PIN</string>
+    <string name="button_comment">Комментировать</string>
+    <string name="no_reviews_yet">Отзывов пока нет. Будьте первым!</string>
+    <string name="similar_listings">Похожие объявления</string>
+    <string name="seller_listings">Объявления продавца</string>
+    <string name="desc_add_card">Введите данные карты ниже, чтобы добавить платежную карту.</string>
+    <string name="label_set_default_card">Сделать картой по умолчанию</string>
+    <string name="label_name">Имя</string>
+    <string name="label_phone_number">Номер телефона</string>
+    <string name="label_transaction_id">ID транзакции</string>
+    <string name="label_status">Статус</string>
+    <string name="status_paid">Оплачено</string>
+    <string name="tab_cart">Корзина</string>
+    <string name="button_invite_friends">Пригласить друзей</string>
+    <string name="tab_chats">Чаты</string>
+    <string name="tab_calls">Звонки</string>
+    <string name="title_credit_cards">Кредитные и дебетовые карты</string>
+    <string name="title_connected_wallets">Подключенные кошельки</string>
+    <string name="label_date">Дата</string>
+    <string name="label_amount">Сумма</string>
+    <string name="label_tax">Налог</string>
+    <string name="label_total">Итого</string>
+    <string name="button_change">Изменить</string>
+    <string name="desc_select_payment">Выберите способ оплаты для оформления заказа.</string>
+    <string name="label_your_cards">Ваши карты</string>
+    <string name="label_more_payment_options">Другие способы оплаты</string>
+
 </resources>

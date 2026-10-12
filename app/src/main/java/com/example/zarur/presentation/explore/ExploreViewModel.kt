@@ -2,6 +2,7 @@ package com.example.zarur.presentation.explore
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.zarur.data.local.AppPreferences
 import com.example.zarur.domain.model.Product
 import com.example.zarur.domain.model.Resource
 import com.example.zarur.domain.model.User
@@ -27,11 +28,18 @@ class ExploreViewModel @Inject constructor(
     private val toggleFavoriteUseCase: ToggleFavoriteUseCase,
     private val toggleCartUseCase: ToggleCartUseCase,
     private val isLoggedInUseCase: IsLoggedInUseCase,
-    private val getUserProfileUseCase: GetUserProfileUseCase
+    private val getUserProfileUseCase: GetUserProfileUseCase,
+    private val appPreferences: AppPreferences
 ) : ViewModel() {
 
     private val _category = MutableStateFlow<String?>(null)
     private val _searchQuery = MutableStateFlow("")
+    private val _unreadNotificationCount = MutableStateFlow(appPreferences.unreadNotificationCount)
+    val unreadNotificationCount: StateFlow<Int> = _unreadNotificationCount.asStateFlow()
+
+    fun refreshUnreadNotificationCount() {
+        _unreadNotificationCount.value = appPreferences.unreadNotificationCount
+    }
 
     val userProfile: StateFlow<User?> = getUserProfileUseCase()
         .map { (it as? Resource.Success)?.data }

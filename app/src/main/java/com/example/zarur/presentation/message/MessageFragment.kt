@@ -8,13 +8,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.zarur.R
 import com.example.zarur.databinding.FragmentMessageBinding
+import com.example.zarur.domain.model.ChatConversation
 import com.example.zarur.domain.usecase.IsLoggedInUseCase
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -23,8 +29,12 @@ class MessageFragment : Fragment(R.layout.fragment_message) {
     private var _binding: FragmentMessageBinding? = null
     private val binding get() = _binding!!
 
+    private val viewModel: ChatViewModel by activityViewModels()
+
     @Inject
     lateinit var isLoggedInUseCase: IsLoggedInUseCase
+
+    private lateinit var chatAdapter: ChatAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,30 +45,35 @@ class MessageFragment : Fragment(R.layout.fragment_message) {
             return
         }
 
+        setupRecyclerView()
+        observeViewModel()
+    }
+
+    private fun setupRecyclerView() {
         binding.rvChats.layoutManager = LinearLayoutManager(context)
-
-        val chats = listOf(
-            Chat("Natasya Wilodra", "Of course, the apartment is...", "16:00", 2, R.drawable.onboarding1),
-            Chat("Charolette Hanlin", "Okay, Do we have a deal?", "14:45", 0, R.drawable.onboarding2),
-            Chat("Elmer Laverty", "It's nice working with you", "10:38", 0, R.drawable.onboarding3),
-            Chat("Alleen Fullbright", "Will the contract be sent?", "Yesterday", 0, R.drawable.onboarding1),
-            Chat("Tanner Stafford", "Wow, this is really epic", "Yesterday", 0, R.drawable.onboarding2)
-        )
-
-        binding.rvChats.adapter = ChatAdapter(chats) {
-            findNavController().navigate(R.id.chatDetailFragment)
+        chatAdapter = ChatAdapter(emptyList()) { conv ->
+            viewModel.loadMessages(conv.chatId)
+            findNavController().navigate(R.id.action_messageFragment_to_chatDetailFragment)
         }
+        binding.rvChats.adapter = chatAdapter
+    }
 
+    private fun observeViewModel() {
         binding.shimmerChat.root.isVisible = true
         binding.rvChats.isVisible = false
         binding.shimmerChat.shimmerChatContainer.startShimmer()
-        binding.rvChats.postDelayed({
-            if (_binding != null) {
-                binding.shimmerChat.shimmerChatContainer.stopShimmer()
-                binding.shimmerChat.root.isVisible = false
-                binding.rvChats.isVisible = true
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.conversations.collect { conversations ->
+                    chatAdapter.updateChats(conversations)
+
+                    binding.shimmerChat.shimmerChatContainer.stopShimmer()
+                    binding.shimmerChat.root.isVisible = false
+                    binding.rvChats.isVisible = true
+                }
             }
-        }, 1000)
+        }
     }
 
     override fun onDestroyView() {
@@ -66,16 +81,15 @@ class MessageFragment : Fragment(R.layout.fragment_message) {
         _binding = null
     }
 
-    private data class Chat(
-        val name: String,
-        val lastMessage: String,
-        val time: String,
-        val unreadCount: Int,
-        val avatar: Int
-    )
+    private inner class ChatAdapter(
+        private var chats: List<ChatConversation>,
+        private val onClick: (ChatConversation) -> Unit
+    ) : RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
 
-    private inner class ChatAdapter(private val chats: List<Chat>, private val onClick: () -> Unit) :
-        RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
+        fun updateChats(newChats: List<ChatConversation>) {
+            chats = newChats
+            notifyDataSetChanged()
+        }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_chat, parent, false)
@@ -85,7 +99,7 @@ class MessageFragment : Fragment(R.layout.fragment_message) {
         override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
             val chat = chats[position]
             holder.bind(chat)
-            holder.itemView.setOnClickListener { onClick() }
+            holder.itemView.setOnClickListener { onClick(chat) }
         }
 
         override fun getItemCount(): Int = chats.size
@@ -97,11 +111,11 @@ class MessageFragment : Fragment(R.layout.fragment_message) {
             private val tvTime = view.findViewById<TextView>(R.id.tvTime)
             private val tvUnreadCount = view.findViewById<TextView>(R.id.tvUnreadCount)
 
-            fun bind(chat: Chat) {
-                ivAvatar.setImageResource(chat.avatar)
-                tvName.text = chat.name
+            fun bind(chat: ChatConversation) {
+                ivAvatar.setImageResource(R.drawable.onboarding1)
+                tvName.text = chat.sellerName
                 tvLastMessage.text = chat.lastMessage
-                tvTime.text = chat.time
+                tvTime.text = chat.lastMessageTime
                 if (chat.unreadCount > 0) {
                     tvUnreadCount.visibility = View.VISIBLE
                     tvUnreadCount.text = chat.unreadCount.toString()

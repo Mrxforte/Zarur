@@ -42,8 +42,21 @@ class PaymentRepositoryImpl @Inject constructor(
         } else {
             try {
                 val type = object : TypeToken<List<PaymentMethod>>() {}.type
-                val loaded: List<PaymentMethod> = gson.fromJson(json, type)
-                paymentMethodsState.value = loaded.ifEmpty { createInitialDefaultMethods() }
+                val loaded: List<PaymentMethod>? = gson.fromJson(json, type)
+                val sanitized = loaded?.map { method ->
+                    method.copy(
+                        type = method.type ?: PaymentType.CARD,
+                        brand = method.brand ?: CardBrand.OTHER
+                    )
+                } ?: emptyList()
+
+                if (sanitized.isEmpty()) {
+                    val initialList = createInitialDefaultMethods()
+                    saveToPrefs(initialList)
+                    paymentMethodsState.value = initialList
+                } else {
+                    paymentMethodsState.value = sanitized
+                }
             } catch (e: Exception) {
                 val initialList = createInitialDefaultMethods()
                 saveToPrefs(initialList)
@@ -106,6 +119,18 @@ class PaymentRepositoryImpl @Inject constructor(
                 maskedNumber = "•••• •••• •••• 5678",
                 expiryDate = "11/26",
                 cvv = "999",
+                isDefault = false
+            ),
+            PaymentMethod(
+                id = "card_5",
+                type = PaymentType.CARD,
+                brand = CardBrand.HUMO,
+                title = "Humo Premium",
+                cardHolderName = "Andrew Ainsley",
+                cardNumber = "9860123456781234",
+                maskedNumber = "•••• •••• •••• 1234",
+                expiryDate = "10/27",
+                cvv = "777",
                 isDefault = false
             ),
             PaymentMethod(
@@ -241,7 +266,6 @@ class PaymentRepositoryImpl @Inject constructor(
         val itemToDelete = currentList.find { it.id == id } ?: return Resource.Error("Method not found")
         currentList.remove(itemToDelete)
 
-        // If default card was removed, assign default to first remaining card
         if (itemToDelete.isDefault) {
             val firstCardIndex = currentList.indexOfFirst { it.type == PaymentType.CARD }
             if (firstCardIndex != -1) {
@@ -283,7 +307,7 @@ class PaymentRepositoryImpl @Inject constructor(
 
     override fun processPaymentSimulation(methodId: String, amount: Double): Flow<Resource<String>> = flow {
         emit(Resource.Loading)
-        delay(1000) // Simulate merchant processing network request
+        delay(1000)
         val method = paymentMethodsState.value.find { it.id == methodId }
         if (method != null) {
             val txnId = "TXN-" + System.currentTimeMillis().toString().takeLast(8)

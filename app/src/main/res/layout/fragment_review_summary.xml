@@ -55,7 +55,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Date"
+                            android:text="@string/label_date"
                             android:textColor="?attr/colorOnSurfaceVariant"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -76,7 +76,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Check in"
+                            android:text="@string/label_check_in"
                             android:textColor="?attr/colorOnSurfaceVariant"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -97,7 +97,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Check out"
+                            android:text="@string/label_check_out"
                             android:textColor="?attr/colorOnSurfaceVariant"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -135,7 +135,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Amount (5 days)"
+                            android:text="@string/label_amount"
                             android:textColor="?attr/colorOnSurfaceVariant"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -156,7 +156,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Tax"
+                            android:text="@string/label_tax"
                             android:textColor="?attr/colorOnSurfaceVariant"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -183,7 +183,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total"
+                            android:text="@string/label_total"
                             android:textColor="?attr/colorOnSurfaceVariant"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -238,7 +238,7 @@
                         android:id="@+id/tvChangePayment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Change"
+                        android:text="@string/button_change"
                         android:textColor="?attr/colorPrimary"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"

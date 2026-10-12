@@ -67,14 +67,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Name"
+                            android:text="@string/label_name"
                             android:textColor="?attr/colorOnSurfaceVariant"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Andrew Ainsley"
+                            android:text="@string/default_name_andrew_ainsley"
                             android:textColor="?attr/colorOnSurface"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -88,14 +88,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Phone Number"
+                            android:text="@string/label_phone_number"
                             android:textColor="?attr/colorOnSurfaceVariant"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="+1 111 467 378 399"
+                            android:text="@string/default_phone"
                             android:textColor="?attr/colorOnSurface"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -109,7 +109,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Transaction ID"
+                            android:text="@string/label_transaction_id"
                             android:textColor="?attr/colorOnSurfaceVariant"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -130,7 +130,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Status"
+                            android:text="@string/label_status"
                             android:textColor="?attr/colorOnSurfaceVariant"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -141,7 +141,7 @@
                             android:backgroundTint="?attr/colorSecondary"
                             android:paddingHorizontal="8dp"
                             android:paddingVertical="4dp"
-                            android:text="Paid"
+                            android:text="@string/status_paid"
                             android:textColor="?attr/colorPrimary"
                             android:textSize="10sp"
                             android:textStyle="bold"
@@ -160,7 +160,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_margin="24dp"
-        android:text="Leave a Review"
+        android:text="@string/title_leave_review"
         app:cornerRadius="28dp"
         app:layout_constraintBottom_toBottomOf="parent" />
 

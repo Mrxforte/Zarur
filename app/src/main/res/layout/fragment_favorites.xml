@@ -31,12 +31,12 @@
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Favorites" />
+                    android:text="@string/tab_favorites" />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cart" />
+                    android:text="@string/tab_cart" />
             </com.google.android.material.tabs.TabLayout>
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
