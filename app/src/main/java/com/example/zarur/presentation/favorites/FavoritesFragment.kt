@@ -2,7 +2,10 @@ package com.example.zarur.presentation.favorites
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -20,6 +23,9 @@ import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+
+import com.example.zarur.util.ensureAuth
+import com.example.zarur.util.showAuthRequiredDialog
 
 @AndroidEntryPoint
 class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
@@ -40,13 +46,22 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         _binding = FragmentFavoritesBinding.bind(view)
 
         if (!isLoggedInUseCase()) {
-            findNavController().navigate(R.id.authHubFragment)
-            return
+            showAuthRequiredDialog()
         }
 
         setupRecyclerView()
+        setupInsets()
         setupListeners()
         observeViewModel()
+    }
+
+    private fun setupInsets() {
+        val initialPaddingTop = binding.appBarLayout.paddingTop
+        ViewCompat.setOnApplyWindowInsetsListener(binding.appBarLayout) { v, insets ->
+            val statusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars())
+            v.updatePadding(top = initialPaddingTop + statusBars.top)
+            insets
+        }
     }
     
     private fun observeViewModel() {
@@ -60,7 +75,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
                 launch {
                     viewModel.favoriteProducts.collectLatest { favorites ->
                         if (currentTab == 0) {
-                            binding.tvFavoritesCount.text = "${favorites.size} favorites"
+                            binding.tvFavoritesCount.text = getString(R.string.favorites_count_text, favorites.size)
                             favoritesAdapter.submitList(favorites)
                             if (isFirstEmit) {
                                 isFirstEmit = false
@@ -73,7 +88,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
                 launch {
                     viewModel.cartProducts.collectLatest { cart ->
                         if (currentTab == 1) {
-                            binding.tvFavoritesCount.text = "${cart.size} items in cart"
+                            binding.tvFavoritesCount.text = getString(R.string.cart_count_text, cart.size)
                             favoritesAdapter.submitList(cart)
                             hideShimmer()
                         }
@@ -98,12 +113,17 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
                 findNavController().navigate(R.id.productDetailFragment, bundle)
             },
             onFavoriteClick = { product ->
-                if (!isLoggedInUseCase()) {
-                    findNavController().navigate(R.id.authHubFragment)
-                } else if (currentTab == 0) {
-                    viewModel.toggleFavorite(product)
-                } else {
-                    viewModel.removeFromCart(product)
+                ensureAuth(isLoggedInUseCase()) {
+                    if (currentTab == 0) {
+                        viewModel.toggleFavorite(product)
+                    } else {
+                        viewModel.removeFromCart(product)
+                    }
+                }
+            },
+            onAddToCartClick = { product ->
+                ensureAuth(isLoggedInUseCase()) {
+                    viewModel.toggleCart(product)
                 }
             }
         )
@@ -141,11 +161,11 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     private fun updateCurrentList() {
         if (currentTab == 0) {
             val favorites = viewModel.favoriteProducts.value
-            binding.tvFavoritesCount.text = "${favorites.size} favorites"
+            binding.tvFavoritesCount.text = getString(R.string.favorites_count_text, favorites.size)
             favoritesAdapter.submitList(favorites)
         } else {
             val cart = viewModel.cartProducts.value
-            binding.tvFavoritesCount.text = "${cart.size} items in cart"
+            binding.tvFavoritesCount.text = getString(R.string.cart_count_text, cart.size)
             favoritesAdapter.submitList(cart)
         }
     }

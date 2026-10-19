@@ -5,10 +5,10 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
-    app:cardBackgroundColor="?attr/colorSurface"
+    app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="20dp"
     app:cardElevation="0dp"
-    app:strokeColor="?attr/colorSurfaceVariant"
+    app:strokeColor="@color/neutral_200"
     app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,7 +43,7 @@
             <ImageView
                 android:layout_width="8dp"
                 android:layout_height="8dp"
-                android:src="@drawable/ic_favorites"
+                android:src="@drawable/ic_star"
                 app:tint="@color/white" />
 
             <TextView

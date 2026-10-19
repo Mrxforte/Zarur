@@ -54,7 +54,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
-                    android:src="@drawable/ic_favorites"
+                    android:src="@drawable/ic_star"
                     app:tint="@color/yellow_uzum" />
 
                 <ImageView
@@ -65,7 +65,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
-                    android:src="@drawable/ic_favorites"
+                    android:src="@drawable/ic_star"
                     app:tint="@color/yellow_uzum" />
 
                 <ImageView
@@ -76,7 +76,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
-                    android:src="@drawable/ic_favorites"
+                    android:src="@drawable/ic_star"
                     app:tint="@color/yellow_uzum" />
 
                 <ImageView
@@ -87,7 +87,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
-                    android:src="@drawable/ic_favorites"
+                    android:src="@drawable/ic_star"
                     app:tint="@color/yellow_uzum" />
 
                 <ImageView
@@ -98,7 +98,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?attr/selectableItemBackgroundBorderless"
-                    android:src="@drawable/ic_favorites"
+                    android:src="@drawable/ic_star"
                     app:tint="@color/yellow_uzum" />
             </LinearLayout>
 

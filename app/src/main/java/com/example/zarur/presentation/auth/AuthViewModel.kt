@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.zarur.domain.model.Resource
 import com.example.zarur.domain.model.User
 import com.example.zarur.domain.usecase.SignInUseCase
-import com.example.zarur.domain.usecase.SignInWithGoogleUseCase
 import com.example.zarur.domain.usecase.SignUpUseCase
+import com.example.zarur.domain.usecase.UpdatePasswordUseCase
 import com.example.zarur.presentation.common.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,8 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
-    private val signInWithGoogleUseCase: SignInWithGoogleUseCase,
-    private val signUpUseCase: SignUpUseCase
+    private val signUpUseCase: SignUpUseCase,
+    private val updatePasswordUseCase: UpdatePasswordUseCase
 ) : ViewModel() {
 
     private val _signInState = MutableStateFlow<UiState<User>?>(null)
@@ -28,21 +28,12 @@ class AuthViewModel @Inject constructor(
     private val _signUpState = MutableStateFlow<UiState<User>?>(null)
     val signUpState: StateFlow<UiState<User>?> = _signUpState.asStateFlow()
 
+    private val _updatePasswordState = MutableStateFlow<UiState<Unit>?>(null)
+    val updatePasswordState: StateFlow<UiState<Unit>?> = _updatePasswordState.asStateFlow()
+
     fun signIn(email: String, password: String) {
         viewModelScope.launch {
             signInUseCase(email, password).collect { resource ->
-                _signInState.value = when (resource) {
-                    is Resource.Loading -> UiState.Loading
-                    is Resource.Success -> UiState.Success(resource.data)
-                    is Resource.Error -> UiState.Error(resource.message)
-                }
-            }
-        }
-    }
-
-    fun signInWithGoogle(idToken: String) {
-        viewModelScope.launch {
-            signInWithGoogleUseCase(idToken).collect { resource ->
                 _signInState.value = when (resource) {
                     is Resource.Loading -> UiState.Loading
                     is Resource.Success -> UiState.Success(resource.data)
@@ -64,11 +55,27 @@ class AuthViewModel @Inject constructor(
         }
     }
 
+    fun updatePassword(newPassword: String) {
+        viewModelScope.launch {
+            updatePasswordUseCase(newPassword).collect { resource ->
+                _updatePasswordState.value = when (resource) {
+                    is Resource.Loading -> UiState.Loading
+                    is Resource.Success -> UiState.Success(Unit)
+                    is Resource.Error -> UiState.Error(resource.message)
+                }
+            }
+        }
+    }
+
     fun resetSignInState() {
         _signInState.value = null
     }
 
     fun resetSignUpState() {
         _signUpState.value = null
+    }
+
+    fun resetUpdatePasswordState() {
+        _updatePasswordState.value = null
     }
 }

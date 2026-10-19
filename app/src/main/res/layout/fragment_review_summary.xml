@@ -29,6 +29,7 @@
 
             <!-- Property Preview -->
             <include
+                android:id="@+id/cardPropertyPreview"
                 layout="@layout/item_favorite_property_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -60,9 +61,10 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                         <TextView
+                            android:id="@+id/tvDateRange"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Dec 23 - Dec 27 2022"
+                            android:text="Dec 28 - Jan 02 2025"
                             android:textColor="?attr/colorOnSurface"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -81,9 +83,10 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                         <TextView
+                            android:id="@+id/tvCheckInDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="December 23, 2022"
+                            android:text="Dec 28, 2024"
                             android:textColor="?attr/colorOnSurface"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -102,9 +105,10 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                         <TextView
+                            android:id="@+id/tvCheckOutDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="December 27, 2022"
+                            android:text="Jan 02, 2025"
                             android:textColor="?attr/colorOnSurface"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -140,9 +144,10 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                         <TextView
+                            android:id="@+id/tvAmount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="$145.00"
+                            android:text="1 200 000 uzs"
                             android:textColor="?attr/colorOnSurface"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -161,9 +166,10 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                         <TextView
+                            android:id="@+id/tvTax"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="$5.00"
+                            android:text="0 uzs"
                             android:textColor="?attr/colorOnSurface"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -188,9 +194,10 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                         <TextView
+                            android:id="@+id/tvTotal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="$150.00"
+                            android:text="1 200 000 uzs"
                             android:textColor="?attr/colorOnSurface"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -228,7 +235,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:text="•••• •••• •••• 4679"
+                        android:text="Uzcard / Humo"
                         android:textColor="?attr/colorOnSurface"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"

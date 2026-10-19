@@ -57,7 +57,7 @@
             <ImageView
                 android:layout_width="12dp"
                 android:layout_height="12dp"
-                android:src="@drawable/ic_favorites"
+                android:src="@drawable/ic_star"
                 app:tint="@color/yellow_uzum" />
 
             <TextView

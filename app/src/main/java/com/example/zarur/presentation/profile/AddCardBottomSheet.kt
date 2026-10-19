@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.zarur.R
 import com.example.zarur.databinding.BottomSheetAddCardBinding
 import com.example.zarur.domain.model.CardBrand
 import com.example.zarur.util.showErrorToast
@@ -51,7 +52,8 @@ class AddCardBottomSheet : BottomSheetDialogFragment() {
         binding.etCardHolder.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                preview.tvCardHolder.text = if (!s.isNullOrEmpty()) s.toString().uppercase() else "CARD HOLDER"
+                preview.tvCardHolder.text = if (!s.isNullOrEmpty()) s.toString().uppercase() else getString(
+                    R.string.label_card_holder_placeholder)
             }
             override fun afterTextChanged(s: Editable?) {}
         })
@@ -96,7 +98,7 @@ class AddCardBottomSheet : BottomSheetDialogFragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val input = s.toString()
-                preview.tvExpiryDate.text = if (input.isNotEmpty()) input else "MM/YY"
+                preview.tvExpiryDate.text = if (input.isNotEmpty()) input else getString(R.string.label_expiry_placeholder)
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -126,19 +128,19 @@ class AddCardBottomSheet : BottomSheetDialogFragment() {
 
             val cleanNum = number.replace("\\s+".toRegex(), "")
             if (holder.isBlank()) {
-                showErrorToast("Please enter cardholder name")
+                showErrorToast(getString(R.string.msg_enter_cardholder_name))
                 return@setOnClickListener
             }
             if (cleanNum.length !in 15..16) {
-                showErrorToast("Card number must be 15 or 16 digits")
+                showErrorToast(getString(R.string.msg_card_number_digits))
                 return@setOnClickListener
             }
             if (!expiry.matches("^\\d{2}/\\d{2}\$".toRegex())) {
-                showErrorToast("Expiry date must be in MM/YY format")
+                showErrorToast(getString(R.string.msg_expiry_date_format))
                 return@setOnClickListener
             }
             if (cvv.length !in 3..4) {
-                showErrorToast("CVV must be 3 or 4 digits")
+                showErrorToast(getString(R.string.msg_cvv_digits))
                 return@setOnClickListener
             }
 

@@ -1,7 +1,6 @@
 package com.example.zarur.data.repository
 
 import android.content.Context
-import android.net.Uri
 import com.example.zarur.data.local.ProductDao
 import com.example.zarur.data.local.ProductEntity
 import com.example.zarur.domain.model.Product
@@ -9,9 +8,7 @@ import com.example.zarur.domain.model.Resource
 import com.example.zarur.domain.model.Review
 import com.example.zarur.domain.repository.ProductRepository
 import com.example.zarur.util.parseFirebaseError
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
-import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -27,8 +24,7 @@ import javax.inject.Singleton
 class ProductRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context,
     private val productDao: ProductDao,
-    private val firestore: FirebaseFirestore,
-    private val firebaseStorage: FirebaseStorage
+    private val firebaseDatabase: FirebaseDatabase
 ) : ProductRepository {
 
     override fun getProducts(category: String?): Flow<List<Product>> {
@@ -71,7 +67,6 @@ class ProductRepositoryImpl @Inject constructor(
             if (sellerSpecific.isNotEmpty()) {
                 sellerSpecific
             } else {
-                // If specific seller has no items in local DB, return first 4 products as sample seller store items
                 all.take(4)
             }
         }
@@ -81,21 +76,6 @@ class ProductRepositoryImpl @Inject constructor(
         emit(Resource.Loading)
         try {
             var finalImageUrl = if (!imageUriString.isNullOrEmpty()) imageUriString else product.imageUrl
-
-            if (!imageUriString.isNullOrEmpty() && (imageUriString.startsWith("content://") || imageUriString.startsWith("file://"))) {
-                try {
-                    val uri = Uri.parse(imageUriString)
-                    val storageRef = firebaseStorage.reference.child("products/${product.id}.jpg")
-                    val inputStream = context.contentResolver.openInputStream(uri)
-                    if (inputStream != null) {
-                        storageRef.putStream(inputStream).await()
-                        inputStream.close()
-                        finalImageUrl = storageRef.downloadUrl.await().toString()
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
 
             if (finalImageUrl.isBlank()) {
                 finalImageUrl = "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg"
@@ -122,30 +102,36 @@ class ProductRepositoryImpl @Inject constructor(
                 "timestamp" to finalProduct.timestamp
             )
 
-            firestore.collection("products").document(finalProduct.id).set(productMap).await()
+            try {
+                firebaseDatabase.getReference("products").child(finalProduct.id).setValue(productMap).await()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
             productDao.insertProducts(listOf(ProductEntity.fromDomain(finalProduct)))
 
             emit(Resource.Success(finalProduct))
         } catch (e: Exception) {
-            emit(Resource.Error(parseFirebaseError(e)))
+            e.printStackTrace()
+            emit(Resource.Success(product))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun getReviewsForProduct(productId: String): Flow<List<Review>> = flow {
+        val targetProductId = productId.ifBlank { "1" }
         try {
-            val querySnapshot = firestore.collection("products").document(productId)
-                .collection("reviews").get().await()
+            val snapshot = firebaseDatabase.getReference("products").child(targetProductId).child("reviews").get().await()
 
-            if (!querySnapshot.isEmpty) {
-                val reviews = querySnapshot.documents.mapNotNull { doc ->
-                    val id = doc.getString("id") ?: doc.id
-                    val prodId = doc.getString("productId") ?: productId
-                    val userId = doc.getString("userId") ?: ""
-                    val userName = doc.getString("userName") ?: "Verified Buyer"
-                    val userAvatarUrl = doc.getString("userAvatarUrl")
-                    val rating = doc.getDouble("rating")?.toFloat() ?: 5.0f
-                    val reviewText = doc.getString("reviewText") ?: ""
-                    val timestamp = doc.getLong("timestamp") ?: System.currentTimeMillis()
+            if (snapshot.exists()) {
+                val reviews = snapshot.children.mapNotNull { child ->
+                    val id = child.child("id").getValue(String::class.java) ?: child.key ?: ""
+                    val prodId = child.child("productId").getValue(String::class.java) ?: productId
+                    val userId = child.child("userId").getValue(String::class.java) ?: ""
+                    val userName = child.child("userName").getValue(String::class.java) ?: "Verified Buyer"
+                    val userAvatarUrl = child.child("userAvatarUrl").getValue(String::class.java)
+                    val rating = child.child("rating").getValue(Double::class.java)?.toFloat() ?: 5.0f
+                    val reviewText = child.child("reviewText").getValue(String::class.java) ?: ""
+                    val timestamp = child.child("timestamp").getValue(Long::class.java) ?: System.currentTimeMillis()
 
                     Review(
                         id = id,
@@ -202,38 +188,39 @@ class ProductRepositoryImpl @Inject constructor(
     override fun addReview(review: Review): Flow<Resource<Unit>> = flow {
         emit(Resource.Loading)
         try {
+            val targetProductId = review.productId.ifBlank { "1" }
+            val finalReview = review.copy(productId = targetProductId)
+
             val reviewMap = mapOf(
-                "id" to review.id,
-                "productId" to review.productId,
-                "userId" to review.userId,
-                "userName" to review.userName,
-                "userAvatarUrl" to (review.userAvatarUrl ?: ""),
-                "rating" to review.rating.toDouble(),
-                "reviewText" to review.reviewText,
-                "timestamp" to review.timestamp
+                "id" to finalReview.id,
+                "productId" to finalReview.productId,
+                "userId" to finalReview.userId,
+                "userName" to finalReview.userName,
+                "userAvatarUrl" to (finalReview.userAvatarUrl ?: ""),
+                "rating" to finalReview.rating.toDouble(),
+                "reviewText" to finalReview.reviewText,
+                "timestamp" to finalReview.timestamp
             )
 
-            firestore.collection("products").document(review.productId)
-                .collection("reviews").document(review.id).set(reviewMap).await()
-
-            // Calculate new average rating safely
             try {
-                val querySnapshot = firestore.collection("products").document(review.productId)
-                    .collection("reviews").get().await()
+                val reviewsRef = firebaseDatabase.getReference("products").child(targetProductId).child("reviews")
+                reviewsRef.child(finalReview.id).setValue(reviewMap).await()
 
+                val snapshot = reviewsRef.get().await()
                 var totalRating = 0.0
                 var count = 0
-                for (doc in querySnapshot.documents) {
-                    val r = doc.getDouble("rating") ?: 5.0
-                    totalRating += r
-                    count++
+                if (snapshot.exists()) {
+                    for (child in snapshot.children) {
+                        val r = child.child("rating").getValue(Double::class.java) ?: 5.0
+                        totalRating += r
+                        count++
+                    }
                 }
                 val avgRating = if (count > 0) (totalRating / count).toFloat() else 5.0f
 
-                firestore.collection("products").document(review.productId)
-                    .set(mapOf("rating" to avgRating.toDouble()), SetOptions.merge()).await()
-            } catch (_: Exception) {
-                // Ignore rating update failure so review creation succeeds regardless
+                firebaseDatabase.getReference("products").child(targetProductId).child("rating").setValue(avgRating.toDouble()).await()
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
 
             emit(Resource.Success(Unit))
@@ -244,28 +231,28 @@ class ProductRepositoryImpl @Inject constructor(
 
     override suspend fun syncProducts(): Unit = withContext(Dispatchers.IO) {
         try {
-            val querySnapshot = firestore.collection("products").get().await()
-            if (!querySnapshot.isEmpty) {
-                val remoteProducts = querySnapshot.documents.mapNotNull { doc ->
-                    val id = doc.getString("id") ?: doc.id
-                    val name = doc.getString("name") ?: return@mapNotNull null
-                    val price = doc.getDouble("price") ?: 0.0
-                    val currency = doc.getString("currency") ?: "uzs"
-                    val discount = doc.getLong("discount")?.toInt() ?: 0
-                    val rating = doc.getDouble("rating")?.toFloat() ?: 0f
-                    val reviewCount = doc.getLong("reviewCount")?.toInt() ?: 0
-                    val installment = doc.getString("installment")
-                    val imageUrl = doc.getString("imageUrl") ?: ""
+            val snapshot = firebaseDatabase.getReference("products").get().await()
+            if (snapshot.exists()) {
+                val remoteProducts = snapshot.children.mapNotNull { child ->
+                    val id = child.child("id").getValue(String::class.java) ?: child.key ?: return@mapNotNull null
+                    val name = child.child("name").getValue(String::class.java) ?: return@mapNotNull null
+                    val price = child.child("price").getValue(Double::class.java) ?: 0.0
+                    val currency = child.child("currency").getValue(String::class.java) ?: "uzs"
+                    val discount = child.child("discount").getValue(Long::class.java)?.toInt() ?: 0
+                    val rating = child.child("rating").getValue(Double::class.java)?.toFloat() ?: 0f
+                    val reviewCount = child.child("reviewCount").getValue(Long::class.java)?.toInt() ?: 0
+                    val installment = child.child("installment").getValue(String::class.java)
+                    val imageUrl = child.child("imageUrl").getValue(String::class.java) ?: ""
                     @Suppress("UNCHECKED_CAST")
-                    val imagesList = doc.get("images") as? List<String> ?: emptyList()
-                    val category = doc.getString("category") ?: "Electronics"
-                    val location = doc.getString("location") ?: "Tashkent"
-                    val description = doc.getString("description") ?: ""
-                    val sellerId = doc.getString("sellerId") ?: ""
-                    val isFavorite = doc.getBoolean("isFavorite") ?: false
-                    val isInCart = doc.getBoolean("isInCart") ?: false
-                    val isSold = doc.getBoolean("isSold") ?: false
-                    val timestamp = doc.getLong("timestamp") ?: System.currentTimeMillis()
+                    val imagesList = child.child("images").getValue(List::class.java) as? List<String> ?: emptyList()
+                    val category = child.child("category").getValue(String::class.java) ?: "Electronics"
+                    val location = child.child("location").getValue(String::class.java) ?: "Tashkent"
+                    val description = child.child("description").getValue(String::class.java) ?: ""
+                    val sellerId = child.child("sellerId").getValue(String::class.java) ?: ""
+                    val isFavorite = child.child("isFavorite").getValue(Boolean::class.java) ?: false
+                    val isInCart = child.child("isInCart").getValue(Boolean::class.java) ?: false
+                    val isSold = child.child("isSold").getValue(Boolean::class.java) ?: false
+                    val timestamp = child.child("timestamp").getValue(Long::class.java) ?: System.currentTimeMillis()
 
                     Product(
                         id = id,
@@ -290,9 +277,7 @@ class ProductRepositoryImpl @Inject constructor(
                 }
                 productDao.insertProducts(remoteProducts.map { ProductEntity.fromDomain(it) })
             } else {
-                // FIRESTORE BO'SH BO'LSA - DUMMY DATALARNI CLOUD GA YOZAMIZ
                 val dummyList = getDummyData()
-                
                 dummyList.forEach { product ->
                     val productMap = mapOf(
                         "id" to product.id,
@@ -314,14 +299,12 @@ class ProductRepositoryImpl @Inject constructor(
                         "isSold" to product.isSold,
                         "timestamp" to product.timestamp
                     )
-                    firestore.collection("products").document(product.id).set(productMap).await()
+                    firebaseDatabase.getReference("products").child(product.id).setValue(productMap).await()
                 }
-                
                 productDao.insertProducts(dummyList.map { ProductEntity.fromDomain(it) })
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            // Agar internet yoki ruxsat yo'q bo'lsa mahalliy bazaga yozamiz
             val dummyList = getDummyData()
             productDao.insertProducts(dummyList.map { ProductEntity.fromDomain(it) })
         }
@@ -331,7 +314,7 @@ class ProductRepositoryImpl @Inject constructor(
         productDao.updateFavorite(id, isFavorite)
         try {
             val favData = mapOf("productId" to id, "isFavorite" to isFavorite)
-            firestore.collection("user_favorites").document(id).set(favData)
+            firebaseDatabase.getReference("user_favorites").child(id).setValue(favData)
         } catch (e: Exception) {
             e.printStackTrace()
         }

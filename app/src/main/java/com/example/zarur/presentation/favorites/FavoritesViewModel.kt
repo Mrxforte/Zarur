@@ -42,6 +42,12 @@ class FavoritesViewModel @Inject constructor(
         }
     }
 
+    fun toggleCart(product: Product) {
+        viewModelScope.launch {
+            toggleCartUseCase(product.id, !product.isInCart)
+        }
+    }
+
     fun removeFromCart(product: Product) {
         viewModelScope.launch {
             toggleCartUseCase(product.id, false)

@@ -47,42 +47,42 @@ class HelpCenterFragment : Fragment(R.layout.fragment_help_center) {
             FaqItem(
                 category = "General",
                 question = getString(R.string.label_faq_what_is_zarur),
-                answer = "Zarur — bu ko'chmas mulk (uylar, kvartiralar, villalar), avtomobillar hamda turli xil e'lonlar va mahsulotlarni sotish, xarid qilish va band qilish (booking) imkonini beruvchi zamonaviy marketplace ilovasidir."
+                answer = getString(R.string.label_faq_what_is_zarur_a)
             ),
             FaqItem(
                 category = "Selling",
                 question = getString(R.string.label_faq_how_to_post),
-                answer = "Profil bo'limidagi 'Sotuvchi rejimiga o'tish' (Switch to Seller Mode) tugmasini bosing. Sotuvchi panelida 'E'lon yaratish' tugmasi orqali rasm yuklab, sarlavha, narx va toifa ma'lumotlarini kiritib e'loningizni chop etishingiz mumkin."
+                answer = getString(R.string.label_faq_how_to_post_a)
             ),
             FaqItem(
                 category = "Buying",
-                question = "Mulk yoki mahsulotni qanday band qilish (Book) mumkin?",
-                answer = "Yoqtirgan e'loningiz sahifasiga kirib, 'Hozir band qilish' (Book Now) tugmasini bosing. Kerakli sana va to'lov turini tanlab, to'lovni tasdiqlang. Muvaffaqiyatli band qilingandan so'ng elektron kvitansiya (E-Receipt) shakllanadi."
+                question = getString(R.string.label_faq_book_how_q),
+                answer = getString(R.string.label_faq_book_how_a)
             ),
             FaqItem(
                 category = "Buying",
-                question = "Sotuvchi bilan qanday bog'lanish mumkin?",
-                answer = "Har bir e'lon sahifasida 'Chat' hamda qo'ng'iroq (Ovozli va Video) tugmalari mavjud. Siz ilova ichida sotuvchiga xabar yozishingiz va to'g'ridan-to me'zonida muloqot qilishingiz mumkin."
+                question = getString(R.string.label_faq_contact_seller_q),
+                answer = getString(R.string.label_faq_contact_seller_a)
             ),
             FaqItem(
                 category = "Buying",
-                question = "Savat va Saralanganlar bo'limi qanday ishlaydi?",
-                answer = "E'lon kartasidagi yurakcha belgisini bosish orqali saralanganlarga, savat tugmasi orqali esa xarid savatiga qo'shishingiz mumkin. Pastki menyudagi 'Favorites' bo'limi orqali barcha saqlangan mahsulotlarni boshqarishingiz mumkin."
+                question = getString(R.string.label_faq_cart_favorites_q),
+                answer = getString(R.string.label_faq_cart_favorites_a)
             ),
             FaqItem(
                 category = "General",
                 question = getString(R.string.label_faq_is_it_safe),
-                answer = "Barcha foydalanuvchilar va to'lov tranzaksiyalari Firebase xavfsizlik protokollari orqali himoyalanadi. Siz uzcard, humo, visa yoki boshqa to'lov tizimlaridan xavfsiz foydalanishingiz mumkin."
+                answer = getString(R.string.label_faq_is_it_safe_a)
             ),
             FaqItem(
                 category = "Account",
-                question = "Profil va ilova tilini qanday o'zgartirish mumkin?",
-                answer = "Profil -> 'Til' (Language) bo'limiga kirib O'zbekcha, Ruscha yoki Inglizcha tillaridan birini tanlashingiz mumkin. Shuningdek, Profil -> 'Tungi rejim' orqali quyuq va yorug' mavzularni almashtirishingiz mumkin."
+                question = getString(R.string.label_faq_language_theme_q),
+                answer = getString(R.string.label_faq_language_theme_a)
             ),
             FaqItem(
                 category = "Account",
-                question = "Parolni unutgan bo'lsam, qanday tiklayman?",
-                answer = "Kirish sahifasidagi 'Parolni unutdingizmi?' havolasini bosing. Emailingizga tiklash havolasi yuboriladi va u orqali yangi parol o'rnatishingiz mumkin."
+                question = getString(R.string.label_faq_forgot_pass_q),
+                answer = getString(R.string.label_faq_forgot_pass_a)
             )
         )
     }

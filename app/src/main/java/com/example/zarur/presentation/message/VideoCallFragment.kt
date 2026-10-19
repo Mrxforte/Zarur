@@ -17,12 +17,17 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.zarur.R
+import com.example.zarur.domain.model.CallStatus
+import com.example.zarur.domain.model.CallType
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class VideoCallFragment : Fragment(R.layout.fragment_video_call) {
+
+    private val viewModel: ChatViewModel by activityViewModels()
 
     private var cameraDevice: CameraDevice? = null
     private var captureSession: CameraCaptureSession? = null
@@ -30,6 +35,7 @@ class VideoCallFragment : Fragment(R.layout.fragment_video_call) {
     private var isMuted = false
     private var isCameraOn = true
     private var facingLens = CameraCharacteristics.LENS_FACING_FRONT
+    private var callStartTime: Long = 0L
 
     private val requestCameraPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -40,7 +46,7 @@ class VideoCallFragment : Fragment(R.layout.fragment_video_call) {
                     textureView.surfaceTextureListener = surfaceTextureListener
                 }
             } else {
-                Toast.makeText(requireContext(), "Camera permission required for video call", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.msg_camera_permission_required), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -57,9 +63,10 @@ class VideoCallFragment : Fragment(R.layout.fragment_video_call) {
         super.onViewCreated(view, savedInstanceState)
 
         textureView = view.findViewById(R.id.textureViewLocalCamera)
+        callStartTime = SystemClock.elapsedRealtime()
 
         val chronometer = view.findViewById<Chronometer>(R.id.tvVideoCallTimer)
-        chronometer.base = SystemClock.elapsedRealtime()
+        chronometer.base = callStartTime
         chronometer.start()
 
         checkPermissionAndStartCamera()
@@ -81,6 +88,13 @@ class VideoCallFragment : Fragment(R.layout.fragment_video_call) {
         view.findViewById<View>(R.id.btnEndVideoCall).setOnClickListener {
             chronometer.stop()
             closeCamera()
+            val durationSeconds = (SystemClock.elapsedRealtime() - callStartTime) / 1000
+            viewModel.recordCallLog(
+                callerName = "Natasya Wilodra",
+                callType = CallType.VIDEO,
+                callStatus = CallStatus.OUTGOING,
+                durationSeconds = durationSeconds
+            )
             findNavController().popBackStack()
         }
     }

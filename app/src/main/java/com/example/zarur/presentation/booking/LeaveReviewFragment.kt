@@ -4,7 +4,6 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,17 +13,27 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.zarur.R
 import com.example.zarur.databinding.FragmentLeaveReviewBinding
+import com.example.zarur.domain.usecase.IsLoggedInUseCase
 import com.example.zarur.presentation.common.UiState
 import com.example.zarur.util.showErrorToast
+import com.example.zarur.util.showInfoToast
 import com.example.zarur.util.showSuccessToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+import com.example.zarur.util.ensureAuth
+import com.example.zarur.util.showAuthRequiredDialog
 
 @AndroidEntryPoint
 class LeaveReviewFragment : Fragment(R.layout.fragment_leave_review) {
 
     private var _binding: FragmentLeaveReviewBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var isLoggedInUseCase: IsLoggedInUseCase
+
     private val viewModel: LeaveReviewViewModel by viewModels()
 
     private var selectedRating: Float = 5.0f
@@ -33,6 +42,10 @@ class LeaveReviewFragment : Fragment(R.layout.fragment_leave_review) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentLeaveReviewBinding.bind(view)
+
+        if (!isLoggedInUseCase()) {
+            showAuthRequiredDialog()
+        }
 
         stars = listOf(binding.star1, binding.star2, binding.star3, binding.star4, binding.star5)
 
@@ -44,8 +57,10 @@ class LeaveReviewFragment : Fragment(R.layout.fragment_leave_review) {
     private fun setupStarRating() {
         stars.forEachIndexed { index, starImageView ->
             starImageView.setOnClickListener {
-                selectedRating = (index + 1).toFloat()
-                updateStarTints()
+                ensureAuth(isLoggedInUseCase()) {
+                    selectedRating = (index + 1).toFloat()
+                    updateStarTints()
+                }
             }
         }
         updateStarTints()
@@ -71,14 +86,17 @@ class LeaveReviewFragment : Fragment(R.layout.fragment_leave_review) {
         }
 
         binding.btnSubmit.setOnClickListener {
-            val productId = arguments?.getString("productId") ?: "1"
-            val reviewText = binding.etReviewText.text?.toString()?.trim() ?: ""
+            ensureAuth(isLoggedInUseCase()) {
+                val rawProductId = arguments?.getString("productId")
+                val productId = if (rawProductId.isNullOrBlank()) "1" else rawProductId
+                val reviewText = binding.etReviewText.text?.toString()?.trim() ?: ""
 
-            viewModel.submitReview(
-                productId = productId,
-                rating = selectedRating,
-                reviewText = reviewText
-            )
+                viewModel.submitReview(
+                    productId = productId,
+                    rating = selectedRating,
+                    reviewText = reviewText
+                )
+            }
         }
 
         binding.btnMaybeLater.setOnClickListener {
@@ -93,12 +111,12 @@ class LeaveReviewFragment : Fragment(R.layout.fragment_leave_review) {
                     when (state) {
                         is UiState.Loading -> {
                             binding.btnSubmit.isEnabled = false
-                            binding.btnSubmit.text = "Submitting..."
+                            binding.btnSubmit.text = getString(R.string.submitting)
                         }
                         is UiState.Success -> {
                             binding.btnSubmit.isEnabled = true
                             binding.btnSubmit.text = getString(R.string.button_submit)
-                            showSuccessToast("Thank you for your review!")
+                            showSuccessToast(getString(R.string.msg_thank_you_review))
                             viewModel.resetState()
                             findNavController().navigateUp()
                         }

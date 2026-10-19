@@ -1,8 +1,9 @@
 package com.example.zarur.presentation.seller
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,9 +15,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.zarur.R
 import com.example.zarur.databinding.FragmentSellerStoreBinding
+import com.example.zarur.domain.usecase.IsLoggedInUseCase
 import com.example.zarur.presentation.common.ProductAdapter
+import com.example.zarur.util.ensureAuth
+import com.example.zarur.util.showAuthRequiredDialog
+import com.example.zarur.util.showInfoToast
 import com.example.zarur.util.showSuccessToast
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -27,6 +34,9 @@ class SellerStoreFragment : Fragment(R.layout.fragment_seller_store) {
     private val binding get() = _binding!!
     private val viewModel: SellerStoreViewModel by viewModels()
 
+    @Inject
+    lateinit var isLoggedInUseCase: IsLoggedInUseCase
+
     private lateinit var sellerProductAdapter: ProductAdapter
     private lateinit var relatedProductAdapter: ProductAdapter
 
@@ -35,7 +45,7 @@ class SellerStoreFragment : Fragment(R.layout.fragment_seller_store) {
         _binding = FragmentSellerStoreBinding.bind(view)
 
         val sellerId = arguments?.getString("sellerId") ?: ""
-        val sellerName = arguments?.getString("sellerName") ?: "Official Seller Store"
+        val sellerName = arguments?.getString("sellerName") ?: getString(R.string.official_seller_store)
         val sellerAvatar = arguments?.getString("sellerAvatar")
 
         if (sellerId.isNotEmpty()) {
@@ -69,8 +79,14 @@ class SellerStoreFragment : Fragment(R.layout.fragment_seller_store) {
                 findNavController().navigate(R.id.productDetailFragment, bundle)
             },
             onAddToCartClick = { product ->
-                viewModel.addToCart(product)
-                showSuccessToast("Added to cart")
+                ensureAuth(isLoggedInUseCase()) {
+                    viewModel.toggleCart(product)
+                    if (!product.isInCart) {
+                        showSuccessToast(getString(R.string.msg_added_to_cart_success))
+                    } else {
+                        showInfoToast(getString(R.string.msg_removed_from_cart))
+                    }
+                }
             }
         )
 
@@ -83,8 +99,14 @@ class SellerStoreFragment : Fragment(R.layout.fragment_seller_store) {
                 findNavController().navigate(R.id.productDetailFragment, bundle)
             },
             onAddToCartClick = { product ->
-                viewModel.addToCart(product)
-                showSuccessToast("Added to cart")
+                ensureAuth(isLoggedInUseCase()) {
+                    viewModel.toggleCart(product)
+                    if (!product.isInCart) {
+                        showSuccessToast(getString(R.string.msg_added_to_cart_success))
+                    } else {
+                        showInfoToast(getString(R.string.msg_removed_from_cart))
+                    }
+                }
             }
         )
 
@@ -95,6 +117,13 @@ class SellerStoreFragment : Fragment(R.layout.fragment_seller_store) {
     private fun setupListeners() {
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
+        }
+
+        binding.btnCallSeller.setOnClickListener {
+            ensureAuth(isLoggedInUseCase()) {
+                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:+998901234567"))
+                startActivity(intent)
+            }
         }
     }
 
@@ -108,7 +137,7 @@ class SellerStoreFragment : Fragment(R.layout.fragment_seller_store) {
                 launch {
                     viewModel.sellerProducts.collect { products ->
                         sellerProductAdapter.submitList(products)
-                        binding.tvProductCount.text = "${products.size} e'lon joylashtirilgan"
+                        binding.tvProductCount.text = getString(R.string.seller_product_count, products.size)
                         if (isFirstEmit) {
                             isFirstEmit = false
                             delay(1000)

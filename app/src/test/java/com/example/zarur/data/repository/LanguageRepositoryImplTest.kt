@@ -28,7 +28,7 @@ class LanguageRepositoryImplTest {
 
     @Test
     fun testGetLanguage_default() = runTest {
-        every { prefs.getString("selected_language", "ru") } returns "ru"
+        every { prefs.getString("selected_language", null) } returns "ru"
 
         val lang = repository.getLanguage().first()
         assertEquals("ru", lang)
@@ -39,6 +39,6 @@ class LanguageRepositoryImplTest {
         repository.setLanguage("uz")
 
         verify { editor.putString("selected_language", "uz") }
-        verify { editor.apply() }
+        verify { editor.commit() }
     }
 }

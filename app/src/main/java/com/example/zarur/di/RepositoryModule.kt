@@ -1,19 +1,23 @@
 package com.example.zarur.di
 
 import com.example.zarur.data.repository.AuthRepositoryImpl
+import com.example.zarur.data.repository.BookingRepositoryImpl
 import com.example.zarur.data.repository.ChatRepositoryImpl
 import com.example.zarur.data.repository.LanguageRepositoryImpl
 import com.example.zarur.data.repository.PaymentRepositoryImpl
 import com.example.zarur.data.repository.PinRepositoryImpl
 import com.example.zarur.data.repository.ProductRepositoryImpl
+import com.example.zarur.data.repository.ReceiptRepositoryImpl
 import com.example.zarur.data.repository.ThemeRepositoryImpl
 import com.example.zarur.data.repository.UserRepositoryImpl
 import com.example.zarur.domain.repository.AuthRepository
+import com.example.zarur.domain.repository.BookingRepository
 import com.example.zarur.domain.repository.ChatRepository
 import com.example.zarur.domain.repository.LanguageRepository
 import com.example.zarur.domain.repository.PaymentRepository
 import com.example.zarur.domain.repository.PinRepository
 import com.example.zarur.domain.repository.ProductRepository
+import com.example.zarur.domain.repository.ReceiptRepository
 import com.example.zarur.domain.repository.ThemeRepository
 import com.example.zarur.domain.repository.UserRepository
 import dagger.Binds
@@ -73,4 +77,16 @@ abstract class RepositoryModule {
     abstract fun bindPaymentRepository(
         paymentRepositoryImpl: PaymentRepositoryImpl
     ): PaymentRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindReceiptRepository(
+        receiptRepositoryImpl: ReceiptRepositoryImpl
+    ): ReceiptRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindBookingRepository(
+        bookingRepositoryImpl: BookingRepositoryImpl
+    ): BookingRepository
 }

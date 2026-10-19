@@ -52,6 +52,7 @@
     <string name="label_remember_me">Запомнить меня</string>
 
     <!-- Account Setup -->
+    <string name="msg_avatar_updated">Аватар успешно обновлен</string>
     <string name="title_fill_profile">Заполните профиль</string>
     <string name="label_nickname_hint">Никнейм</string>
     <string name="label_dob_hint">Дата рождения</string>
@@ -75,6 +76,8 @@
 
     <!-- Explore -->
     <string name="greeting_morning">Доброе утро</string>
+    <string name="greeting_afternoon">Добрый день</string>
+    <string name="greeting_evening">Добрый вечер</string>
     <string name="profile_name">Пользователь</string>
     <string name="hint_search_property">Поиск товаров, недвижимости...</string>
     <string name="label_featured">Рекомендуемое</string>
@@ -139,7 +142,13 @@
     <string name="label_phone_field">Номер телефона</string>
     <string name="label_gender">Пол</string>
     <string name="button_update">Обновить</string>
-    <string name="title_my_bookings">Мои бронирования</string>
+    <string name="title_my_bookings">Мои заказы</string>
+    <string name="button_cancel_booking">Отменить бронь</string>
+    <string name="button_e_receipt">Чек</string>
+    <string name="button_leave_review">Оставить отзыв</string>
+    <string name="button_rebook">Забронировать снова</string>
+    <string name="no_bookings_title">Заказы не найдены</string>
+    <string name="no_bookings_desc">У вас нет заказов или бронирований в этом разделе.</string>
     <string name="tab_active">Активные</string>
     <string name="tab_completed">Завершенные</string>
     <string name="tab_cancelled">Отмененные</string>
@@ -186,8 +195,11 @@
     <string name="label_special_offers">Специальные предложения</string>
     <string name="label_promo_discount">Промо и скидки</string>
     <string name="label_payments_notif">Платежи</string>
+    <string name="label_payment_method">Способ оплаты</string>
     <string name="menu_seller_mode">Перейти в режим продавца</string>
+    <string name="menu_switch_to_buyer_mode">Перейти в режим покупателя</string>
     <string name="menu_my_booking">Мои бронирования</string>
+    <string name="menu_my_receipts">Мои чеки</string>
     <string name="menu_payments">Платежи</string>
     <string name="menu_notification">Уведомления</string>
     <string name="menu_security">Безопасность</string>
@@ -299,6 +311,15 @@
     <string name="button_invite_friends">Пригласить друзей</string>
     <string name="tab_chats">Чаты</string>
     <string name="tab_calls">Звонки</string>
+    <string name="call_status_incoming">Входящий</string>
+    <string name="call_status_outgoing">Исходящий</string>
+    <string name="call_status_missed">Пропущенный</string>
+    <string name="call_status_declined">Отклонен</string>
+    <string name="call_type_voice">Голосовой звонок</string>
+    <string name="call_type_video">Видеозвонок</string>
+    <string name="call_log_empty">История звонков пуста</string>
+    <string name="chat_list_empty">Нет сообщений</string>
+    <string name="cd_call">Позвонить</string>
     <string name="title_credit_cards">Кредитные и дебетовые карты</string>
     <string name="title_connected_wallets">Подключенные кошельки</string>
     <string name="label_date">Дата</string>
@@ -312,5 +333,115 @@
     <string name="empty_cards_msg">Карты пока не добавлены. Нажмите Добавить карту, чтобы привязать карту.</string>
     <string name="empty_wallets_msg">Электронные кошельки недоступны.</string>
     <string name="desc_booking_info">Пожалуйста, проверьте или введите ваши контактные данные ниже.</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_name">Уведомления Zarur</string>
+    <string name="notification_1_title">Добро пожаловать в Zarur! 👋</string>
+    <string name="notification_1_desc">Для вас готовы лучшие объявления и специальные предложения! Откройте их прямо сейчас 🔥</string>
+    <string name="notification_time_just_now">Только что</string>
+    <string name="notification_2_title">Покупка успешно совершена! 🎉</string>
+    <string name="notification_2_desc">Ваш заказ принят. Вы можете просмотреть детали в разделе покупок профиля.</string>
+    <string name="notification_time_today">Сегодня | 14:30</string>
+    <string name="notification_3_title">Специальные скидки и предложения 🏷️</string>
+    <string name="notification_3_desc">Объявлена скидка до 20% на выбранные товары!</string>
+    <string name="notification_time_yesterday">Вчера | 18:00</string>
+
+    <!-- Auth & Validation Messages -->
+    <string name="error_google_sign_in_config">Для входа через Google требуется действительный Web Client ID в strings.xml</string>
+    <string name="error_google_sign_in_failed">Ошибка входа через Google: %1$s</string>
+    <string name="error_google_credentials">Не удалось получить учетные данные Google</string>
+    <string name="error_unexpected_credential">Неожиданный тип учетных данных</string>
+    <string name="msg_sign_in_to_book">Пожалуйста, войдите или зарегистрируйтесь для бронирования</string>
+    <string name="msg_sign_in_to_continue_booking">Пожалуйста, войдите или зарегистрируйтесь, чтобы продолжить бронирование</string>
+    <string name="msg_sign_in_to_leave_review">Пожалуйста, войдите или зарегистрируйтесь, чтобы оставить отзыв</string>
+    <string name="msg_sign_in_to_continue">Пожалуйста, войдите или зарегистрируйтесь для продолжения</string>
+    <string name="error_enter_full_name">Пожалуйста, введите ваше полное имя</string>
+    <string name="error_enter_valid_email">Пожалуйста, введите корректный адрес электронной почты</string>
+    <string name="error_enter_phone_number">Пожалуйста, введите ваш номер телефона</string>
+
+    <!-- Firebase Auth Exception Messages -->
+    <string name="error_email_already_in_use">Этот адрес электронной почты уже зарегистрирован. Пожалуйста, введите другой email или войдите.</string>
+    <string name="error_invalid_credentials">Неверный email или пароль.</string>
+    <string name="error_invalid_email_format">Неверный формат адреса электронной почты. Пожалуйста, проверьте и попробуйте снова.</string>
+    <string name="error_user_not_found">Пользователь с таким email не найден. Пожалуйста, сначала зарегистрируйтесь.</string>
+    <string name="error_weak_password">Пароль слишком простой. Пароль должен содержать не менее 6 символов.</string>
+    <string name="error_passwords_do_not_match">Пароли не совпадают</string>
+    <string name="error_too_many_requests">Слишком много неудачных попыток. Пожалуйста, попробуйте позже.</string>
+    <string name="error_account_disabled">Этот аккаунт заблокирован. Пожалуйста, обратитесь в службу поддержки.</string>
+    <string name="error_network_connection">Ошибка сети. Пожалуйста, проверьте подключение к интернету.</string>
+    <string name="error_unknown_auth">Произошла ошибка при аутентификации. Пожалуйста, попробуйте снова.</string>
+
+    <!-- Booking, Review & Comments -->
+    <string name="msg_thank_you_review">Спасибо за ваш отзыв!</string>
+    <string name="msg_enter_comment">Пожалуйста, введите комментарий</string>
+    <string name="msg_added_to_cart_success">Успешно добавлено в корзину</string>
+    <string name="msg_removed_from_cart">Удалено из корзины</string>
+    <string name="msg_review_posted">Отзыв опубликован!</string>
+    <string name="reviews_header_count">Отзывы (%1$d)</string>
+    <string name="btn_show_less">Свернуть</string>
+    <string name="btn_view_all_count">Смотреть все (%1$d)</string>
+    <string name="submitting">Отправка...</string>
+
+    <!-- Permissions, Cards & Profile -->
+    <string name="gender_female">Женский</string>
+    <string name="gender_other">Другое</string>
+    <string name="msg_camera_permission_required">Для видеозвонка требуется разрешение на использование камеры</string>
+    <string name="msg_enter_cardholder_name">Пожалуйста, введите имя владельца карты</string>
+    <string name="msg_card_number_digits">Номер карты должен состоять из 15 или 16 цифр</string>
+    <string name="msg_expiry_date_format">Срок действия должен быть в формате ММ/ГГ</string>
+    <string name="msg_cvv_digits">CVV должен состоять из 3 или 4 цифр</string>
+    <string name="label_card_holder_placeholder">ИМЯ ВЛАДЕЛЬЦА</string>
+    <string name="label_expiry_placeholder">ММ/ГГ</string>
+    <string name="msg_pin_saved_success">PIN-код успешно сохранен!</string>
+    <string name="msg_promo_code_copied">Промокод скопирован: %1$s</string>
+    <string name="msg_primary_card_updated">Основная платежная карта обновлена</string>
+    <string name="msg_card_removed">Платежная карта удалена</string>
+    <string name="msg_wallet_disconnected">%1$s отключен</string>
+    <string name="msg_wallet_connected">%1$s подключен</string>
+
+    <!-- Seller & Product Counts -->
+    <string name="msg_added_to_cart">Добавлено в корзину</string>
+    <string name="seller_product_count">%1$d объявлений размещено</string>
+    <string name="official_seller_store">Официальный магазин продавца</string>
+    <string name="favorites_count_text">%1$d избранное</string>
+    <string name="cart_count_text">%1$d товаров в корзине</string>
+
+    <!-- Chat Replies & Date Diffs -->
+    <string name="chat_reply_price">Продавец может договориться о цене. Давайте встретимся на месте и обсудим 👍</string>
+    <string name="chat_reply_location">Адрес указан на странице объявления. Расположено недалеко от центра Ташкента.</string>
+    <string name="chat_reply_phone">Мой номер телефона: +998 90 123 45 67. Вы можете смело звонить!</string>
+    <string name="chat_reply_default">Спасибо! Ваше сообщение получено. Скоро я отвечу подробно 😊</string>
+    <string name="date_today">Сегодня</string>
+    <string name="date_yesterday">Вчера</string>
+    <string name="date_days_ago">%1$d дней назад</string>
+
+    <!-- FAQ Detailed Strings -->
+    <string name="label_faq_what_is_zarur_a">Zarur — это современный маркетплейс, позволяющий продавать, покупать и бронировать недвижимость (дома, квартиры, виллы), автомобили, а также различные товары.</string>
+    <string name="label_faq_how_to_post_a">Нажмите \'Перейти в режим продавца\' в профиле. В панели продавца нажмите \'Создать объявление\', загрузите фото и укажите название, цену и категорию.</string>
+
+    <string name="label_faq_book_how_q">Как забронировать недвижимость или товар?</string>
+    <string name="label_faq_book_how_a">Перейдите на страницу товара и нажмите \'Забронировать\'. Выберите даты и способ оплаты, затем подтвердите платеж. После этого сформируется электронный чек (E-Receipt).</string>
+
+    <string name="label_faq_contact_seller_q">Как связаться с продавцом?</string>
+    <string name="label_faq_contact_seller_a">На странице каждого объявления есть кнопки \'Чат\' и звонок (Голосовой и Видео). Вы можете написать продавцу прямо в приложении.</string>
+
+    <string name="label_faq_cart_favorites_q">Как работают Корзина и Избранное?</string>
+    <string name="label_faq_cart_favorites_a">Нажмите значок сердечка, чтобы добавить в Избранное, или корзину, чтобы добавить в Корзину. Управляйте всеми товарами во вкладке Избранное в нижнем меню.</string>
+
+    <string name="label_faq_is_it_safe_a">Все данные пользователей и платежи защищены протоколами безопасности Firebase. Вы можете безопасно оплачивать через Uzcard, Humo, Visa и другие системы.</string>
+
+    <string name="label_faq_language_theme_q">Как изменить язык профиля и тему приложения?</string>
+    <string name="label_faq_language_theme_a">Перейдите в Профиль -&gt; \'Язык\', чтобы выбрать узбекский, русский или английский. Вы также можете переключать тему в Профиль -&gt; \'Темный режим\'.</string>
+
+    <string name="label_faq_forgot_pass_q">Как восстановить забытый пароль?</string>
+    <string name="label_faq_forgot_pass_a">Нажмите \'Забыли пароль?\' на странице входа. На ваш email будет отправлена ссылка для установки нового пароля.</string>
+
+    <!-- Guest / Auth Guard Dialog -->
+    <string name="auth_required_title">Требуется авторизация</string>
+    <string name="auth_required_message">Чтобы выполнить это действие, вам необходимо войти или зарегистрироваться.</string>
+    <string name="auth_required_positive">Войти / Регистрация</string>
+    <string name="auth_required_negative">Отмена</string>
+    <string name="seller_phone_number">Телефон продавца: +998 90 123 45 67</string>
+    <string name="btn_call_seller">Позвонить продавцу</string>
 
 </resources>

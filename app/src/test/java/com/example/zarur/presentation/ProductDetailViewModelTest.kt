@@ -106,7 +106,7 @@ class ProductDetailViewModelTest {
         viewModel.toggleFavorite()
 
         assertEquals(1, events.size)
-        assertTrue(events[0] is ProductDetailUiEvent.NavigateToAuth)
+        assertTrue(events[0] is ProductDetailUiEvent.ShowAuthRequiredDialog)
     }
 
     @Test
@@ -122,7 +122,7 @@ class ProductDetailViewModelTest {
         coEvery { toggleCartUseCase("p1", true) } returns Unit
 
         viewModel.loadProduct("p1")
-        viewModel.addToCart()
+        viewModel.toggleCart()
 
         coVerify { toggleCartUseCase("p1", true) }
         assertEquals(1, events.size)

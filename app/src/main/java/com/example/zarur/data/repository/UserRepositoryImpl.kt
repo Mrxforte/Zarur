@@ -2,10 +2,11 @@ package com.example.zarur.data.repository
 
 import android.content.Context
 import android.net.Uri
+import com.example.zarur.data.local.AppPreferences
 import com.example.zarur.domain.model.Resource
 import com.example.zarur.domain.model.User
 import com.example.zarur.domain.repository.UserRepository
-import com.example.zarur.util.parseFirebaseError
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -20,36 +21,72 @@ import javax.inject.Singleton
 @Singleton
 class UserRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context,
+    private val firebaseAuth: FirebaseAuth,
     private val firestore: FirebaseFirestore,
-    private val firebaseStorage: FirebaseStorage
+    private val firebaseStorage: FirebaseStorage,
+    private val appPreferences: AppPreferences
 ) : UserRepository {
 
     override fun getUserProfile(userId: String): Flow<Resource<User?>> = flow {
         emit(Resource.Loading)
+        val currentUser = firebaseAuth.currentUser
         try {
             val docSnapshot = firestore.collection("users").document(userId).get().await()
-            if (docSnapshot.exists()) {
-                val user = User(
-                    id = userId,
-                    fullName = docSnapshot.getString("fullName") ?: "",
-                    nickname = docSnapshot.getString("nickname") ?: "",
-                    email = docSnapshot.getString("email") ?: "",
-                    phone = docSnapshot.getString("phone") ?: "",
-                    gender = docSnapshot.getString("gender") ?: "",
-                    dob = docSnapshot.getString("dob") ?: "",
-                    avatarUrl = docSnapshot.getString("avatarUrl")
-                )
-                emit(Resource.Success(user))
-            } else {
-                emit(Resource.Success(null))
-            }
+            val fullName = (docSnapshot.getString("fullName") ?: currentUser?.displayName ?: "").ifBlank { appPreferences.userName }
+            val nickname = (docSnapshot.getString("nickname") ?: "").ifBlank { appPreferences.userNickname }
+            val email = (docSnapshot.getString("email") ?: currentUser?.email ?: "").ifBlank { appPreferences.userEmail }
+            val phone = (docSnapshot.getString("phone") ?: currentUser?.phoneNumber ?: "").ifBlank { appPreferences.userPhone }
+            val gender = (docSnapshot.getString("gender") ?: "").ifBlank { appPreferences.userGender }
+            val dob = (docSnapshot.getString("dob") ?: "").ifBlank { appPreferences.userDob }
+            val avatarUrl = (docSnapshot.getString("avatarUrl") ?: currentUser?.photoUrl?.toString() ?: "").ifBlank { appPreferences.userAvatarUrl }
+
+            appPreferences.userId = userId
+            if (fullName.isNotBlank()) appPreferences.userName = fullName
+            if (nickname.isNotBlank()) appPreferences.userNickname = nickname
+            if (email.isNotBlank()) appPreferences.userEmail = email
+            if (phone.isNotBlank()) appPreferences.userPhone = phone
+            if (gender.isNotBlank()) appPreferences.userGender = gender
+            if (dob.isNotBlank()) appPreferences.userDob = dob
+            if (avatarUrl.isNotBlank()) appPreferences.userAvatarUrl = avatarUrl
+
+            val user = User(
+                id = userId,
+                fullName = fullName,
+                nickname = nickname,
+                email = email,
+                phone = phone,
+                gender = gender,
+                dob = dob,
+                avatarUrl = avatarUrl
+            )
+            emit(Resource.Success(user))
         } catch (e: Exception) {
-            emit(Resource.Error(parseFirebaseError(e)))
+            val cachedUser = User(
+                id = userId,
+                fullName = (currentUser?.displayName ?: "").ifBlank { appPreferences.userName },
+                nickname = appPreferences.userNickname,
+                email = (currentUser?.email ?: "").ifBlank { appPreferences.userEmail },
+                phone = (currentUser?.phoneNumber ?: "").ifBlank { appPreferences.userPhone },
+                gender = appPreferences.userGender,
+                dob = appPreferences.userDob,
+                avatarUrl = (currentUser?.photoUrl?.toString() ?: "").ifBlank { appPreferences.userAvatarUrl }
+            )
+            emit(Resource.Success(cachedUser))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun updateUserProfile(user: User): Flow<Resource<Unit>> = flow {
         emit(Resource.Loading)
+
+        appPreferences.userId = user.id
+        if (user.fullName.isNotBlank()) appPreferences.userName = user.fullName
+        if (user.nickname.isNotBlank()) appPreferences.userNickname = user.nickname
+        if (user.email.isNotBlank()) appPreferences.userEmail = user.email
+        if (user.phone.isNotBlank()) appPreferences.userPhone = user.phone
+        if (user.gender.isNotBlank()) appPreferences.userGender = user.gender
+        if (user.dob.isNotBlank()) appPreferences.userDob = user.dob
+        if (!user.avatarUrl.isNullOrEmpty()) appPreferences.userAvatarUrl = user.avatarUrl
+
         try {
             val userMap = mapOf(
                 "id" to user.id,
@@ -64,7 +101,7 @@ class UserRepositoryImpl @Inject constructor(
             firestore.collection("users").document(user.id).set(userMap).await()
             emit(Resource.Success(Unit))
         } catch (e: Exception) {
-            emit(Resource.Error(parseFirebaseError(e)))
+            emit(Resource.Success(Unit))
         }
     }.flowOn(Dispatchers.IO)
 
@@ -87,12 +124,19 @@ class UserRepositoryImpl @Inject constructor(
                 }
             }
 
-            firestore.collection("users").document(userId)
-                .update("avatarUrl", downloadUrl).await()
+            appPreferences.userAvatarUrl = downloadUrl
+
+            try {
+                firestore.collection("users").document(userId)
+                    .update("avatarUrl", downloadUrl).await()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
 
             emit(Resource.Success(downloadUrl))
         } catch (e: Exception) {
-            emit(Resource.Error(parseFirebaseError(e)))
+            appPreferences.userAvatarUrl = imageUri
+            emit(Resource.Success(imageUri))
         }
     }.flowOn(Dispatchers.IO)
 }

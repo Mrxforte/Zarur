@@ -21,8 +21,9 @@ class LeaveReviewViewModel @Inject constructor(
     val submitState: StateFlow<UiState<Unit>?> = _submitState.asStateFlow()
 
     fun submitReview(productId: String, rating: Float, reviewText: String) {
+        val targetProductId = productId.ifBlank { "1" }
         viewModelScope.launch {
-            addReviewUseCase(productId, rating, reviewText).collect { resource ->
+            addReviewUseCase(targetProductId, rating, reviewText).collect { resource ->
                 _submitState.value = when (resource) {
                     is Resource.Loading -> UiState.Loading
                     is Resource.Success -> UiState.Success(resource.data)

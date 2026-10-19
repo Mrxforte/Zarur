@@ -9,13 +9,20 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.zarur.R
 import com.example.zarur.databinding.FragmentSearchResultsBinding
 import com.example.zarur.presentation.common.ProductAdapter
+import com.example.zarur.domain.usecase.IsLoggedInUseCase
+import com.example.zarur.util.ensureAuth
+import com.example.zarur.util.showSuccessToast
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchResultsFragment : Fragment(R.layout.fragment_search_results) {
 
     private var _binding: FragmentSearchResultsBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var isLoggedInUseCase: IsLoggedInUseCase
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,6 +61,11 @@ class SearchResultsFragment : Fragment(R.layout.fragment_search_results) {
                     putString("productId", product.id)
                 }
                 findNavController().navigate(R.id.productDetailFragment, bundle)
+            },
+            onAddToCartClick = { _ ->
+                ensureAuth(isLoggedInUseCase()) {
+                    showSuccessToast(getString(R.string.msg_added_to_cart_success))
+                }
             }
         )
     }

@@ -22,7 +22,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         super.onMessageReceived(remoteMessage)
 
         remoteMessage.notification?.let {
-            sendNotification(it.title ?: "Zarur", it.body ?: "")
+            sendNotification(it.title ?: getString(R.string.app_name), it.body ?: "")
         }
     }
 
@@ -69,7 +69,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         val channel = NotificationChannel(
             channelId,
-            "Zarur Notifications",
+            getString(R.string.notification_channel_name),
             NotificationManager.IMPORTANCE_DEFAULT
         )
         notificationManager.createNotificationChannel(channel)

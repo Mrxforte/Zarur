@@ -46,7 +46,11 @@ class FillProfileFragment : Fragment(R.layout.fragment_fill_profile) {
     }
 
     private fun setupGenderDropdown() {
-        val genders = arrayOf("Male", "Female", "Other")
+        val genders = arrayOf(
+            getString(R.string.default_gender_male),
+            getString(R.string.gender_female),
+            getString(R.string.gender_other)
+        )
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, genders)
         binding.etGender.setAdapter(adapter)
     }
@@ -56,7 +60,7 @@ class FillProfileFragment : Fragment(R.layout.fragment_fill_profile) {
             findNavController().navigateUp()
         }
 
-        binding.btnEditAvatar.setOnClickListener {
+        binding.ivAvatar.setOnClickListener {
             imagePicker.launch("image/*")
         }
 

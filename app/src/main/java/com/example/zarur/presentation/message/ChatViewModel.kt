@@ -1,13 +1,19 @@
 package com.example.zarur.presentation.message
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.zarur.R
+import com.example.zarur.domain.model.CallLog
+import com.example.zarur.domain.model.CallStatus
+import com.example.zarur.domain.model.CallType
 import com.example.zarur.domain.model.ChatConversation
 import com.example.zarur.domain.model.ChatMessage
 import com.example.zarur.domain.model.Product
 import com.example.zarur.domain.repository.ChatRepository
 import com.example.zarur.domain.usecase.IsLoggedInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,12 +26,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ChatViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val chatRepository: ChatRepository,
     private val isLoggedInUseCase: IsLoggedInUseCase
 ) : ViewModel() {
 
     private val _conversations = MutableStateFlow<List<ChatConversation>>(emptyList())
     val conversations: StateFlow<List<ChatConversation>> = _conversations.asStateFlow()
+
+    private val _callLogs = MutableStateFlow<List<CallLog>>(emptyList())
+    val callLogs: StateFlow<List<CallLog>> = _callLogs.asStateFlow()
 
     private val _messages = MutableStateFlow<List<ChatMessage>>(emptyList())
     val messages: StateFlow<List<ChatMessage>> = _messages.asStateFlow()
@@ -34,6 +44,7 @@ class ChatViewModel @Inject constructor(
 
     init {
         loadConversations()
+        loadCallLogs()
         loadMessages(activeChatId)
     }
 
@@ -44,6 +55,50 @@ class ChatViewModel @Inject constructor(
             chatRepository.getConversations().collect { list ->
                 _conversations.value = list
             }
+        }
+    }
+
+    fun loadCallLogs() {
+        viewModelScope.launch {
+            chatRepository.getCallLogs().collect { list ->
+                _callLogs.value = list
+            }
+        }
+    }
+
+    fun recordCallLog(
+        callerName: String,
+        callType: CallType,
+        callStatus: CallStatus,
+        durationSeconds: Long = 0
+    ) {
+        viewModelScope.launch {
+            val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+            val formattedTime = "Today, " + timeFormat.format(Date())
+
+            val formattedDuration = when {
+                callStatus == CallStatus.DECLINED || callStatus == CallStatus.MISSED -> null
+                durationSeconds <= 0 -> "0 sec"
+                durationSeconds < 60 -> "$durationSeconds sec"
+                else -> {
+                    val mins = durationSeconds / 60
+                    val secs = durationSeconds % 60
+                    if (secs > 0) "$mins min $secs sec" else "$mins min"
+                }
+            }
+
+            val newLog = CallLog(
+                id = System.currentTimeMillis().toString(),
+                callerName = callerName.ifBlank { "Natasya Wilodra" },
+                callerAvatar = "",
+                callType = callType,
+                callStatus = callStatus,
+                time = formattedTime,
+                duration = formattedDuration,
+                timestamp = System.currentTimeMillis()
+            )
+
+            chatRepository.addCallLog(newLog)
         }
     }
 
@@ -116,14 +171,14 @@ class ChatViewModel @Inject constructor(
     private fun getAutoReplyText(userInput: String): String {
         val lower = userInput.lowercase()
         return when {
-            lower.contains("narx") || lower.contains("narxi") || lower.contains("qancha") ->
-                "Sotuvchi narx bo'yicha kelishishi mumkin. Keling, joyida uchrashib gaplashamiz 👍"
-            lower.contains("manzil") || lower.contains("qayerda") || lower.contains("lokatsiya") ->
-                "Manzil e'lon sahifasida ko'rsatilgan. Toshkent shahri markaziga yaqin joylashgan."
-            lower.contains("telefon") || lower.contains("nomer") || lower.contains("aloqa") ->
-                "Telefon raqamim: +998 90 123 45 67. Bemalol qo'ng'iroq qilishingiz mumkin!"
+            lower.contains("narx") || lower.contains("narxi") || lower.contains("qancha") || lower.contains("price") ->
+                context.getString(R.string.chat_reply_price)
+            lower.contains("manzil") || lower.contains("qayerda") || lower.contains("lokatsiya") || lower.contains("address") ->
+                context.getString(R.string.chat_reply_location)
+            lower.contains("telefon") || lower.contains("nomer") || lower.contains("aloqa") || lower.contains("phone") ->
+                context.getString(R.string.chat_reply_phone)
             else ->
-                "Rahmat! Xabaringiz qabul qilindi. Tez orada batafsil javob beraman 😊"
+                context.getString(R.string.chat_reply_default)
         }
     }
 }

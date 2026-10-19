@@ -40,21 +40,21 @@ class NotificationFragment : Fragment(R.layout.fragment_notification) {
 
         val notifications = listOf(
             NotificationItem(
-                title = "Zarur'ga xush kelibsiz! 👋",
-                desc = "Siz uchun eng ajoyib e'lonlar va maxsus takliflar tayyor! Ularni kashf eting 🔥",
-                time = "Hozirgina",
+                title = getString(R.string.notification_1_title),
+                desc = getString(R.string.notification_1_desc),
+                time = getString(R.string.notification_time_just_now),
                 isNew = true
             ),
             NotificationItem(
-                title = "Xarid muvaffaqiyatli amalga oshirildi! 🎉",
-                desc = "Buyurtmangiz qabul qilindi. Tafsilotlarni profil xaridlar bo'limida ko'rishingiz mumkin.",
-                time = "Bugun | 14:30",
+                title = getString(R.string.notification_2_title),
+                desc = getString(R.string.notification_2_desc),
+                time = getString(R.string.notification_time_today),
                 isNew = false
             ),
             NotificationItem(
-                title = "Maxsus chegirma va takliflar 🏷️",
-                desc = "Tanlangan mahsulotlarga 20% gacha chegirma e'lon qilindi!",
-                time = "Kecha | 18:00",
+                title = getString(R.string.notification_3_title),
+                desc = getString(R.string.notification_3_desc),
+                time = getString(R.string.notification_time_yesterday),
                 isNew = false
             )
         )

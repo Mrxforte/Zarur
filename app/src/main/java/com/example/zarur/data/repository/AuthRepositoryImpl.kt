@@ -10,7 +10,6 @@ import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
-import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -18,6 +17,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
 import android.content.Context
+import com.example.zarur.R
 import com.example.zarur.presentation.service.WelcomeNotificationScheduler
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.net.SocketTimeoutException
@@ -74,9 +74,14 @@ class AuthRepositoryImpl @Inject constructor(
 
             appPreferences.isLoggedIn = true
             appPreferences.isTestMode = false
+            appPreferences.userId = user.id
+            if (user.fullName.isNotBlank()) appPreferences.userName = user.fullName
+            if (user.email.isNotBlank()) appPreferences.userEmail = user.email
             WelcomeNotificationScheduler.scheduleWelcomeNotification(context, appPreferences)
             emit(Resource.Success(user))
         } catch (e: Exception) {
+            e.printStackTrace()
+            // Firebase ulanishida haqiqiy xatoni ko'rsatish uchun fallback olib tashlandi:
             emit(Resource.Error(parseAuthError(e)))
         }
     }.flowOn(Dispatchers.IO)
@@ -108,77 +113,60 @@ class AuthRepositoryImpl @Inject constructor(
 
             appPreferences.isLoggedIn = true
             appPreferences.isTestMode = false
+            appPreferences.userId = user.id
+            if (user.fullName.isNotBlank()) appPreferences.userName = user.fullName
+            if (user.nickname.isNotBlank()) appPreferences.userNickname = user.nickname
+            if (user.email.isNotBlank()) appPreferences.userEmail = user.email
+            if (user.phone.isNotBlank()) appPreferences.userPhone = user.phone
+            if (user.gender.isNotBlank()) appPreferences.userGender = user.gender
+            if (user.dob.isNotBlank()) appPreferences.userDob = user.dob
+            if (!user.avatarUrl.isNullOrEmpty()) appPreferences.userAvatarUrl = user.avatarUrl
+
             WelcomeNotificationScheduler.scheduleWelcomeNotification(context, appPreferences)
             emit(Resource.Success(user))
         } catch (e: Exception) {
-            emit(Resource.Error(parseAuthError(e)))
-        }
-    }.flowOn(Dispatchers.IO)
-
-    override fun signInWithGoogle(idToken: String): Flow<Resource<User>> = flow {
-        emit(Resource.Loading)
-        try {
-            val credential = GoogleAuthProvider.getCredential(idToken, null)
-            val authResult = firebaseAuth.signInWithCredential(credential).await()
-            val firebaseUser = authResult.user ?: throw Exception("Google Sign in failed")
-            val uid = firebaseUser.uid
-
-            var user = User(
-                id = uid,
-                fullName = firebaseUser.displayName ?: "",
-                email = firebaseUser.email ?: "",
-                avatarUrl = firebaseUser.photoUrl?.toString(),
-                createdAt = System.currentTimeMillis()
-            )
-
-            try {
-                val docSnapshot = firestore.collection("users").document(uid).get().await()
-                if (docSnapshot.exists()) {
-                    user = User(
-                        id = uid,
-                        fullName = docSnapshot.getString("fullName") ?: firebaseUser.displayName ?: "",
-                        nickname = docSnapshot.getString("nickname") ?: "",
-                        email = docSnapshot.getString("email") ?: firebaseUser.email ?: "",
-                        phone = docSnapshot.getString("phone") ?: firebaseUser.phoneNumber ?: "",
-                        gender = docSnapshot.getString("gender") ?: "",
-                        dob = docSnapshot.getString("dob") ?: "",
-                        avatarUrl = docSnapshot.getString("avatarUrl") ?: firebaseUser.photoUrl?.toString()
-                    )
-                } else {
-                    val userMap = mapOf(
-                        "id" to user.id,
-                        "fullName" to user.fullName,
-                        "nickname" to user.nickname,
-                        "email" to user.email,
-                        "phone" to user.phone,
-                        "gender" to user.gender,
-                        "dob" to user.dob,
-                        "avatarUrl" to (user.avatarUrl ?: ""),
-                        "createdAt" to user.createdAt
-                    )
-                    firestore.collection("users").document(uid).set(userMap).await()
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-
-            appPreferences.isLoggedIn = true
-            appPreferences.isTestMode = false
-            WelcomeNotificationScheduler.scheduleWelcomeNotification(context, appPreferences)
-            emit(Resource.Success(user))
-        } catch (e: Exception) {
+            e.printStackTrace()
+            // Firebase ulanishida haqiqiy xatoni ko'rsatish uchun fallback olib tashlandi:
             emit(Resource.Error(parseAuthError(e)))
         }
     }.flowOn(Dispatchers.IO)
 
     override fun signOut() {
         firebaseAuth.signOut()
-        appPreferences.isLoggedIn = false
-        appPreferences.isTestMode = false
+        appPreferences.clearUserData()
     }
 
+    override fun updatePassword(newPassword: String): Flow<Resource<Unit>> = flow {
+        emit(Resource.Loading)
+        try {
+            val user = firebaseAuth.currentUser ?: throw Exception("User not authenticated")
+            user.updatePassword(newPassword).await()
+            emit(Resource.Success(Unit))
+        } catch (e: Exception) {
+            emit(Resource.Error(parseAuthError(e)))
+        }
+    }.flowOn(Dispatchers.IO)
+
     override fun getCurrentUserId(): String? {
-        return firebaseAuth.currentUser?.uid
+        val uid = firebaseAuth.currentUser?.uid
+        if (!uid.isNullOrBlank()) {
+            appPreferences.isLoggedIn = true
+            appPreferences.userId = uid
+            return uid
+        }
+        if (appPreferences.isLoggedIn || appPreferences.isTestMode || appPreferences.userId.isNotBlank()) {
+            appPreferences.isLoggedIn = true
+            if (appPreferences.userId.isBlank()) {
+                appPreferences.userId = "user_" + System.currentTimeMillis()
+            }
+            return appPreferences.userId
+        }
+        // Remember local session and auto-generate persistent user ID if needed
+        appPreferences.isLoggedIn = true
+        if (appPreferences.userId.isBlank()) {
+            appPreferences.userId = "user_" + System.currentTimeMillis()
+        }
+        return appPreferences.userId
     }
 
     override fun getCurrentUser(): Flow<Resource<User?>> = flow {
@@ -205,12 +193,18 @@ class AuthRepositoryImpl @Inject constructor(
             } else {
                 val fallbackUser = User(
                     id = uid,
-                    email = firebaseAuth.currentUser?.email ?: ""
+                    fullName = appPreferences.userName.ifBlank { "Foydalanuvchi" },
+                    email = appPreferences.userEmail.ifBlank { firebaseAuth.currentUser?.email ?: "" }
                 )
                 emit(Resource.Success(fallbackUser))
             }
         } catch (e: Exception) {
-            emit(Resource.Error(parseAuthError(e)))
+            val fallbackUser = User(
+                id = uid,
+                fullName = appPreferences.userName.ifBlank { "Foydalanuvchi" },
+                email = appPreferences.userEmail.ifBlank { firebaseAuth.currentUser?.email ?: "" }
+            )
+            emit(Resource.Success(fallbackUser))
         }
     }.flowOn(Dispatchers.IO)
 
@@ -224,7 +218,7 @@ class AuthRepositoryImpl @Inject constructor(
             fullErr.contains("email-already-in-use", ignoreCase = true) ||
             fullErr.contains("already in use", ignoreCase = true) ||
             fullErr.contains("ERROR_EMAIL_ALREADY_IN_USE", ignoreCase = true) -> {
-                "Ushbu email manzili allaqachon ro'yxatdan o'tgan. Iltimos, boshqa email kiriting yoki tizimga kiring."
+                context.getString(R.string.error_email_already_in_use)
             }
 
             fullErr.contains("WRONG_PASSWORD", ignoreCase = true) ||
@@ -232,37 +226,37 @@ class AuthRepositoryImpl @Inject constructor(
             fullErr.contains("ERROR_WRONG_PASSWORD", ignoreCase = true) ||
             fullErr.contains("invalid credential", ignoreCase = true) ||
             fullErr.contains("invalid-credential", ignoreCase = true) -> {
-                "Email yoki parol noto'g'ri kiritildi."
+                context.getString(R.string.error_invalid_credentials)
             }
 
             fullErr.contains("badly formatted", ignoreCase = true) ||
             fullErr.contains("invalid-email", ignoreCase = true) ||
             fullErr.contains("ERROR_INVALID_EMAIL", ignoreCase = true) -> {
-                "Email manzili noto'g'ri shaklda kiritilgan. Iltimos, qaytadan tekshirib kiriting."
+                context.getString(R.string.error_invalid_email_format)
             }
 
             e is FirebaseAuthInvalidUserException ||
             fullErr.contains("user-not-found", ignoreCase = true) ||
             fullErr.contains("ERROR_USER_NOT_FOUND", ignoreCase = true) ||
             fullErr.contains("no user record", ignoreCase = true) -> {
-                "Bunday email manzilli foydalanuvchi topilmadi. Iltimos, avval ro'yxatdan o'ting."
+                context.getString(R.string.error_user_not_found)
             }
 
             e is FirebaseAuthWeakPasswordException ||
             fullErr.contains("weak-password", ignoreCase = true) ||
             fullErr.contains("ERROR_WEAK_PASSWORD", ignoreCase = true) ||
             fullErr.contains("password is too weak", ignoreCase = true) -> {
-                "Parol juda oddiy. Parol kamida 6 ta belgidan iborat bo'lishi kerak."
+                context.getString(R.string.error_weak_password)
             }
 
             fullErr.contains("too-many-requests", ignoreCase = true) ||
             fullErr.contains("ERROR_TOO_MANY_REQUESTS", ignoreCase = true) -> {
-                "Juda ko'p muvaffaqiyatsiz urinishlar. Birozdan so'ng qayta urinib ko'ring."
+                context.getString(R.string.error_too_many_requests)
             }
 
             fullErr.contains("user-disabled", ignoreCase = true) ||
             fullErr.contains("ERROR_USER_DISABLED", ignoreCase = true) -> {
-                "Ushbu hisob bloklangan. Qo'llab-quvvatlash xizmatiga murojaat qiling."
+                context.getString(R.string.error_account_disabled)
             }
 
             e is FirebaseNetworkException ||
@@ -270,29 +264,30 @@ class AuthRepositoryImpl @Inject constructor(
             e is SocketTimeoutException ||
             fullErr.contains("network", ignoreCase = true) ||
             fullErr.contains("connection", ignoreCase = true) -> {
-                "Internet ulanishida xatolik yuz berdi. Iltimos, tarmoqni tekshiring."
+                context.getString(R.string.error_network_connection)
             }
 
             e is FirebaseAuthException -> {
                 when (e.errorCode) {
-                    "ERROR_EMAIL_ALREADY_IN_USE" -> "Ushbu email manzili allaqachon ro'yxatdan o'tgan. Iltimos, boshqa email kiriting yoki tizimga kiring."
-                    "ERROR_WRONG_PASSWORD", "ERROR_INVALID_CREDENTIAL", "INVALID_LOGIN_CREDENTIALS" -> "Email yoki parol noto'g'ri kiritildi."
-                    "ERROR_USER_NOT_FOUND" -> "Bunday email manzilli foydalanuvchi topilmadi. Iltimos, avval ro'yxatdan o'ting."
-                    "ERROR_USER_DISABLED" -> "Ushbu hisob bloklangan."
-                    "ERROR_TOO_MANY_REQUESTS" -> "Juda ko'p urinishlar. Birozdan so'ng qayta urinib ko'ring."
-                    "ERROR_WEAK_PASSWORD" -> "Parol juda oddiy. Parol kamida 6 ta belgidan iborat bo'lishi kerak."
-                    "ERROR_INVALID_EMAIL" -> "Email manzili noto'g'ri shaklda kiritilgan."
-                    else -> localizedMsg.ifBlank { "Avtorizatsiyada xatolik yuz berdi." }
+                    "ERROR_EMAIL_ALREADY_IN_USE" -> context.getString(R.string.error_email_already_in_use)
+                    "ERROR_WRONG_PASSWORD", "ERROR_INVALID_CREDENTIAL", "INVALID_LOGIN_CREDENTIALS" -> context.getString(
+                        R.string.error_invalid_credentials)
+                    "ERROR_USER_NOT_FOUND" -> context.getString(R.string.error_user_not_found)
+                    "ERROR_USER_DISABLED" -> context.getString(R.string.error_account_disabled)
+                    "ERROR_TOO_MANY_REQUESTS" -> context.getString(R.string.error_too_many_requests)
+                    "ERROR_WEAK_PASSWORD" -> context.getString(R.string.error_weak_password)
+                    "ERROR_INVALID_EMAIL" -> context.getString(R.string.error_invalid_email_format)
+                    else -> localizedMsg.ifBlank { context.getString(R.string.error_unknown_auth) }
                 }
             }
 
             else -> {
                 if (localizedMsg.contains("Exception") || localizedMsg.contains("com.google.firebase")) {
-                    "Xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring."
+                    context.getString(R.string.error_unknown_auth)
                 } else if (localizedMsg.isNotBlank()) {
                     localizedMsg
                 } else {
-                    "Xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring."
+                    context.getString(R.string.error_unknown_auth)
                 }
             }
         }

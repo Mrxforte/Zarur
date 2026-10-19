@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.zarur.domain.model.Product
 import com.example.zarur.domain.model.Resource
 import com.example.zarur.domain.usecase.GetSellerProductsUseCase
-import com.example.zarur.domain.usecase.IsLoggedInUseCase
 import com.example.zarur.domain.usecase.UploadProductUseCase
 import com.example.zarur.presentation.common.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,8 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SellerViewModel @Inject constructor(
     private val uploadProductUseCase: UploadProductUseCase,
-    private val getSellerProductsUseCase: GetSellerProductsUseCase,
-    private val isLoggedInUseCase: IsLoggedInUseCase
+    private val getSellerProductsUseCase: GetSellerProductsUseCase
 ) : ViewModel() {
 
     private val _uploadState = MutableStateFlow<UiState<Product>?>(null)
@@ -42,10 +40,6 @@ class SellerViewModel @Inject constructor(
         price: Double,
         description: String
     ) {
-        if (!isLoggedInUseCase()) {
-            _uploadState.value = UiState.Error("AUTH_REQUIRED")
-            return
-        }
         viewModelScope.launch {
             uploadProductUseCase(
                 title = title,

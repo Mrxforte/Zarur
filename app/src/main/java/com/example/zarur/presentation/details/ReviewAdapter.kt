@@ -1,7 +1,9 @@
 package com.example.zarur.presentation.details
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -21,19 +23,23 @@ class ReviewAdapter : ListAdapter<Review, ReviewAdapter.ViewHolder>(DiffCallback
             binding.tvReviewText.text = review.reviewText
 
             if (!review.userAvatarUrl.isNullOrEmpty()) {
+                binding.ivAvatar.setPadding(0,0,0,0)
+                binding.ivAvatar.imageTintList = null
                 Glide.with(binding.ivAvatar)
                     .load(review.userAvatarUrl)
-                    .placeholder(R.drawable.onboarding1)
                     .into(binding.ivAvatar)
             } else {
-                binding.ivAvatar.setImageResource(R.drawable.onboarding1)
+                binding.ivAvatar.setPadding(8,8,8,8)
+                binding.ivAvatar.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(binding.root.context, R.color.white))
+                binding.ivAvatar.setImageResource(R.drawable.ic_profile)
             }
 
+            val context = binding.root.context
             val diffDays = (System.currentTimeMillis() - review.timestamp) / (1000 * 60 * 60 * 24)
             binding.tvDate.text = when {
-                diffDays <= 0 -> "Today"
-                diffDays == 1L -> "Yesterday"
-                else -> "$diffDays days ago"
+                diffDays <= 0 -> context.getString(R.string.date_today)
+                diffDays == 1L -> context.getString(R.string.date_yesterday)
+                else -> context.getString(R.string.date_days_ago, diffDays)
             }
         }
     }

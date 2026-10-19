@@ -1,12 +1,15 @@
 package com.example.zarur.presentation.booking
 
+import android.content.Context
 import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.zarur.R
 import com.example.zarur.domain.model.Resource
 import com.example.zarur.domain.model.User
 import com.example.zarur.domain.usecase.GetUserProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,6 +27,7 @@ sealed interface BookingInfoUiEvent {
 
 @HiltViewModel
 class BookingInfoViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
     getUserProfileUseCase: GetUserProfileUseCase
 ) : ViewModel() {
 
@@ -42,15 +46,15 @@ class BookingInfoViewModel @Inject constructor(
         phone: String
     ) {
         if (fullName.isBlank()) {
-            viewModelScope.launch { _uiEvent.emit(BookingInfoUiEvent.ShowError("Please enter your full name")) }
+            viewModelScope.launch { _uiEvent.emit(BookingInfoUiEvent.ShowError(context.getString(R.string.error_enter_full_name))) }
             return
         }
         if (email.isBlank() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            viewModelScope.launch { _uiEvent.emit(BookingInfoUiEvent.ShowError("Please enter a valid email address")) }
+            viewModelScope.launch { _uiEvent.emit(BookingInfoUiEvent.ShowError(context.getString(R.string.error_enter_valid_email))) }
             return
         }
         if (phone.isBlank()) {
-            viewModelScope.launch { _uiEvent.emit(BookingInfoUiEvent.ShowError("Please enter your phone number")) }
+            viewModelScope.launch { _uiEvent.emit(BookingInfoUiEvent.ShowError(context.getString(R.string.error_enter_phone_number))) }
             return
         }
 

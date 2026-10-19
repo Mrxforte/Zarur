@@ -1,5 +1,6 @@
 package com.example.zarur
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -20,6 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -30,6 +32,15 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var appPreferences: AppPreferences
+
+    override fun attachBaseContext(newBase: Context) {
+        val prefs = newBase.getSharedPreferences("language_prefs", MODE_PRIVATE)
+        val lang = prefs.getString("selected_language", null) ?: Locale.getDefault().language.let {
+            if (it == "uz" || it == "en") it else "ru"
+        }
+        val context = LocaleManager.updateBaseContextLocale(newBase, lang)
+        super.attachBaseContext(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,7 +87,6 @@ class MainActivity : AppCompatActivity() {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            // Bottom Nav Visibility
             when (destination.id) {
                 R.id.exploreFragment,
                 R.id.favoritesFragment,
@@ -89,7 +99,7 @@ class MainActivity : AppCompatActivity() {
         val root = findViewById<View>(android.R.id.content)
         ViewCompat.setOnApplyWindowInsetsListener(root) { _, insets ->
             val navBars = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
-            bottomNav.updatePadding(bottom = navBars.bottom)
+            bottomNav.setPadding(0, 0, 0, navBars.bottom)
             insets
         }
 

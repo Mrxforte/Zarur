@@ -10,7 +10,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.zarur.R
 import com.example.zarur.databinding.FragmentBookingInfoBinding
+import com.example.zarur.domain.usecase.IsLoggedInUseCase
 import com.example.zarur.util.showErrorToast
+import com.example.zarur.util.showInfoToast
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -18,6 +20,11 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import javax.inject.Inject
+import androidx.fragment.app.activityViewModels
+
+import com.example.zarur.util.ensureAuth
+import com.example.zarur.util.showAuthRequiredDialog
 
 @AndroidEntryPoint
 class BookingInfoFragment : Fragment(R.layout.fragment_booking_info) {
@@ -25,11 +32,19 @@ class BookingInfoFragment : Fragment(R.layout.fragment_booking_info) {
     private var _binding: FragmentBookingInfoBinding? = null
     private val binding get() = _binding!!
 
+    @Inject
+    lateinit var isLoggedInUseCase: IsLoggedInUseCase
+
     private val viewModel: BookingInfoViewModel by viewModels()
+    private val bookingFlowViewModel: BookingFlowViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentBookingInfoBinding.bind(view)
+
+        if (!isLoggedInUseCase()) {
+            showAuthRequiredDialog()
+        }
 
         setupToolbar()
         setupDatePicker()
@@ -46,7 +61,7 @@ class BookingInfoFragment : Fragment(R.layout.fragment_booking_info) {
     private fun setupDatePicker() {
         val openDatePicker = {
             val datePicker = MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Select Date of Birth")
+                .setTitleText(getString(R.string.label_dob))
                 .build()
 
             datePicker.addOnPositiveButtonClickListener { selection ->
@@ -65,19 +80,23 @@ class BookingInfoFragment : Fragment(R.layout.fragment_booking_info) {
 
     private fun setupContinueButton() {
         binding.btnContinue.setOnClickListener {
-            val fullName = binding.etFullName.text?.toString().orEmpty().trim()
-            val nickname = binding.etNickname.text?.toString().orEmpty().trim()
-            val dob = binding.etDob.text?.toString().orEmpty().trim()
-            val email = binding.etEmail.text?.toString().orEmpty().trim()
-            val phone = binding.etPhone.text?.toString().orEmpty().trim()
+            ensureAuth(isLoggedInUseCase()) {
+                val fullName = binding.etFullName.text?.toString().orEmpty().trim()
+                val nickname = binding.etNickname.text?.toString().orEmpty().trim()
+                val dob = binding.etDob.text?.toString().orEmpty().trim()
+                val email = binding.etEmail.text?.toString().orEmpty().trim()
+                val phone = binding.etPhone.text?.toString().orEmpty().trim()
 
-            viewModel.validateAndSubmit(
-                fullName = fullName,
-                nickname = nickname,
-                dob = dob,
-                email = email,
-                phone = phone
-            )
+                bookingFlowViewModel.setContactInfo(fullName, nickname, email, phone, dob)
+
+                viewModel.validateAndSubmit(
+                    fullName = fullName,
+                    nickname = nickname,
+                    dob = dob,
+                    email = email,
+                    phone = phone
+                )
+            }
         }
     }
 
@@ -102,13 +121,6 @@ class BookingInfoFragment : Fragment(R.layout.fragment_booking_info) {
                             if (binding.etDob.text.isNullOrEmpty() && user.dob.isNotBlank()) {
                                 binding.etDob.setText(user.dob)
                             }
-                        } else {
-                            // Default pre-fill if profile is not configured
-                            if (binding.etFullName.text.isNullOrEmpty()) binding.etFullName.setText(getString(R.string.default_name_andrew_ainsley))
-                            if (binding.etNickname.text.isNullOrEmpty()) binding.etNickname.setText(getString(R.string.default_nickname_andrew))
-                            if (binding.etDob.text.isNullOrEmpty()) binding.etDob.setText(getString(R.string.default_dob))
-                            if (binding.etEmail.text.isNullOrEmpty()) binding.etEmail.setText(getString(R.string.default_email))
-                            if (binding.etPhone.text.isNullOrEmpty()) binding.etPhone.setText(getString(R.string.default_phone))
                         }
                     }
                 }

@@ -3,11 +3,17 @@ package com.example.zarur.data.repository
 import android.content.Context
 import com.example.zarur.data.local.ProductDao
 import com.example.zarur.data.local.ProductEntity
+import com.example.zarur.domain.model.Product
+import com.example.zarur.domain.model.Resource
+import com.google.android.gms.tasks.Tasks
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import io.mockk.*
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Before
@@ -109,5 +115,45 @@ class ProductRepositoryImplTest {
         repository.toggleFavorite("p1", true)
 
         coVerify { productDao.updateFavorite("p1", true) }
+    }
+
+    @Test
+    fun testGetSellerProducts() = runTest {
+        every { productDao.getAllProducts() } returns flowOf(listOf(entity))
+
+        val products = repository.getSellerProducts("s1").first()
+        assertEquals(1, products.size)
+        assertEquals("s1", products[0].sellerId)
+    }
+
+    @Test
+    fun testUploadProduct_savesToRoomAndFirestore() = runTest {
+        val newProduct = Product(
+            id = "p99",
+            name = "Test Upload",
+            price = 500.0,
+            category = "Electronics",
+            imageUrl = "http://image.jpg",
+            sellerId = "s1"
+        )
+
+        val mockTask = Tasks.forResult<Void>(null)
+        val mockDoc = mockk<DocumentReference>(relaxed = true)
+        val mockColl = mockk<CollectionReference>(relaxed = true)
+
+        every { firestore.collection("products") } returns mockColl
+        every { mockColl.document(any()) } returns mockDoc
+        every { mockDoc.set(any()) } returns mockTask
+        coEvery { productDao.insertProducts(any()) } returns Unit
+
+        val resultList = repository.uploadProduct(newProduct, "http://image.jpg").toList()
+
+        assertTrue(resultList[0] is Resource.Loading)
+        val success = resultList[1]
+        assertTrue(success is Resource.Success)
+        assertEquals("Test Upload", (success as Resource.Success).data.name)
+
+        coVerify { productDao.insertProducts(any()) }
+        verify { mockDoc.set(any()) }
     }
 }

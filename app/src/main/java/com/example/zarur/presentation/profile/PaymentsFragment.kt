@@ -12,12 +12,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.zarur.R
 import com.example.zarur.databinding.FragmentPaymentsBinding
 import com.example.zarur.domain.model.PaymentMethod
 import com.example.zarur.util.showInfoToast
 import com.example.zarur.util.showSuccessToast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.example.zarur.domain.usecase.IsLoggedInUseCase
+import com.example.zarur.util.ensureAuth
+import com.example.zarur.util.showAuthRequiredDialog
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -27,6 +32,9 @@ class PaymentsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: PaymentViewModel by activityViewModels()
+
+    @Inject
+    lateinit var isLoggedInUseCase: IsLoggedInUseCase
 
     private lateinit var cardsAdapter: CardsAdapter
     private lateinit var walletsAdapter: WalletsAdapter
@@ -42,6 +50,10 @@ class PaymentsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (!isLoggedInUseCase()) {
+            showAuthRequiredDialog()
+        }
 
         setupToolbar()
         setupRecyclerViews()
@@ -61,7 +73,7 @@ class PaymentsFragment : Fragment() {
             onCardClick = { card ->
                 if (!card.isDefault) {
                     viewModel.setDefaultCard(card.id)
-                    showSuccessToast("Primary payment card updated")
+                    showSuccessToast(getString(R.string.msg_primary_card_updated))
                 }
             },
             onDeleteClick = { card ->
@@ -92,14 +104,14 @@ class PaymentsFragment : Fragment() {
 
     private fun confirmDeleteCard(card: PaymentMethod) {
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Delete Payment Card")
-            .setMessage("Are you sure you want to remove ${card.title} (${card.maskedNumber})?")
-            .setPositiveButton("Delete") { dialog, _ ->
+            .setTitle(getString(R.string.title_remove_favorite))
+            .setMessage("${card.title} (${card.maskedNumber})?")
+            .setPositiveButton(getString(R.string.button_yes_remove)) { dialog, _ ->
                 viewModel.deleteCard(card.id)
-                showInfoToast("Payment card removed")
+                showInfoToast(getString(R.string.msg_card_removed))
                 dialog.dismiss()
             }
-            .setNegativeButton("Cancel") { dialog, _ ->
+            .setNegativeButton(getString(R.string.button_cancel)) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
@@ -108,16 +120,18 @@ class PaymentsFragment : Fragment() {
     private fun toggleWallet(wallet: PaymentMethod) {
         viewModel.toggleWallet(wallet.id)
         if (wallet.isConnected) {
-            showInfoToast("${wallet.title} disconnected")
+            showInfoToast(getString(R.string.msg_wallet_disconnected, wallet.title))
         } else {
-            showSuccessToast("${wallet.title} connected")
+            showSuccessToast(getString(R.string.msg_wallet_connected, wallet.title))
         }
     }
 
     private fun setupAddCardButtons() {
         val openAddCard = {
-            val bottomSheet = AddCardBottomSheet()
-            bottomSheet.show(childFragmentManager, "AddCardBottomSheet")
+            ensureAuth(isLoggedInUseCase()) {
+                val bottomSheet = AddCardBottomSheet()
+                bottomSheet.show(childFragmentManager, "AddCardBottomSheet")
+            }
         }
 
         binding.btnAddCard.setOnClickListener { openAddCard() }

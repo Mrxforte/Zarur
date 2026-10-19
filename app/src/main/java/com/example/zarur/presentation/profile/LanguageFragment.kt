@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.zarur.R
+import com.example.zarur.app.LocaleManager
 import com.example.zarur.databinding.FragmentLanguageBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -33,16 +34,15 @@ class LanguageFragment : Fragment(R.layout.fragment_language) {
     }
 
     private fun setupSelection() {
-        binding.containerRu.setOnClickListener { 
-            viewModel.selectLanguage("ru")
-            requireActivity().recreate()
-        }
-        binding.containerUz.setOnClickListener { 
-            viewModel.selectLanguage("uz")
-            requireActivity().recreate()
-        }
-        binding.containerEn.setOnClickListener { 
-            viewModel.selectLanguage("en")
+        binding.containerRu.setOnClickListener { onLanguageClicked("ru") }
+        binding.containerUz.setOnClickListener { onLanguageClicked("uz") }
+        binding.containerEn.setOnClickListener { onLanguageClicked("en") }
+    }
+
+    private fun onLanguageClicked(lang: String) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.selectLanguage(lang)
+            LocaleManager.applyLocale(requireContext(), lang)
             requireActivity().recreate()
         }
     }
@@ -51,9 +51,9 @@ class LanguageFragment : Fragment(R.layout.fragment_language) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.selectedLanguage.collect { language ->
-                    binding.rbRu.isChecked = language == "ru"
-                    binding.rbUz.isChecked = language == "uz"
-                    binding.rbEn.isChecked = language == "en"
+                    binding.rbRu.isChecked = (language == "ru")
+                    binding.rbUz.isChecked = (language == "uz")
+                    binding.rbEn.isChecked = (language == "en")
                 }
             }
         }

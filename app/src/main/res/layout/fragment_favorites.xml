@@ -4,18 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface">
+    android:background="?android:attr/colorBackground">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorSurface"
+        android:background="@android:color/transparent"
         app:elevation="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:orientation="vertical">
 
             <com.google.android.material.tabs.TabLayout
@@ -24,6 +25,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginBottom="8dp"
+                android:background="@android:color/transparent"
+                app:tabBackground="@android:color/transparent"
                 app:tabMode="fixed"
                 app:tabSelectedTextColor="?attr/colorPrimary"
                 app:tabTextColor="?attr/colorOnSurfaceVariant">

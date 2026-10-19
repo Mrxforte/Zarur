@@ -20,6 +20,8 @@ import com.example.zarur.domain.model.ChatMessage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+import com.example.zarur.util.ensureAuth
+
 @AndroidEntryPoint
 class ChatDetailFragment : Fragment(R.layout.fragment_chat_detail) {
 
@@ -33,17 +35,13 @@ class ChatDetailFragment : Fragment(R.layout.fragment_chat_detail) {
         }
 
         view.findViewById<ImageView>(R.id.ivVoiceCall).setOnClickListener {
-            if (!viewModel.isLoggedIn()) {
-                findNavController().navigate(R.id.authHubFragment)
-            } else {
+            ensureAuth(viewModel.isLoggedIn()) {
                 findNavController().navigate(R.id.action_chatDetailFragment_to_voiceCallFragment)
             }
         }
 
         view.findViewById<ImageView>(R.id.ivVideoCall).setOnClickListener {
-            if (!viewModel.isLoggedIn()) {
-                findNavController().navigate(R.id.authHubFragment)
-            } else {
+            ensureAuth(viewModel.isLoggedIn()) {
                 findNavController().navigate(R.id.action_chatDetailFragment_to_videoCallFragment)
             }
         }
@@ -59,9 +57,7 @@ class ChatDetailFragment : Fragment(R.layout.fragment_chat_detail) {
 
         val etMessage = view.findViewById<EditText>(R.id.etMessage)
         view.findViewById<ImageView>(R.id.ivSend).setOnClickListener {
-            if (!viewModel.isLoggedIn()) {
-                findNavController().navigate(R.id.authHubFragment)
-            } else {
+            ensureAuth(viewModel.isLoggedIn()) {
                 val text = etMessage.text.toString().trim()
                 if (text.isNotEmpty()) {
                     viewModel.sendMessage(text)

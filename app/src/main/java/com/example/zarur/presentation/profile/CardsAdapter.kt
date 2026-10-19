@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.zarur.R
 import com.example.zarur.databinding.ItemCreditCardBinding
 import com.example.zarur.domain.model.PaymentMethod
 
@@ -33,8 +34,9 @@ class CardsAdapter(
             binding.clCardBackground.setBackgroundResource(card.bgResId)
             binding.ivBrandLogo.setImageResource(card.iconResId)
             binding.tvCardNumber.text = card.formattedDisplayNumber
-            binding.tvCardHolder.text = card.cardHolderName.ifEmpty { "CARD HOLDER" }
-            binding.tvExpiryDate.text = card.expiryDate.ifEmpty { "MM/YY" }
+            val context = binding.root.context
+            binding.tvCardHolder.text = card.cardHolderName.ifEmpty { context.getString(R.string.label_card_holder_placeholder) }
+            binding.tvExpiryDate.text = card.expiryDate.ifEmpty { context.getString(R.string.label_expiry_placeholder) }
 
             binding.tvDefaultBadge.visibility = if (card.isDefault) View.VISIBLE else View.GONE
 

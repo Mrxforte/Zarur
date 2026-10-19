@@ -6,21 +6,28 @@ import android.view.View
 import android.widget.Chronometer
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.zarur.R
+import com.example.zarur.domain.model.CallStatus
+import com.example.zarur.domain.model.CallType
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class VoiceCallFragment : Fragment(R.layout.fragment_voice_call) {
 
+    private val viewModel: ChatViewModel by activityViewModels()
+
     private var isMuted = false
     private var isSpeakerOn = false
+    private var callStartTime: Long = 0L
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        callStartTime = SystemClock.elapsedRealtime()
 
         val chronometer = view.findViewById<Chronometer>(R.id.tvCallStatus)
-        chronometer.base = SystemClock.elapsedRealtime()
+        chronometer.base = callStartTime
         chronometer.start()
 
         val btnMute = view.findViewById<ImageView>(R.id.btnMute)
@@ -37,6 +44,13 @@ class VoiceCallFragment : Fragment(R.layout.fragment_voice_call) {
 
         view.findViewById<View>(R.id.btnEndCall).setOnClickListener {
             chronometer.stop()
+            val durationSeconds = (SystemClock.elapsedRealtime() - callStartTime) / 1000
+            viewModel.recordCallLog(
+                callerName = "Natasya Wilodra",
+                callType = CallType.VOICE,
+                callStatus = CallStatus.OUTGOING,
+                durationSeconds = durationSeconds
+            )
             findNavController().popBackStack()
         }
     }

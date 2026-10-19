@@ -2,6 +2,7 @@ package com.example.zarur.presentation.favorites
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -62,7 +63,19 @@ class FavoritesAdapter(
                     .into(binding.ivProperty)
 
                 binding.ivProperty.alpha = if (product.isSold) 0.5f else 1.0f
-                    
+                
+                if (product.isInCart) {
+                    binding.btnAddToCart.setImageResource(R.drawable.ic_check_circle)
+                    binding.btnAddToCart.setColorFilter(
+                        ContextCompat.getColor(binding.root.context, R.color.green_uzum)
+                    )
+                } else {
+                    binding.btnAddToCart.setImageResource(R.drawable.ic_add_to_cart)
+                    binding.btnAddToCart.setColorFilter(
+                        ContextCompat.getColor(binding.root.context, R.color.primary)
+                    )
+                }
+
                 binding.root.setOnClickListener { onItemClick(product) }
                 binding.ivFavorite.setOnClickListener { onFavoriteClick(product) }
                 binding.btnAddToCart.setOnClickListener { onAddToCartClick?.invoke(product) }

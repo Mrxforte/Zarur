@@ -1,5 +1,6 @@
 package com.example.zarur.presentation
 
+import android.content.Context
 import com.example.zarur.domain.model.ChatMessage
 import com.example.zarur.domain.repository.ChatRepository
 import com.example.zarur.domain.usecase.IsLoggedInUseCase
@@ -19,6 +20,7 @@ class ChatViewModelTest {
 
     private val testDispatcher = StandardTestDispatcher()
 
+    private val context: Context = mockk(relaxed = true)
     private val chatRepository: ChatRepository = mockk(relaxed = true)
     private val isLoggedInUseCase: IsLoggedInUseCase = mockk(relaxed = true)
 
@@ -40,7 +42,7 @@ class ChatViewModelTest {
     fun testLoadMessages_empty() = runTest {
         every { chatRepository.getMessages("default_chat_id") } returns flowOf(emptyList())
 
-        viewModel = ChatViewModel(chatRepository, isLoggedInUseCase)
+        viewModel = ChatViewModel(context, chatRepository, isLoggedInUseCase)
         advanceUntilIdle()
 
         assertTrue(viewModel.messages.value.isEmpty())
@@ -51,7 +53,7 @@ class ChatViewModelTest {
         val msgs = listOf(ChatMessage(id = "1", text = "Hello"))
         every { chatRepository.getMessages("default_chat_id") } returns flowOf(msgs)
 
-        viewModel = ChatViewModel(chatRepository, isLoggedInUseCase)
+        viewModel = ChatViewModel(context, chatRepository, isLoggedInUseCase)
         advanceUntilIdle()
 
         assertEquals(1, viewModel.messages.value.size)
@@ -63,7 +65,7 @@ class ChatViewModelTest {
         val msgs = listOf(ChatMessage(id = "1", text = "Hi"))
         every { chatRepository.getMessages("default_chat_id") } returns flowOf(msgs)
 
-        viewModel = ChatViewModel(chatRepository, isLoggedInUseCase)
+        viewModel = ChatViewModel(context, chatRepository, isLoggedInUseCase)
         advanceUntilIdle()
 
         viewModel.sendMessage("How much is this?")

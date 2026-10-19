@@ -6,23 +6,38 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.zarur.R
 import com.example.zarur.databinding.FragmentBookRealEstateBinding
+import com.example.zarur.domain.usecase.IsLoggedInUseCase
+import com.example.zarur.util.showInfoToast
 import dagger.hilt.android.AndroidEntryPoint
-
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import javax.inject.Inject
+
+import androidx.fragment.app.activityViewModels
+import com.example.zarur.util.ensureAuth
+import com.example.zarur.util.showAuthRequiredDialog
 
 @AndroidEntryPoint
 class BookRealEstateFragment : Fragment(R.layout.fragment_book_real_estate) {
 
     private var _binding: FragmentBookRealEstateBinding? = null
     private val binding get() = _binding!!
+    
+    private val bookingFlowViewModel: BookingFlowViewModel by activityViewModels()
+
+    @Inject
+    lateinit var isLoggedInUseCase: IsLoggedInUseCase
 
     private val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentBookRealEstateBinding.bind(view)
+
+        if (!isLoggedInUseCase()) {
+            showAuthRequiredDialog()
+        }
 
         setupToolbar()
         setupCalendar()
@@ -59,8 +74,13 @@ class BookRealEstateFragment : Fragment(R.layout.fragment_book_real_estate) {
 
     private fun setupContinueButton() {
         binding.btnContinue.setOnClickListener {
-            if (findNavController().currentDestination?.id == R.id.bookRealEstateFragment) {
-                findNavController().navigate(R.id.action_bookRealEstateFragment_to_bookingInfoFragment)
+            ensureAuth(isLoggedInUseCase()) {
+                val checkIn = binding.tvCheckInDate.text.toString()
+                val checkOut = binding.tvCheckOutDate.text.toString()
+                bookingFlowViewModel.setDates(checkIn, checkOut)
+                if (findNavController().currentDestination?.id == R.id.bookRealEstateFragment) {
+                    findNavController().navigate(R.id.action_bookRealEstateFragment_to_bookingInfoFragment)
+                }
             }
         }
     }
