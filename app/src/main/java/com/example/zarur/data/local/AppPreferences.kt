@@ -22,6 +22,53 @@ class AppPreferences @Inject constructor(context: Context) {
         get() = prefs.getBoolean("is_test_mode", false)
         set(value) = prefs.edit().putBoolean("is_test_mode", value).apply()
 
+    var userId: String
+        get() = prefs.getString("user_id", "") ?: ""
+        set(value) = prefs.edit().putString("user_id", value).apply()
+
+    var userName: String
+        get() = prefs.getString("user_name", "") ?: ""
+        set(value) = prefs.edit().putString("user_name", value).apply()
+
+    var userNickname: String
+        get() = prefs.getString("user_nickname", "") ?: ""
+        set(value) = prefs.edit().putString("user_nickname", value).apply()
+
+    var userEmail: String
+        get() = prefs.getString("user_email", "") ?: ""
+        set(value) = prefs.edit().putString("user_email", value).apply()
+
+    var userPhone: String
+        get() = prefs.getString("user_phone", "") ?: ""
+        set(value) = prefs.edit().putString("user_phone", value).apply()
+
+    var userGender: String
+        get() = prefs.getString("user_gender", "") ?: ""
+        set(value) = prefs.edit().putString("user_gender", value).apply()
+
+    var userDob: String
+        get() = prefs.getString("user_dob", "") ?: ""
+        set(value) = prefs.edit().putString("user_dob", value).apply()
+
+    var userAvatarUrl: String
+        get() = prefs.getString("user_avatar_url", "") ?: ""
+        set(value) = prefs.edit().putString("user_avatar_url", value).apply()
+
+    fun clearUserData() {
+        prefs.edit()
+            .putBoolean("is_logged_in", false)
+            .putBoolean("is_test_mode", false)
+            .remove("user_id")
+            .remove("user_name")
+            .remove("user_nickname")
+            .remove("user_email")
+            .remove("user_phone")
+            .remove("user_gender")
+            .remove("user_dob")
+            .remove("user_avatar_url")
+            .apply()
+    }
+
     var hasReceivedWelcomeNotification: Boolean
         get() = prefs.getBoolean("has_received_welcome_notif", false)
         set(value) = prefs.edit().putBoolean("has_received_welcome_notif", value).apply()

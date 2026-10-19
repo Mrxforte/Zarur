@@ -3,8 +3,8 @@ package com.example.zarur.presentation
 import com.example.zarur.domain.model.Resource
 import com.example.zarur.domain.model.User
 import com.example.zarur.domain.usecase.SignInUseCase
-import com.example.zarur.domain.usecase.SignInWithGoogleUseCase
 import com.example.zarur.domain.usecase.SignUpUseCase
+import com.example.zarur.domain.usecase.UpdatePasswordUseCase
 import com.example.zarur.presentation.auth.AuthViewModel
 import com.example.zarur.presentation.common.UiState
 import io.mockk.*
@@ -22,15 +22,15 @@ class AuthViewModelTest {
 
     private val testDispatcher = UnconfinedTestDispatcher()
     private val signInUseCase: SignInUseCase = mockk()
-    private val signInWithGoogleUseCase: SignInWithGoogleUseCase = mockk()
     private val signUpUseCase: SignUpUseCase = mockk()
+    private val updatePasswordUseCase: UpdatePasswordUseCase = mockk()
 
     private lateinit var viewModel: AuthViewModel
 
     @Before
     fun setUp() {
         Dispatchers.setMain(testDispatcher)
-        viewModel = AuthViewModel(signInUseCase, signInWithGoogleUseCase, signUpUseCase)
+        viewModel = AuthViewModel(signInUseCase, signUpUseCase, updatePasswordUseCase)
     }
 
     @After
@@ -64,34 +64,6 @@ class AuthViewModelTest {
         val state = viewModel.signInState.value
         assertTrue(state is UiState.Error)
         assertEquals("Invalid credentials", (state as UiState.Error).message)
-    }
-
-    @Test
-    fun testSignInWithGoogle_success() = runTest {
-        val user = User(id = "google_u1", email = "google@b.com")
-        every { signInWithGoogleUseCase("google_id_token") } returns flowOf(
-            Resource.Loading,
-            Resource.Success(user)
-        )
-
-        viewModel.signInWithGoogle("google_id_token")
-
-        val state = viewModel.signInState.value
-        assertTrue(state is UiState.Success)
-        assertEquals("google_u1", (state as UiState.Success).data.id)
-    }
-
-    @Test
-    fun testSignInWithGoogle_error() = runTest {
-        every { signInWithGoogleUseCase("invalid_token") } returns flowOf(
-            Resource.Error("Google Sign in failed")
-        )
-
-        viewModel.signInWithGoogle("invalid_token")
-
-        val state = viewModel.signInState.value
-        assertTrue(state is UiState.Error)
-        assertEquals("Google Sign in failed", (state as UiState.Error).message)
     }
 
     @Test
@@ -135,5 +107,17 @@ class AuthViewModelTest {
 
         assertNull(viewModel.signInState.value)
         assertNull(viewModel.signUpState.value)
+    }
+
+    @Test
+    fun testUpdatePassword_success() = runTest {
+        every { updatePasswordUseCase("newpass123") } returns flowOf(
+            Resource.Success(Unit)
+        )
+
+        viewModel.updatePassword("newpass123")
+
+        val state = viewModel.updatePasswordState.value
+        assertTrue(state is UiState.Success)
     }
 }

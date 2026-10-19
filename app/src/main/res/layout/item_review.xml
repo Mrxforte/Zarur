@@ -54,7 +54,7 @@
         <ImageView
             android:layout_width="10dp"
             android:layout_height="10dp"
-            android:src="@drawable/ic_favorites"
+            android:src="@drawable/ic_star"
             app:tint="@color/white" />
 
         <TextView

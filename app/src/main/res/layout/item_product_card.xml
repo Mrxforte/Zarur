@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardBackgroundColor="?attr/colorSurface"
+    android:layout_margin="6dp"
+    app:cardBackgroundColor="@android:color/transparent"
     app:cardCornerRadius="16dp"
-    app:cardElevation="4dp"
-    app:strokeWidth="1dp"
-    app:strokeColor="?attr/colorOutline">
+    app:cardElevation="0dp"
+    app:strokeWidth="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,6 +20,7 @@
             android:id="@+id/cardImageContainer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="16dp"
             app:cardElevation="0dp"
             app:strokeWidth="0dp"
@@ -146,7 +146,7 @@
                 <ImageView
                     android:layout_width="14dp"
                     android:layout_height="14dp"
-                    android:src="@drawable/ic_favorites"
+                    android:src="@drawable/ic_star"
                     app:tint="@color/yellow_uzum" />
 
                 <TextView

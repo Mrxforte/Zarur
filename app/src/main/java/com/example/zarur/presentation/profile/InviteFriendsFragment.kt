@@ -32,7 +32,7 @@ class InviteFriendsFragment : Fragment(R.layout.fragment_invite_friends) {
             val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("Referral Code", code)
             clipboard.setPrimaryClip(clip)
-            showSuccessToast("Promo kod nusxalandi: $code")
+            showSuccessToast(getString(R.string.msg_promo_code_copied, code))
         }
 
         view.findViewById<ImageView>(R.id.ivCopy)?.setOnClickListener(copyAction)

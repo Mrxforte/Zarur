@@ -19,11 +19,20 @@ import com.bumptech.glide.Glide
 import com.example.zarur.R
 import com.example.zarur.databinding.FragmentExploreBinding
 import com.example.zarur.presentation.common.ProductAdapter
+import com.example.zarur.util.showInfoToast
+import com.example.zarur.util.showSuccessToast
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.Calendar
+import java.util.Locale
 
+import com.example.zarur.util.ensureAuth
+
+// ExploreFragment serves as the main marketplace feed.
+// It operates in read-only mode for unauthenticated users, allowing product browsing and searching,
+// but requires authentication (triggering a localized dialog) for actions like viewing profile or managing cart.
 @AndroidEntryPoint
 class ExploreFragment : Fragment(R.layout.fragment_explore) {
 
@@ -52,10 +61,9 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
     }
 
     private fun setupListeners() {
+        // Navigating to profile requires user authentication
         binding.ivProfile.setOnClickListener {
-            if (!viewModel.isLoggedIn()) {
-                findNavController().navigate(R.id.authHubFragment)
-            } else {
+            ensureAuth(viewModel.isLoggedIn()) {
                 findNavController().navigate(R.id.action_exploreFragment_to_profileFragment)
             }
         }
@@ -98,16 +106,21 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
     private fun setupRecyclerView() {
         adapter = ProductAdapter(
             onItemClick = { product ->
+                // Product details are accessible to all users in read-only mode
                 val bundle = Bundle().apply {
                     putString("productId", product.id)
                 }
                 findNavController().navigate(R.id.productDetailFragment, bundle)
             },
             onAddToCartClick = { product ->
-                if (!viewModel.isLoggedIn()) {
-                    findNavController().navigate(R.id.authHubFragment)
-                } else {
-                    viewModel.addToCart(product.id)
+                // Adding item to cart requires authentication check
+                ensureAuth(viewModel.isLoggedIn()) {
+                    viewModel.toggleCart(product)
+                    if (!product.isInCart) {
+                        showSuccessToast(getString(R.string.msg_added_to_cart_success))
+                    } else {
+                        showInfoToast(getString(R.string.msg_removed_from_cart))
+                    }
                 }
             }
         )
@@ -126,19 +139,29 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.userProfile.collect { user ->
-                        if (user != null) {
-                            if (user.fullName.isNotBlank()) {
-                                binding.tvName.text = user.fullName
-                            } else if (user.email.isNotBlank()) {
-                                binding.tvName.text = user.email
-                            }
-                            if (!user.avatarUrl.isNullOrEmpty()) {
-                                Glide.with(this@ExploreFragment)
-                                    .load(user.avatarUrl)
-                                    .placeholder(R.drawable.onboarding1)
-                                    .into(binding.ivProfile)
-                            }
+                        val displayName = when {
+                            user != null && user.fullName.isNotBlank() -> user.fullName
+                            user != null && user.nickname.isNotBlank() -> user.nickname
+                            user != null && user.email.isNotBlank() -> user.email.substringBefore("@").replaceFirstChar { if (it.isLowerCase()) it.titlecase(
+                                Locale.getDefault()) else it.toString() }
+                            else -> getString(R.string.profile_name)
                         }
+                        binding.tvName.text = displayName
+
+                        if (user != null && !user.avatarUrl.isNullOrEmpty()) {
+                            Glide.with(this@ExploreFragment)
+                                .load(user.avatarUrl)
+                                .placeholder(R.drawable.onboarding1)
+                                .into(binding.ivProfile)
+                        }
+
+                        val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+                        val greetingRes = when (hour) {
+                            in 4..11 -> R.string.greeting_morning
+                            in 12..17 -> R.string.greeting_afternoon
+                            else -> R.string.greeting_evening
+                        }
+                        binding.tvGreeting.setText(greetingRes)
                     }
                 }
                 launch {
@@ -172,6 +195,7 @@ class ExploreFragment : Fragment(R.layout.fragment_explore) {
     override fun onResume() {
         super.onResume()
         viewModel.refreshUnreadNotificationCount()
+        viewModel.refreshUserProfile()
     }
 
     override fun onDestroyView() {

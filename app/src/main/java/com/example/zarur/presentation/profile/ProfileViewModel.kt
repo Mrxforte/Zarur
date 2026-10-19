@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.zarur.domain.model.Resource
 import com.example.zarur.domain.model.User
+import com.example.zarur.domain.usecase.GetReceiptsUseCase
 import com.example.zarur.domain.usecase.GetThemeUseCase
 import com.example.zarur.domain.usecase.GetUserProfileUseCase
 import com.example.zarur.domain.usecase.SetThemeUseCase
@@ -18,6 +19,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -28,11 +30,16 @@ class ProfileViewModel @Inject constructor(
     private val setThemeUseCase: SetThemeUseCase,
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val updateUserProfileUseCase: UpdateUserProfileUseCase,
-    private val signOutUseCase: SignOutUseCase
+    private val signOutUseCase: SignOutUseCase,
+    private val getReceiptsUseCase: GetReceiptsUseCase,
 ) : ViewModel() {
 
     val isDarkMode: StateFlow<Boolean> = getThemeUseCase()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+
+    val receiptCount: StateFlow<Int> = getReceiptsUseCase()
+        .map { it.size }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0)
 
     private val _profileState = MutableStateFlow<UiState<User>>(UiState.Loading)
     val profileState: StateFlow<UiState<User>> = _profileState.asStateFlow()
@@ -52,7 +59,7 @@ class ProfileViewModel @Inject constructor(
                 _profileState.value = when (resource) {
                     is Resource.Loading -> UiState.Loading
                     is Resource.Success -> {
-                        val user = resource.data ?: User(fullName = "Andrew Ainsley", email = "andrew_ainsley@yourdomain.com")
+                        val user = resource.data ?: User()
                         UiState.Success(user)
                     }
                     is Resource.Error -> UiState.Error(resource.message)
@@ -69,6 +76,19 @@ class ProfileViewModel @Inject constructor(
 
     fun setSelectedAvatar(uriString: String) {
         selectedAvatarUri = uriString
+    }
+
+    fun updateAvatar(uriString: String) {
+        selectedAvatarUri = uriString
+        val currentUser = (_profileState.value as? UiState.Success)?.data ?: User()
+        updateProfile(
+            fullName = currentUser.fullName,
+            nickname = currentUser.nickname,
+            email = currentUser.email,
+            phone = currentUser.phone,
+            gender = currentUser.gender,
+            dob = currentUser.dob
+        )
     }
 
     fun updateProfile(

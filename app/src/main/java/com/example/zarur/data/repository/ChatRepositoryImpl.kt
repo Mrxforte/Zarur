@@ -2,6 +2,9 @@ package com.example.zarur.data.repository
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.zarur.domain.model.CallLog
+import com.example.zarur.domain.model.CallStatus
+import com.example.zarur.domain.model.CallType
 import com.example.zarur.domain.model.ChatConversation
 import com.example.zarur.domain.model.ChatMessage
 import com.example.zarur.domain.model.Product
@@ -34,10 +37,12 @@ class ChatRepositoryImpl @Inject constructor(
     private val gson = Gson()
 
     private val conversationsState = MutableStateFlow<List<ChatConversation>>(emptyList())
+    private val callLogsState = MutableStateFlow<List<CallLog>>(emptyList())
     private val messagesCache = mutableMapOf<String, MutableList<ChatMessage>>()
 
     init {
         loadConversationsFromPrefs()
+        loadCallLogsFromPrefs()
     }
 
     private fun loadConversationsFromPrefs() {
@@ -61,6 +66,29 @@ class ChatRepositoryImpl @Inject constructor(
         val json = gson.toJson(list)
         prefs.edit().putString("chat_conversations", json).apply()
         conversationsState.value = list
+    }
+
+    private fun loadCallLogsFromPrefs() {
+        val json = prefs.getString("chat_call_logs", null)
+        if (json.isNullOrEmpty()) {
+            val initial = createDefaultCallLogs()
+            saveCallLogsToPrefs(initial)
+        } else {
+            try {
+                val type = object : TypeToken<List<CallLog>>() {}.type
+                val list: List<CallLog> = gson.fromJson(json, type)
+                callLogsState.value = list.ifEmpty { createDefaultCallLogs() }
+            } catch (e: Exception) {
+                val initial = createDefaultCallLogs()
+                saveCallLogsToPrefs(initial)
+            }
+        }
+    }
+
+    private fun saveCallLogsToPrefs(list: List<CallLog>) {
+        val json = gson.toJson(list)
+        prefs.edit().putString("chat_call_logs", json).apply()
+        callLogsState.value = list
     }
 
     private fun createDefaultConversations(): List<ChatConversation> {
@@ -98,7 +126,85 @@ class ChatRepositoryImpl @Inject constructor(
         )
     }
 
+    private fun createDefaultCallLogs(): List<CallLog> {
+        return listOf(
+            CallLog(
+                id = "call_1",
+                callerName = "Natasya Wilodra",
+                callerAvatar = "",
+                callType = CallType.VOICE,
+                callStatus = CallStatus.DECLINED,
+                time = "Today, 15:45",
+                duration = null,
+                timestamp = System.currentTimeMillis() - 1000 * 60 * 30
+            ),
+            CallLog(
+                id = "call_2",
+                callerName = "Charolette Hanlin",
+                callerAvatar = "",
+                callType = CallType.VIDEO,
+                callStatus = CallStatus.OUTGOING,
+                time = "Today, 14:20",
+                duration = "3 min 24 sec",
+                timestamp = System.currentTimeMillis() - 1000 * 60 * 120
+            ),
+            CallLog(
+                id = "call_3",
+                callerName = "Natasya Wilodra",
+                callerAvatar = "",
+                callType = CallType.VOICE,
+                callStatus = CallStatus.INCOMING,
+                time = "Yesterday, 18:10",
+                duration = "1 min 45 sec",
+                timestamp = System.currentTimeMillis() - 1000 * 60 * 60 * 24
+            ),
+            CallLog(
+                id = "call_4",
+                callerName = "Johnathan Doe",
+                callerAvatar = "",
+                callType = CallType.VOICE,
+                callStatus = CallStatus.MISSED,
+                time = "Yesterday, 11:05",
+                duration = null,
+                timestamp = System.currentTimeMillis() - 1000 * 60 * 60 * 30
+            ),
+            CallLog(
+                id = "call_5",
+                callerName = "Charolette Hanlin",
+                callerAvatar = "",
+                callType = CallType.VIDEO,
+                callStatus = CallStatus.DECLINED,
+                time = "Dec 22, 09:15",
+                duration = null,
+                timestamp = System.currentTimeMillis() - 1000 * 60 * 60 * 48
+            ),
+            CallLog(
+                id = "call_6",
+                callerName = "Official Real Estate",
+                callerAvatar = "",
+                callType = CallType.VOICE,
+                callStatus = CallStatus.OUTGOING,
+                time = "Dec 20, 16:30",
+                duration = "5 min 10 sec",
+                timestamp = System.currentTimeMillis() - 1000 * 60 * 60 * 96
+            )
+        )
+    }
+
     override fun getConversations(): Flow<List<ChatConversation>> = conversationsState
+
+    override fun getCallLogs(): Flow<List<CallLog>> = callLogsState
+
+    override suspend fun addCallLog(callLog: CallLog) {
+        val updated = callLogsState.value.toMutableList().apply {
+            add(0, callLog)
+        }
+        saveCallLogsToPrefs(updated)
+    }
+
+    override suspend fun clearCallLogs() {
+        saveCallLogsToPrefs(emptyList())
+    }
 
     override fun getMessages(chatId: String): Flow<List<ChatMessage>> = callbackFlow {
         var listenerRegistration: ListenerRegistration? = null

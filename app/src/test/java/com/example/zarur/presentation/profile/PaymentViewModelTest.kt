@@ -36,7 +36,7 @@ class PaymentViewModelTest {
         type = PaymentType.CARD,
         brand = CardBrand.VISA,
         title = "Visa Card",
-        cardHolderName = "Andrew Ainsley",
+        cardHolderName = "User Card",
         cardNumber = "4111222233334242",
         maskedNumber = "•••• •••• •••• 4242",
         expiryDate = "12/28",

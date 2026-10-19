@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zarur.R
 import com.example.zarur.databinding.FragmentSelectPaymentBinding
+import com.example.zarur.domain.usecase.IsLoggedInUseCase
 import com.example.zarur.presentation.profile.AddCardBottomSheet
 import com.example.zarur.presentation.profile.CardsAdapter
 import com.example.zarur.presentation.profile.PaymentViewModel
@@ -20,6 +21,7 @@ import com.example.zarur.presentation.profile.WalletsAdapter
 import com.example.zarur.util.showInfoToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SelectPaymentFragment : Fragment() {
@@ -27,7 +29,11 @@ class SelectPaymentFragment : Fragment() {
     private var _binding: FragmentSelectPaymentBinding? = null
     private val binding get() = _binding!!
 
+    @Inject
+    lateinit var isLoggedInUseCase: IsLoggedInUseCase
+
     private val viewModel: PaymentViewModel by activityViewModels()
+    private val bookingFlowViewModel: BookingFlowViewModel by activityViewModels()
 
     private lateinit var cardsAdapter: CardsAdapter
     private lateinit var walletsAdapter: WalletsAdapter
@@ -43,6 +49,12 @@ class SelectPaymentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (!isLoggedInUseCase()) {
+            showInfoToast(getString(R.string.msg_sign_in_to_continue))
+            findNavController().navigate(R.id.action_global_authHubFragment)
+            return
+        }
 
         setupToolbar()
         setupRecyclerViews()
@@ -96,6 +108,16 @@ class SelectPaymentFragment : Fragment() {
             if (selectedId.isNullOrEmpty()) {
                 showInfoToast(getString(R.string.title_select_payment))
             } else {
+                val state = viewModel.uiState.value
+                val selectedMethod = state.cards.find { it.id == selectedId }
+                    ?: state.wallets.find { it.id == selectedId }
+                    ?: state.cards.find { it.isDefault }
+                selectedMethod?.let {
+                    bookingFlowViewModel.setPaymentMethod(
+                        methodName = it.formattedDisplayNumber.ifEmpty { "Card" },
+                        iconRes = it.iconResId
+                    )
+                }
                 if (findNavController().currentDestination?.id == R.id.selectPaymentFragment) {
                     findNavController().navigate(R.id.action_selectPaymentFragment_to_reviewSummaryFragment)
                 }

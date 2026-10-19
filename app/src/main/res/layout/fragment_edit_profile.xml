@@ -65,22 +65,10 @@
                     android:layout_width="140dp"
                     android:layout_height="140dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/onboarding1"
+                    android:src="@drawable/bg_stylish_avatar_default"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/btnEditAvatar"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="@android:color/transparent"
-                    android:padding="10dp"
-                    android:src="@drawable/ic_profile_edit"
-                    app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
-                    app:layout_constraintEnd_toEndOf="@id/ivAvatar"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
-                    app:tint="?attr/colorPrimary" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textfield.TextInputLayout

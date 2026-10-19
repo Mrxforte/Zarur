@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.example.zarur.R
 import com.example.zarur.databinding.ItemProductCardBinding
 import com.example.zarur.domain.model.Product
 
@@ -92,13 +94,25 @@ class ProductAdapter(
             val countStr = if (product.reviewCount > 0) " (${product.reviewCount})" else ""
             binding.tvRating.text = "%.1f%s".format(product.rating, countStr)
 
-            // Sold Status UI
+            // Sold & Cart Status UI
             if (product.isSold) {
                 binding.btnAddToCart.isEnabled = false
                 binding.btnAddToCart.alpha = 0.5f
             } else {
                 binding.btnAddToCart.isEnabled = true
                 binding.btnAddToCart.alpha = 1.0f
+            }
+
+            if (product.isInCart) {
+                binding.btnAddToCart.setImageResource(R.drawable.ic_check_circle)
+                binding.btnAddToCart.setColorFilter(
+                    ContextCompat.getColor(binding.root.context, R.color.green_uzum)
+                )
+            } else {
+                binding.btnAddToCart.setImageResource(R.drawable.ic_add_to_cart)
+                binding.btnAddToCart.setColorFilter(
+                    ContextCompat.getColor(binding.root.context, R.color.primary)
+                )
             }
 
             // Image Gallery ViewPager2 with Transparent Bottom Dots Indicator

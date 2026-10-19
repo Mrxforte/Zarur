@@ -19,12 +19,16 @@ import com.example.zarur.databinding.FragmentCreateProductBinding
 import com.example.zarur.domain.model.ProductCategory
 import com.example.zarur.domain.usecase.IsLoggedInUseCase
 import com.example.zarur.presentation.common.UiState
+import com.example.zarur.util.ensureAuth
 import com.example.zarur.util.showErrorToast
 import com.example.zarur.util.showSuccessToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+import com.example.zarur.util.showAuthRequiredDialog
+
+// CreateProductFragment enables sellers to create new product/property listings.
 @AndroidEntryPoint
 class CreateProductFragment : Fragment(R.layout.fragment_create_product) {
 
@@ -48,8 +52,11 @@ class CreateProductFragment : Fragment(R.layout.fragment_create_product) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Agar foydalanuvchi tizimga kirmagan bo'lsa (local yoki Firebase orqali), AuthHub ga qaytarib yuboramiz.
         if (!isLoggedInUseCase()) {
-            findNavController().navigate(R.id.authHubFragment)
+            showAuthRequiredDialog(null) {
+                findNavController().navigateUp()
+            }
             return
         }
 
@@ -95,11 +102,6 @@ class CreateProductFragment : Fragment(R.layout.fragment_create_product) {
         })
 
         binding.btnSubmit.setOnClickListener {
-            if (!isLoggedInUseCase()) {
-                findNavController().navigate(R.id.authHubFragment)
-                return@setOnClickListener
-            }
-
             val title = binding.etTitle.text?.toString()?.trim() ?: ""
             val category = binding.etCategory.text?.toString()?.trim() ?: ""
             val priceStr = binding.etPrice.text?.toString()?.trim() ?: ""
@@ -121,12 +123,14 @@ class CreateProductFragment : Fragment(R.layout.fragment_create_product) {
                 return@setOnClickListener
             }
 
-            viewModel.uploadProduct(
-                title = title,
-                category = category,
-                price = price,
-                description = description
-            )
+            ensureAuth(isLoggedInUseCase()) {
+                viewModel.uploadProduct(
+                    title = title,
+                    category = category,
+                    price = price,
+                    description = description
+                )
+            }
         }
     }
 
@@ -149,11 +153,7 @@ class CreateProductFragment : Fragment(R.layout.fragment_create_product) {
                         is UiState.Error -> {
                             binding.btnSubmit.isEnabled = true
                             binding.btnSubmit.text = getString(R.string.post_advertisement)
-                            if (state.message == "AUTH_REQUIRED") {
-                                findNavController().navigate(R.id.authHubFragment)
-                            } else {
-                                showErrorToast(state.message)
-                            }
+                            showErrorToast(state.message)
                         }
                         null -> {
                             binding.btnSubmit.isEnabled = true

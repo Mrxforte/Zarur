@@ -12,7 +12,14 @@ class GetSellerProductsUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
     operator fun invoke(sellerId: String? = null): Flow<List<Product>> {
-        val targetUid = if (!sellerId.isNullOrEmpty()) sellerId else (authRepository.getCurrentUserId() ?: return flowOf(emptyList()))
+        val targetUid = if (!sellerId.isNullOrEmpty()) {
+            sellerId
+        } else {
+            authRepository.getCurrentUserId()
+        }
+        if (targetUid.isNullOrEmpty()) {
+            return flowOf(emptyList())
+        }
         return productRepository.getSellerProducts(targetUid)
     }
 }

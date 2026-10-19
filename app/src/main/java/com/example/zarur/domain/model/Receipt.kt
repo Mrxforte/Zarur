@@ -1,9 +1,7 @@
 package com.example.zarur.domain.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import java.io.Serializable
 
-@Parcelize
 data class Receipt(
     val id: String,
     val transactionId: String,
@@ -17,4 +15,4 @@ data class Receipt(
     val userName: String = "",
     val userPhone: String = "",
     val timestamp: Long = System.currentTimeMillis()
-) : Parcelable
+) : Serializable

@@ -50,4 +50,22 @@
         tools:listitem="@layout/item_chat"
         tools:visibility="visible" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCalls"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listitem="@layout/item_call_log" />
+
+    <TextView
+        android:id="@+id/tvEmptyState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textSize="16sp"
+        android:visibility="gone"
+        tools:text="No messages yet" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

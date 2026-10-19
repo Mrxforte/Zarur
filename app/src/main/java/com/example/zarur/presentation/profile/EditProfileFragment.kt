@@ -4,7 +4,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -20,12 +19,19 @@ import com.example.zarur.util.showErrorToast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+import com.example.zarur.domain.usecase.IsLoggedInUseCase
+import com.example.zarur.util.showAuthRequiredDialog
+import javax.inject.Inject
+
 @AndroidEntryPoint
 class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
 
     private var _binding: FragmentEditProfileBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ProfileViewModel by activityViewModels()
+
+    @Inject
+    lateinit var isLoggedInUseCase: IsLoggedInUseCase
 
     private val imagePicker = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         uri?.let {
@@ -38,13 +44,22 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentEditProfileBinding.bind(view)
 
+        if (!isLoggedInUseCase()) {
+            showAuthRequiredDialog(onDismiss = { findNavController().navigateUp() })
+        }
+
         setupGenderDropdown()
         setupListeners()
         observeViewModel()
+        viewModel.loadUserProfile()
     }
 
     private fun setupGenderDropdown() {
-        val genders = arrayOf("Male", "Female", "Other")
+        val genders = arrayOf(
+            getString(R.string.default_gender_male),
+            getString(R.string.gender_female),
+            getString(R.string.gender_other)
+        )
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, genders)
         binding.etGender.setAdapter(adapter)
     }
@@ -53,7 +68,10 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
         binding.toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
         binding.ivBack.setOnClickListener { findNavController().navigateUp() }
 
-        binding.btnEditAvatar.setOnClickListener {
+        binding.ivAvatar.setOnClickListener {
+            imagePicker.launch("image/*")
+        }
+        binding.containerAvatar.setOnClickListener {
             imagePicker.launch("image/*")
         }
 
@@ -82,29 +100,32 @@ class EditProfileFragment : Fragment(R.layout.fragment_edit_profile) {
                 viewModel.profileState.collect { uiState ->
                     if (uiState is UiState.Success) {
                         val user = uiState.data
-                        if (binding.etFullName.text.isNullOrEmpty()) {
+                        if (user.fullName.isNotBlank()) {
                             binding.etFullName.setText(user.fullName)
                         }
-                        if (binding.etNickname.text.isNullOrEmpty()) {
+                        if (user.nickname.isNotBlank()) {
                             binding.etNickname.setText(user.nickname)
                         }
-                        if (binding.etEmail.text.isNullOrEmpty()) {
+                        if (user.email.isNotBlank()) {
                             binding.etEmail.setText(user.email)
                         }
-                        if (binding.etPhone.text.isNullOrEmpty()) {
+                        if (user.phone.isNotBlank()) {
                             binding.etPhone.setText(user.phone)
                         }
-                        if (binding.etDob.text.isNullOrEmpty()) {
+                        if (user.dob.isNotBlank()) {
                             binding.etDob.setText(user.dob)
                         }
-                        if (binding.etGender.text.isNullOrEmpty() && user.gender.isNotEmpty()) {
+                        if (user.gender.isNotBlank()) {
                             binding.etGender.setText(user.gender, false)
                         }
                         if (!user.avatarUrl.isNullOrEmpty()) {
                             Glide.with(requireContext())
                                 .load(user.avatarUrl)
-                                .placeholder(R.drawable.onboarding1)
+                                .placeholder(R.drawable.bg_stylish_avatar_default)
+                                .error(R.drawable.bg_stylish_avatar_default)
                                 .into(binding.ivAvatar)
+                        } else {
+                            binding.ivAvatar.setImageResource(R.drawable.bg_stylish_avatar_default)
                         }
                     }
                 }

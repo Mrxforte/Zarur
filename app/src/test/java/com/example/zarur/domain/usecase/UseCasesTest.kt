@@ -3,6 +3,8 @@ package com.example.zarur.domain.usecase
 import com.example.zarur.data.local.AppPreferences
 import com.example.zarur.domain.model.*
 import com.example.zarur.domain.repository.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import io.mockk.*
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
@@ -22,6 +24,7 @@ class UseCasesTest {
     private val themeRepository: ThemeRepository = mockk(relaxed = true)
     private val pinRepository: PinRepository = mockk(relaxed = true)
     private val appPreferences: AppPreferences = mockk(relaxed = true)
+    private val firebaseAuth: FirebaseAuth = mockk(relaxed = true)
 
     @Before
     fun setUp() {
@@ -194,9 +197,11 @@ class UseCasesTest {
 
     @Test
     fun testIsLoggedInUseCase() = runTest {
+        val mockUser: FirebaseUser = mockk()
+        every { firebaseAuth.currentUser } returns mockUser
         every { appPreferences.isLoggedIn } returns true
 
-        val useCase = IsLoggedInUseCase(appPreferences)
+        val useCase = IsLoggedInUseCase(appPreferences, firebaseAuth)
         assertTrue(useCase())
     }
 
@@ -268,18 +273,6 @@ class UseCasesTest {
 
         val useCase = SignInUseCase(authRepository)
         val result = useCase("test@test.com", "pass").first()
-
-        assertTrue(result is Resource.Success)
-        assertEquals("u1", (result as Resource.Success).data.id)
-    }
-
-    @Test
-    fun testSignInWithGoogleUseCase() = runTest {
-        val user = User(id = "u1", email = "test@test.com")
-        every { authRepository.signInWithGoogle("token") } returns flowOf(Resource.Success(user))
-
-        val useCase = SignInWithGoogleUseCase(authRepository)
-        val result = useCase("token").first()
 
         assertTrue(result is Resource.Success)
         assertEquals("u1", (result as Resource.Success).data.id)

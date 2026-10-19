@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Base Background Color -->
+    <item>
+        <color android:color="@color/app_background" />
+    </item>
+
+    <!-- Extended Full-Screen Gradient: Flows through product cards and dilutes towards bottom bar -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:startColor="#FF373737"
+                android:centerColor="#70373737"
+                android:endColor="#00373737"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <!-- Top Header Depth Accent -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:startColor="#80373737"
+                android:centerColor="#20373737"
+                android:endColor="@android:color/transparent"
+                android:type="linear" />
+        </shape>
+    </item>
+</layer-list>

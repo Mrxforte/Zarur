@@ -1,83 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="24dp"
+    android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
     app:cardBackgroundColor="?attr/colorSurface"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="0dp"
-    app:strokeColor="?attr/colorSurfaceVariant"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="2dp"
+    app:strokeColor="?attr/colorOutlineVariant"
     app:strokeWidth="1dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:padding="16dp">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/ivProperty"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/onboarding2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium" />
-
-        <TextView
-            android:id="@+id/tvPropertyName"
-            android:layout_width="0dp"
+        <!-- Top Header: Booking Code & Status Badge -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Modern Villa"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/ivProperty"
-            app:layout_constraintTop_toTopOf="@id/ivProperty" />
+            android:layout_marginBottom="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvPropertyLocation"
-            android:layout_width="0dp"
+            <TextView
+                android:id="@+id/tvBookingCode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                tools:text="Code: #ZR-88291" />
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_badge_capsule"
+                android:backgroundTint="#1F6E00FF"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:textColor="@color/uzum_purple"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:text="Active" />
+        </LinearLayout>
+
+        <!-- Main Info Row -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivProperty"
+                android:layout_width="88dp"
+                android:layout_height="88dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/onboarding2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Medium" />
+
+            <TextView
+                android:id="@+id/tvPropertyName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivProperty"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="La Grand Maison Villa" />
+
+            <LinearLayout
+                android:id="@+id/llLocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvPropertyName"
+                app:layout_constraintTop_toBottomOf="@id/tvPropertyName">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_home"
+                    app:tint="?attr/colorOnSurfaceVariant" />
+
+                <TextView
+                    android:id="@+id/tvPropertyLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="12sp"
+                    tools:text="Tashkent, Yakkasaray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llDates"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvPropertyName"
+                app:layout_constraintTop_toBottomOf="@id/llLocation">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_calendar"
+                    app:tint="?attr/colorOnSurfaceVariant" />
+
+                <TextView
+                    android:id="@+id/tvDates"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="12sp"
+                    tools:text="Dec 28, 2024 - Jan 02, 2025" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/tvPropertyName"
+                app:layout_constraintTop_toBottomOf="@id/llDates"
+                tools:text="1 200 000 uzs" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Divider -->
+        <View
+            android:id="@+id/vDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="?attr/colorOutlineVariant" />
+
+        <!-- Action Buttons Footer -->
+        <LinearLayout
+            android:id="@+id/llActions"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Jakarta, Indonesia"
-            android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/tvPropertyName"
-            app:layout_constraintTop_toBottomOf="@id/tvPropertyName" />
+            android:gravity="end"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_unread_badge"
-            android:backgroundTint="?attr/colorPrimaryContainer"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="4dp"
-            android:text="Active"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/tvPropertyName" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSecondary"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:paddingHorizontal="16dp"
+                android:textSize="13sp"
+                app:cornerRadius="10dp"
+                tools:text="Cancel Booking" />
 
-        <TextView
-            android:id="@+id/tvPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="$15,000"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPrimary"
+                style="@style/Widget.Material3.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:paddingHorizontal="16dp"
+                android:textSize="13sp"
+                app:cornerRadius="10dp"
+                tools:text="E-Receipt" />
+        </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

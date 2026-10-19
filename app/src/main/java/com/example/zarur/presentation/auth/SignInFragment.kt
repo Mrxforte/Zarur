@@ -2,12 +2,6 @@ package com.example.zarur.presentation.auth
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.credentials.CredentialManager
-import androidx.credentials.CustomCredential
-import androidx.credentials.GetCredentialRequest
-import androidx.credentials.GetCredentialResponse
-import androidx.credentials.exceptions.GetCredentialException
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -18,9 +12,6 @@ import com.example.zarur.R
 import com.example.zarur.databinding.FragmentSignInBinding
 import com.example.zarur.presentation.common.UiState
 import com.example.zarur.util.showErrorToast
-import com.example.zarur.util.showInfoToast
-import com.google.android.libraries.identity.googleid.GetGoogleIdOption
-import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -72,58 +63,6 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
             }
 
             viewModel.signIn(email, password)
-        }
-
-        binding.ivGoogle.setOnClickListener {
-            signInWithGoogle()
-        }
-    }
-
-    private fun signInWithGoogle() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            val credentialManager = CredentialManager.create(requireContext())
-            
-            // Note: Update R.string.default_web_client_id in strings.xml with your actual Firebase Web Client ID
-            val webClientId = getString(R.string.default_web_client_id)
-            if (webClientId == "YOUR_WEB_CLIENT_ID") {
-                showInfoToast("Google Sign-In requires a valid Web Client ID in strings.xml")
-                return@launch
-            }
-
-            val googleIdOption = GetGoogleIdOption.Builder()
-                .setFilterByAuthorizedAccounts(false)
-                .setServerClientId(webClientId)
-                .setAutoSelectEnabled(true)
-                .build()
-
-            val request = GetCredentialRequest.Builder()
-                .addCredentialOption(googleIdOption)
-                .build()
-
-            try {
-                val result = credentialManager.getCredential(
-                    request = request,
-                    context = requireActivity()
-                )
-                handleGoogleSignInResult(result)
-            } catch (e: GetCredentialException) {
-                showErrorToast("Google Sign-in failed: ${e.message}")
-            }
-        }
-    }
-
-    private fun handleGoogleSignInResult(result: GetCredentialResponse) {
-        val credential = result.credential
-        if (credential is CustomCredential && credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
-            try {
-                val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
-                val idToken = googleIdTokenCredential.idToken
-                viewModel.signInWithGoogle(idToken)
-            } catch (_: Exception) {
-                showErrorToast("Failed to extract Google credentials")
-            }
-        } else {
-            showErrorToast("Unexpected credential type")
         }
     }
 

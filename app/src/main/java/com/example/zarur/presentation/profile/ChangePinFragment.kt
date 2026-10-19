@@ -74,7 +74,7 @@ class ChangePinFragment : Fragment(R.layout.fragment_change_pin) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.successEvent.collect {
-                    showSuccessToast("PIN kod muvaffaqiyatli saqlandi!")
+                    showSuccessToast(getString(R.string.msg_pin_saved_success))
                     findNavController().navigateUp()
                 }
             }

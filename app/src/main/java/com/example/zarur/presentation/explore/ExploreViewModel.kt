@@ -37,11 +37,18 @@ class ExploreViewModel @Inject constructor(
     private val _unreadNotificationCount = MutableStateFlow(appPreferences.unreadNotificationCount)
     val unreadNotificationCount: StateFlow<Int> = _unreadNotificationCount.asStateFlow()
 
+    private val _profileRefreshTrigger = MutableStateFlow(Unit)
+
     fun refreshUnreadNotificationCount() {
         _unreadNotificationCount.value = appPreferences.unreadNotificationCount
     }
 
-    val userProfile: StateFlow<User?> = getUserProfileUseCase()
+    fun refreshUserProfile() {
+        _profileRefreshTrigger.value = Unit
+    }
+
+    val userProfile: StateFlow<User?> = _profileRefreshTrigger
+        .flatMapLatest { getUserProfileUseCase() }
         .map { (it as? Resource.Success)?.data }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
@@ -80,9 +87,9 @@ class ExploreViewModel @Inject constructor(
         }
     }
 
-    fun addToCart(productId: String) {
+    fun toggleCart(product: Product) {
         viewModelScope.launch {
-            toggleCartUseCase(productId, true)
+            toggleCartUseCase(product.id, !product.isInCart)
         }
     }
 }

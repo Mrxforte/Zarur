@@ -1,6 +1,7 @@
 package com.example.zarur.data.repository
 
 import android.content.Context
+import com.example.zarur.R
 import com.example.zarur.data.local.AppPreferences
 import com.example.zarur.domain.model.Resource
 import com.example.zarur.presentation.service.WelcomeNotificationScheduler
@@ -39,6 +40,15 @@ class AuthRepositoryImplTest {
         mockkStatic("kotlinx.coroutines.tasks.TasksKt")
         mockkStatic("com.google.firebase.auth.GoogleAuthProvider")
         mockkObject(WelcomeNotificationScheduler)
+
+        every { context.getString(any()) } answers {
+            when (firstArg<Int>()) {
+                R.string.error_invalid_credentials -> "Email yoki parol noto'g'ri kiritildi."
+                R.string.error_email_already_in_use -> "Ushbu email manzili allaqachon ro'yxatdan o'tgan. Iltimos, boshqa email kiriting yoki tizimga kiring."
+                R.string.error_user_not_found -> "Bunday email manzilli foydalanuvchi topilmadi. Iltimos, avval ro'yxatdan o'ting."
+                else -> "Xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring."
+            }
+        }
 
         every { firestore.collection("users") } returns collectionReference
         every { collectionReference.document(any()) } returns documentReference
@@ -182,42 +192,6 @@ class AuthRepositoryImplTest {
         assertTrue(emissions[0] is Resource.Loading)
         assertTrue(emissions[1] is Resource.Error)
         assertEquals("User already exists", (emissions[1] as Resource.Error).message)
-    }
-
-    @Test
-    fun testSignInWithGoogle_success() = runTest {
-        val credential: AuthCredential = mockk()
-        every { GoogleAuthProvider.getCredential("id_token", null) } returns credential
-
-        val authResult: AuthResult = mockk(relaxed = true)
-        val firebaseUser: FirebaseUser = mockk(relaxed = true)
-        every { firebaseUser.uid } returns "google_u123"
-        every { firebaseUser.displayName } returns "Google User"
-        every { firebaseUser.email } returns "google@example.com"
-        every { authResult.user } returns firebaseUser
-
-        val authTask: Task<AuthResult> = mockk()
-        coEvery { authTask.await() } returns authResult
-        every { firebaseAuth.signInWithCredential(credential) } returns authTask
-
-        val docSnapshot: DocumentSnapshot = mockk(relaxed = true)
-        val docTask: Task<DocumentSnapshot> = mockk()
-        coEvery { docTask.await() } returns docSnapshot
-        every { documentReference.get() } returns docTask
-        every { docSnapshot.exists() } returns false
-
-        val setVoidTask: Task<Void> = mockk(relaxed = true)
-        coEvery { setVoidTask.await() } returns mockk<Void>()
-        every { documentReference.set(any()) } returns setVoidTask
-
-        val emissions = repository.signInWithGoogle("id_token").toList()
-        assertEquals(2, emissions.size)
-        assertTrue(emissions[0] is Resource.Loading)
-        assertTrue(emissions[1] is Resource.Success)
-
-        val user = (emissions[1] as Resource.Success).data
-        assertEquals("google_u123", user.id)
-        assertEquals("google@example.com", user.email)
     }
 }
 

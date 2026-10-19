@@ -22,7 +22,7 @@
                 android:id="@+id/tvToolbarTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Seller Store"
+                android:text="@string/seller_center_title"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -74,11 +74,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="12dp"
-                        android:text="Official Seller Store"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/official_seller_store"
                         android:textColor="?attr/colorOnSurface"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/btnCallSeller"
                         app:layout_constraintStart_toEndOf="@id/ivSellerAvatar"
                         app:layout_constraintTop_toTopOf="@id/ivSellerAvatar" />
 
@@ -102,11 +103,25 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="Products listed"
+                        tools:text="12 listings posted"
                         android:textColor="?attr/colorOnSurfaceVariant"
                         android:textSize="12sp"
                         app:layout_constraintStart_toStartOf="@id/tvSellerName"
                         app:layout_constraintTop_toBottomOf="@id/tvBadge" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnCallSeller"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/btn_call_seller"
+                        android:textAllCaps="false"
+                        app:icon="@drawable/ic_phone"
+                        app:iconTint="@color/green_uzum"
+                        android:textColor="@color/green_uzum"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>

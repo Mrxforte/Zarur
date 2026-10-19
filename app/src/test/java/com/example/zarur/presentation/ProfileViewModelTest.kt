@@ -27,6 +27,7 @@ class ProfileViewModelTest {
     private val getUserProfileUseCase: GetUserProfileUseCase = mockk()
     private val updateUserProfileUseCase: UpdateUserProfileUseCase = mockk()
     private val signOutUseCase: SignOutUseCase = mockk()
+    private val getReceiptsUseCase: GetReceiptsUseCase = mockk()
 
     private lateinit var viewModel: ProfileViewModel
 
@@ -36,6 +37,7 @@ class ProfileViewModelTest {
 
         every { getThemeUseCase() } returns flowOf(true)
         every { getUserProfileUseCase() } returns flowOf(Resource.Success(User(id = "u1", fullName = "Andrew")))
+        every { getReceiptsUseCase() } returns flowOf(emptyList())
         coEvery { setThemeUseCase(any()) } returns Unit
         every { signOutUseCase() } returns Unit
 
@@ -44,7 +46,8 @@ class ProfileViewModelTest {
             setThemeUseCase,
             getUserProfileUseCase,
             updateUserProfileUseCase,
-            signOutUseCase
+            signOutUseCase,
+            getReceiptsUseCase
         )
     }
 

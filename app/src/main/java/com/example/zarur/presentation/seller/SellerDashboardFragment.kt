@@ -17,6 +17,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+import com.example.zarur.util.ensureAuth
+import com.example.zarur.util.showAuthRequiredDialog
+
+// SellerDashboardFragment allows registered sellers to view and manage their posted items.
+// Prompts unauthenticated guest users with a localized Auth Dialog when accessed.
 @AndroidEntryPoint
 class SellerDashboardFragment : Fragment(R.layout.fragment_seller_dashboard) {
 
@@ -32,8 +37,9 @@ class SellerDashboardFragment : Fragment(R.layout.fragment_seller_dashboard) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Check authentication; display dialog if user is guest
         if (!isLoggedInUseCase()) {
-            findNavController().navigate(R.id.authHubFragment)
+            showAuthRequiredDialog()
             return
         }
 
@@ -47,6 +53,9 @@ class SellerDashboardFragment : Fragment(R.layout.fragment_seller_dashboard) {
 
     private fun setupToolbar() {
         binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
+        binding.btnSwitchToBuyer.setOnClickListener {
             findNavController().navigateUp()
         }
     }
@@ -66,9 +75,7 @@ class SellerDashboardFragment : Fragment(R.layout.fragment_seller_dashboard) {
 
     private fun setupListeners() {
         binding.fabAdd.setOnClickListener {
-            if (!isLoggedInUseCase()) {
-                findNavController().navigate(R.id.authHubFragment)
-            } else {
+            ensureAuth(isLoggedInUseCase()) {
                 if (findNavController().currentDestination?.id == R.id.sellerDashboardFragment) {
                     findNavController().navigate(R.id.action_sellerDashboardFragment_to_createProductFragment)
                 }

@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardBackgroundColor="?attr/colorSurface"
-    app:cardCornerRadius="24dp"
+    android:layout_margin="6dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="20dp"
     app:cardElevation="0dp"
-    app:strokeColor="?attr/colorSurfaceVariant"
+    app:strokeColor="@color/neutral_200"
     app:strokeWidth="1dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,7 +40,7 @@
             <ImageView
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                android:src="@drawable/ic_favorites"
+                android:src="@drawable/ic_star"
                 app:tint="@color/white" />
 
             <TextView

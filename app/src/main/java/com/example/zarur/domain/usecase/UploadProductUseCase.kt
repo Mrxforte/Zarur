@@ -20,7 +20,8 @@ class UploadProductUseCase @Inject constructor(
         description: String,
         imageUriString: String?
     ): Flow<Resource<Product>> = flow {
-        val uid = authRepository.getCurrentUserId() ?: ""
+        val currentUid = authRepository.getCurrentUserId()
+        val uid = if (currentUid.isNullOrBlank()) "user_" + System.currentTimeMillis() else currentUid
         val product = Product(
             id = UUID.randomUUID().toString(),
             name = title,

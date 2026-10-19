@@ -61,7 +61,7 @@ class SellerStoreViewModelTest {
         assertEquals(sellerProds, viewModel.sellerProducts.value)
         assertEquals(otherProds, viewModel.relatedProducts.value)
 
-        viewModel.addToCart(sellerProds[0])
+        viewModel.toggleCart(sellerProds[0])
         coVerify { toggleCartUseCase("p1", true) }
     }
 }

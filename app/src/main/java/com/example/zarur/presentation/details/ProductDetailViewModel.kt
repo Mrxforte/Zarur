@@ -20,9 +20,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+// UI Events emitted by ProductDetailViewModel to notify the fragment.
+// Intercepts unauthenticated user actions by emitting ShowAuthRequiredDialog.
 sealed interface ProductDetailUiEvent {
-    object NavigateToAuth : ProductDetailUiEvent
+    object ShowAuthRequiredDialog : ProductDetailUiEvent
     object ShowAddToCartSuccess : ProductDetailUiEvent
+    object ShowRemoveFromCartSuccess : ProductDetailUiEvent
     object NavigateToBooking : ProductDetailUiEvent
     object NavigateToChat : ProductDetailUiEvent
     object ShowReviewSuccess : ProductDetailUiEvent
@@ -46,6 +49,9 @@ class ProductDetailViewModel @Inject constructor(
     private val _uiEvent = MutableSharedFlow<ProductDetailUiEvent>()
     val uiEvent: SharedFlow<ProductDetailUiEvent> = _uiEvent.asSharedFlow()
     
+    // We add a refresh trigger to reload reviews after posting
+    private val _refreshReviewsTrigger = MutableStateFlow(0)
+    
     val product: StateFlow<Product?> = _productId
         .filterNotNull()
         .flatMapLatest { getProductUseCase(it) }
@@ -53,6 +59,7 @@ class ProductDetailViewModel @Inject constructor(
 
     val reviews: StateFlow<List<Review>> = _productId
         .filterNotNull()
+        .combine(_refreshReviewsTrigger) { id, _ -> id }
         .flatMapLatest { getProductReviewsUseCase(it) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
@@ -70,13 +77,15 @@ class ProductDetailViewModel @Inject constructor(
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
+    fun isLoggedIn(): Boolean = isLoggedInUseCase()
+
     fun loadProduct(id: String) {
         _productId.value = id
     }
 
     fun submitReview(reviewText: String, rating: Float = 5.0f) {
         if (!isLoggedInUseCase()) {
-            viewModelScope.launch { _uiEvent.emit(ProductDetailUiEvent.NavigateToAuth) }
+            viewModelScope.launch { _uiEvent.emit(ProductDetailUiEvent.ShowAuthRequiredDialog) }
             return
         }
         val currentProductId = _productId.value ?: return
@@ -88,6 +97,8 @@ class ProductDetailViewModel @Inject constructor(
                     is Resource.Loading -> {}
                     is Resource.Success -> {
                         _uiEvent.emit(ProductDetailUiEvent.ShowReviewSuccess)
+                        // Trigger reviews reload
+                        _refreshReviewsTrigger.value += 1
                         _productId.value = currentProductId
                     }
                     is Resource.Error -> {
@@ -100,7 +111,7 @@ class ProductDetailViewModel @Inject constructor(
 
     fun toggleFavorite() {
         if (!isLoggedInUseCase()) {
-            viewModelScope.launch { _uiEvent.emit(ProductDetailUiEvent.NavigateToAuth) }
+            viewModelScope.launch { _uiEvent.emit(ProductDetailUiEvent.ShowAuthRequiredDialog) }
             return
         }
         val currentProduct = product.value ?: return
@@ -109,21 +120,26 @@ class ProductDetailViewModel @Inject constructor(
         }
     }
 
-    fun addToCart() {
+    fun toggleCart() {
         if (!isLoggedInUseCase()) {
-            viewModelScope.launch { _uiEvent.emit(ProductDetailUiEvent.NavigateToAuth) }
+            viewModelScope.launch { _uiEvent.emit(ProductDetailUiEvent.ShowAuthRequiredDialog) }
             return
         }
         val currentProduct = product.value ?: return
         viewModelScope.launch {
-            toggleCartUseCase(currentProduct.id, true)
-            _uiEvent.emit(ProductDetailUiEvent.ShowAddToCartSuccess)
+            val nextState = !currentProduct.isInCart
+            toggleCartUseCase(currentProduct.id, nextState)
+            if (nextState) {
+                _uiEvent.emit(ProductDetailUiEvent.ShowAddToCartSuccess)
+            } else {
+                _uiEvent.emit(ProductDetailUiEvent.ShowRemoveFromCartSuccess)
+            }
         }
     }
 
     fun buyNow() {
         if (!isLoggedInUseCase()) {
-            viewModelScope.launch { _uiEvent.emit(ProductDetailUiEvent.NavigateToAuth) }
+            viewModelScope.launch { _uiEvent.emit(ProductDetailUiEvent.ShowAuthRequiredDialog) }
             return
         }
         viewModelScope.launch {
@@ -133,7 +149,7 @@ class ProductDetailViewModel @Inject constructor(
 
     fun chat() {
         if (!isLoggedInUseCase()) {
-            viewModelScope.launch { _uiEvent.emit(ProductDetailUiEvent.NavigateToAuth) }
+            viewModelScope.launch { _uiEvent.emit(ProductDetailUiEvent.ShowAuthRequiredDialog) }
             return
         }
         viewModelScope.launch {

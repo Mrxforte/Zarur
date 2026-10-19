@@ -8,9 +8,11 @@
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/uzum_purple_light</item>
         <item name="colorOnSecondary">@color/uzum_purple</item>
+        <item name="android:windowBackground">@drawable/bg_app_gradient</item>
+        <item name="android:colorBackground">@color/app_background</item>
         <item name="colorSurface">@color/white</item>
         <item name="colorOnSurface">@color/neutral_900</item>
-        <item name="colorSurfaceVariant">@color/neutral_50</item>
+        <item name="colorSurfaceVariant">@color/white</item>
         <item name="colorOnSurfaceVariant">@color/neutral_700</item>
         <item name="colorOutline">@color/neutral_200</item>
 
@@ -45,7 +47,7 @@
     </style>
 
     <style name="Widget.App.Chip" parent="Widget.Material3.Chip.Filter">
-        <item name="chipBackgroundColor">@color/neutral_50</item>
+        <item name="chipBackgroundColor">@color/white</item>
         <item name="chipStrokeColor">@color/neutral_200</item>
         <item name="android:textColor">@color/neutral_900</item>
     </style>

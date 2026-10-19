@@ -40,9 +40,9 @@ class SellerStoreViewModel @Inject constructor(
         _sellerId.value = id
     }
 
-    fun addToCart(product: Product) {
+    fun toggleCart(product: Product) {
         viewModelScope.launch {
-            toggleCartUseCase(product.id, true)
+            toggleCartUseCase(product.id, !product.isInCart)
         }
     }
 }

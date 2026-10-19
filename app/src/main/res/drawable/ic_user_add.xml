@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Circle Background with Cyan-Green to Blue Gradient -->
+    <path android:pathData="M50,0 A50,50 0 1,1 49.9,0 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="15"
+                android:startY="15"
+                android:endX="85"
+                android:endY="85"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#00E6A5" />
+                <item android:offset="0.5" android:color="#00C2CF" />
+                <item android:offset="1.0" android:color="#0084FF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Head Ring -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M50,20.5 A15.5,15.5 0 1,1 49.9,20.5 Z"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="6.5" />
+
+    <!-- Shoulder / Body Arc -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M18.5,78.5 C20.5,60.5 33,52 58,52"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="6.5" />
+
+    <!-- Plus Sign -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M65.75,54.5 H72.25 V64.75 H82.5 V71.25 H72.25 V81.5 H65.75 V71.25 H55.5 V64.75 H65.75 Z" />
+
+</vector>

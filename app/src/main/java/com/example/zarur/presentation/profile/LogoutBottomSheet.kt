@@ -31,7 +31,7 @@ class LogoutBottomSheet : BottomSheetDialogFragment() {
         view.findViewById<View>(R.id.btnLogout).setOnClickListener {
             profileViewModel.signOut()
             dismiss()
-            findNavController().navigate(R.id.signInFragment)
+            findNavController().navigate(R.id.action_global_signInFragment)
         }
     }
 }

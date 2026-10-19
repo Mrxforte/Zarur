@@ -50,25 +50,12 @@
                     android:layout_width="@dimen/avatar_size_large"
                     android:layout_height="@dimen/avatar_size_large"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_profile"
-                    android:padding="@dimen/spacing_20"
-                    android:background="?attr/colorSurfaceVariant"
+                    android:src="@drawable/bg_stylish_avatar_default"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
-
-                <ImageView
-                    android:id="@+id/btnEditAvatar"
-                    android:layout_width="@dimen/icon_size_large"
-                    android:layout_height="@dimen/icon_size_large"
-                    android:background="@android:color/transparent"
-                    android:padding="@dimen/spacing_small"
-                    android:src="@drawable/ic_profile_edit"
-                    app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
-                    app:layout_constraintEnd_toEndOf="@id/ivAvatar"
-                    app:tint="?attr/colorPrimary" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textfield.TextInputLayout
