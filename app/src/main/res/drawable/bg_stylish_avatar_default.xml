@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <gradient
+                android:angle="135"
+                android:startColor="#6E00FF"
+                android:centerColor="#8A2BE2"
+                android:endColor="#4B0082"
+                android:type="linear" />
+        </shape>
+    </item>
+    <item
+        android:width="44dp"
+        android:height="44dp"
+        android:gravity="center"
+        android:drawable="@drawable/ic_avatar_camera_placeholder" />
+</layer-list>
